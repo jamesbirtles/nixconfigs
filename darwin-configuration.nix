@@ -38,6 +38,7 @@
 	name = "james";
 	home = "/Users/james";
   };
+  home-manager.useGlobalPkgs = true;
   home-manager.users.james = { pkgs, ... }: {
     home.stateVersion = "24.05";
 
@@ -84,6 +85,9 @@
 	  ".Spotlight-V100"
 	  ".Trashes"
 	];
+
+	programs.lazygit.enable = true;
+	programs.lazygit.settings.gui.showFileTree = false;
   };
 
   programs.zsh.enable = true;
