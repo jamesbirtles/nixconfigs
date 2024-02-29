@@ -39,7 +39,7 @@
 	home = "/Users/james";
   };
   home-manager.users.james = { pkgs, ... }: {
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.05";
 
     xdg.enable = true;
 
