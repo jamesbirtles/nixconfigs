@@ -187,6 +187,7 @@
   system.defaults.NSGlobalDomain.AppleScrollerPagingBehavior = true;
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
   system.defaults.NSGlobalDomain.AppleMetricUnits = 1;
-  system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = true;
+  system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
+  system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
   system.defaults.LaunchServices.LSQuarantine = false;
 }
