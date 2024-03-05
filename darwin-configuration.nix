@@ -115,7 +115,6 @@
 	"visual-studio-code"
 	"postico"
 	"betterdisplay"
-	"bitwarden"
 	"caffeine"
 	"cleanshot"
   	"displaylink"
@@ -130,9 +129,10 @@
 	"spotify"
 	"vial"
   ];
-  homebrew.taps = [
-	"homebrew/cask"
-  ];
+  homebrew.masApps = {
+	# To use the biometrics with the browser plugin, the app needs to be installed via the mac app store
+	Bitwarden = 1352778147;
+  };
   homebrew.onActivation.cleanup = "zap";
   homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.upgrade = true;
