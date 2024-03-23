@@ -19,6 +19,7 @@
 	pandoc
 	hcloud
 	bun
+	rustup
   ];
 
   # Use a custom configuration.nix location.
@@ -98,6 +99,7 @@
   environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
   environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
   environment.shells = [pkgs.zsh];
+  environment.systemPath = ["$HOME/.cargo/bin"];
 
   fonts.fontDir.enable = true;
 
