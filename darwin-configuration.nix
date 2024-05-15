@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ <home-manager/nix-darwin> ];
-
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -40,12 +38,12 @@
   system.stateVersion = 4;
 
   users.users.james = {
-  name = "james";
-  home = "/Users/james";
+    name = "james";
+    home = "/Users/james";
   };
   home-manager.useGlobalPkgs = true;
   home-manager.users.james = { pkgs, ... }: {
-    home.stateVersion = "24.05";
+    home.stateVersion = "23.11";
 
     xdg.enable = true;
 
@@ -146,7 +144,6 @@
   homebrew.onActivation.cleanup = "zap";
   homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.upgrade = true;
-
 
   networking.dns = [
     "1.1.1.1"
