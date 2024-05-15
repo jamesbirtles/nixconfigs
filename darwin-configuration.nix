@@ -22,6 +22,7 @@
     rustup
     texliveSmall
     wrangler
+    vultr-cli
   ];
 
   # Use a custom configuration.nix location.
