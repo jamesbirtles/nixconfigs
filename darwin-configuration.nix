@@ -112,7 +112,6 @@
     "pinentry-mac"
   ];
   homebrew.casks = [
-    "amethyst"
     "wezterm"
     "basictex"
     "unnaturalscrollwheels"
