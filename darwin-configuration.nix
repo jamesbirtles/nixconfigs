@@ -135,6 +135,7 @@
     "whatsapp"
     "steam"
     "royal-tsx"
+    "notunes"
   ];
   homebrew.masApps = {
     # To use the biometrics with the browser plugin, the app needs to be installed via the mac app store
@@ -196,4 +197,9 @@
   system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
   system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
   system.defaults.LaunchServices.LSQuarantine = false;
+  system.defaults.CustomUserPreferences = {
+    "digital.twisted.noTunes" = {
+      "replacement" = "/Applications/Arc.app";
+    };
+  };
 }
