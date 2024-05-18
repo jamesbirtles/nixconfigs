@@ -136,6 +136,7 @@
     "steam"
     "royal-tsx"
     "notunes"
+    "discord"
   ];
   homebrew.masApps = {
     # To use the biometrics with the browser plugin, the app needs to be installed via the mac app store
