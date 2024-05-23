@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   # List packages installed in system profile. To search by name, run:
@@ -12,7 +12,7 @@
     gh
     ripgrep
     fd
-    lazygit
+    unstable.lazygit
     ansible
     pandoc
     hcloud
@@ -90,6 +90,7 @@
     ];
 
     programs.lazygit.enable = true;
+    programs.lazygit.package = unstable.lazygit;
     programs.lazygit.settings.gui.showFileTree = false;
   };
 
