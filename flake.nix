@@ -26,6 +26,7 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./darwin-configuration.nix
+        ./vim.nix
         home-manager.darwinModules.home-manager
         nixvim.nixDarwinModules.nixvim
       ];
