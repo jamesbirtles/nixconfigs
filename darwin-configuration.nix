@@ -1,9 +1,8 @@
-{ config, pkgs, unstable, ... }:
+{ config, pkgs, ... }:
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    neovim
     nodejs_20
     zoxide
     git
@@ -11,7 +10,7 @@
     gh
     ripgrep
     fd
-    unstable.lazygit
+    lazygit
     ansible
     pandoc
     hcloud
@@ -19,8 +18,8 @@
     rustup
     texliveSmall
     wrangler
-    unstable.vultr-cli
-    unstable.infisical
+    vultr-cli
+    infisical
   ];
 
   # Use a custom configuration.nix location.
@@ -48,16 +47,10 @@
     xdg.enable = true;
 
     programs.zsh.enable = true;
-    programs.zsh.enableAutosuggestions = true;
+    programs.zsh.autosuggestion.enable = true;
     programs.oh-my-posh.enable = true;
     programs.oh-my-posh.useTheme = "half-life";
     programs.zsh.syntaxHighlighting.enable = true;
-
-    programs.neovim.enable = true;
-    programs.neovim.defaultEditor = true;
-    programs.neovim.viAlias = true;
-    programs.neovim.vimAlias = true;
-    programs.neovim.vimdiffAlias = true;
 
     programs.wezterm.enable = true;
     programs.wezterm.extraConfig = ''
@@ -90,7 +83,6 @@
     ];
 
     programs.lazygit.enable = true;
-    programs.lazygit.package = unstable.lazygit;
     programs.lazygit.settings.gui.showFileTree = false;
   };
 
@@ -204,5 +196,12 @@
     "digital.twisted.noTunes" = {
       "replacement" = "/Applications/Arc.app";
     };
+  };
+
+  programs.nixvim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    colorschemes.ayu.enable = true;
   };
 }
