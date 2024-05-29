@@ -36,6 +36,10 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  environment.shellAliases = {
+    lg = "lazygit";
+  };
+
   users.users.james = {
     name = "james";
     home = "/Users/james";
@@ -46,11 +50,13 @@
 
     xdg.enable = true;
 
-    programs.zsh.enable = true;
-    programs.zsh.autosuggestion.enable = true;
+    programs.zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+    };
     programs.oh-my-posh.enable = true;
     programs.oh-my-posh.useTheme = "half-life";
-    programs.zsh.syntaxHighlighting.enable = true;
 
     programs.wezterm.enable = true;
     programs.wezterm.extraConfig = ''
