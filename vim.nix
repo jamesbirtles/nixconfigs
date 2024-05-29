@@ -1,26 +1,6 @@
 { config, pkgs, pnpm2nix, ... }:
-let
-  svelte-language-tools-repo = version: pkgs.fetchFromGitHub {
-    owner = "sveltejs";
-    repo = "language-tools";
-    rev = "typescript-plugin-${version}";
-    hash = "sha256-ZqeEBtknZfXpW31tpphqUT4Jk3ZnF6SGZFu5fR0J0qU=";
-  };
-
-  typescript-svelte-plugin = pnpm2nix.mkPnpmPackage rec {
-    pname = "typescript-svelte-plugin";
-    version = "0.3.38";
-    src = svelte-language-tools-repo version;
-    installInPlace = true;
-    distDir = "packages/typescript-plugin";
-    script = "--filter typescript-svelte-plugin build";
-  };
-in
 {
   environment.variables.EDITOR = "nvim";
-  environment.systemPackages = [
-    typescript-svelte-plugin
-  ];
   programs.nixvim = {
     enable = true;
     viAlias = true;
@@ -75,7 +55,25 @@ in
           svelte.enable = true;
           tsserver.enable = true;
           tsserver.extraOptions.init_options = {
-            plugins = [
+            # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
+            # This effectively mimics what the svelte vscode plugin does by default.
+            plugins = let 
+              # We have to build this manually as its unfortunately not in the nixpkgs repo. Also they use pnpm which
+              # makes it a little more awkward.
+              typescript-svelte-plugin = pnpm2nix.mkPnpmPackage rec {
+                pname = "typescript-svelte-plugin";
+                version = "0.3.38";
+                src = pkgs.fetchFromGitHub {
+                  owner = "sveltejs";
+                  repo = "language-tools";
+                  rev = "typescript-plugin-${version}";
+                  hash = "sha256-ZqeEBtknZfXpW31tpphqUT4Jk3ZnF6SGZFu5fR0J0qU=";
+                };
+                installInPlace = true;
+                distDir = "packages/typescript-plugin";
+                script = "--filter typescript-svelte-plugin build";
+              };
+            in [
               {
                 name = "typescript-svelte-plugin";
                 location = "${typescript-svelte-plugin}";
