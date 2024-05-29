@@ -31,6 +31,7 @@
       { key = "B"; action = "b"; } # b is changed by spider, but sometimes the old behaviour is useful
       { key = "E"; action = "e"; } # e is changed by spider, but sometimes the old behaviour is useful
       { key = "gE"; action = "ge"; } # ge is changed by spider, but sometimes the old behaviour is useful
+      { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
 
       # LSP Mappings
       { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
