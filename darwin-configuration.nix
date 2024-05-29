@@ -1,5 +1,4 @@
 { config, pkgs, unstable, ... }:
-
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -20,7 +19,8 @@
     rustup
     texliveSmall
     wrangler
-    vultr-cli
+    unstable.vultr-cli
+    unstable.infisical
   ];
 
   # Use a custom configuration.nix location.
@@ -138,6 +138,7 @@
     "royal-tsx"
     "notunes"
     "discord"
+    "balenaetcher"
   ];
   homebrew.masApps = {
     # To use the biometrics with the browser plugin, the app needs to be installed via the mac app store

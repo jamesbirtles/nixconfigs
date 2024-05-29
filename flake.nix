@@ -15,7 +15,6 @@
   };
 
   outputs = inputs @ { self, nixpkgs, darwin, home-manager, unstable, ... }: {
-    # TODO: what about my work mac?
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem  {
       system = "aarch64-darwin";
       specialArgs = {
