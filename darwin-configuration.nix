@@ -38,6 +38,7 @@
 
   environment.shellAliases = {
     lg = "lazygit";
+    db = "darwin-rebuild switch --flake .#jamesb-macos-personal";
   };
 
   users.users.james = {
