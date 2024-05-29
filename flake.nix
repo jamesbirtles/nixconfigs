@@ -17,11 +17,18 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nix-darwin.follows = "darwin";
     };
+    pnpm2nix = {
+      url = "github:nzbr/pnpm2nix-nzbr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, ... }: {
-    darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem  {
+  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, ... }: {
+    darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
+      specialArgs = {
+        pnpm2nix = pnpm2nix.packages.${system};
+      };
       modules = [
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
