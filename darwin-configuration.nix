@@ -154,47 +154,61 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   time.timeZone = "Europe/London";
-  system.keyboard.enableKeyMapping = true;
-  system.keyboard.remapCapsLockToEscape = true;
-  system.defaults.spaces.spans-displays = false;
-  system.defaults.menuExtraClock.ShowSeconds = true;
-  system.defaults.menuExtraClock.ShowDayOfWeek = true;
-  system.defaults.menuExtraClock.ShowDayOfMonth = true;
-  system.defaults.menuExtraClock.Show24Hour = true;
-  system.defaults.finder._FXShowPosixPathInTitle = true;
-  system.defaults.finder.ShowStatusBar = true;
-  system.defaults.finder.ShowPathbar = true;
-  system.defaults.finder.QuitMenuItem = true;
-  system.defaults.finder.FXPreferredViewStyle = "Nlsv"; # list view
-  system.defaults.finder.FXEnableExtensionChangeWarning = false;
-  system.defaults.finder.FXDefaultSearchScope = "SCcf"; # current folder
-  system.defaults.finder.CreateDesktop = false; # hide desktop icons
-  system.defaults.finder.AppleShowAllExtensions = true;
-  system.defaults.dock.wvous-tr-corner = 13; # top right corner - lock screen
-  system.defaults.dock.wvous-tl-corner = 2; # top left corner - mission control
-  system.defaults.dock.wvous-br-corner = 4; # bottom right corner - desktop
-  system.defaults.dock.showhidden = true;
-  system.defaults.dock.show-recents = false;
-  system.defaults.dock.mru-spaces = false;
-  system.defaults.dock.autohide = true;
-  system.defaults.dock.autohide-delay = 0.0;
-  system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
-  system.defaults.NSGlobalDomain.AppleWindowTabbingMode = "always";
-  system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Celsius";
-  system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
-  system.defaults.NSGlobalDomain.AppleScrollerPagingBehavior = true;
-  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
-  system.defaults.NSGlobalDomain.AppleMetricUnits = 1;
-  system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
-  system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
-  system.defaults.LaunchServices.LSQuarantine = false;
-  system.defaults.CustomUserPreferences = {
-    "digital.twisted.noTunes" = {
-      "replacement" = "/Applications/Arc.app";
+  system = {
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
+    };
+    defaults = {
+      spaces.spans-displays = false;
+      menuExtraClock = {
+        ShowSeconds = true;
+        ShowDayOfWeek = true;
+        ShowDayOfMonth = true;
+        Show24Hour = true;
+      };
+      finder = {
+        _FXShowPosixPathInTitle = true;
+        ShowStatusBar = true;
+        ShowPathbar = true;
+        QuitMenuItem = true;
+        FXPreferredViewStyle = "Nlsv"; # list view
+        FXEnableExtensionChangeWarning = false;
+        FXDefaultSearchScope = "SCcf"; # current folder
+        CreateDesktop = false; # hide desktop icons
+        AppleShowAllExtensions = true;
+      };
+      dock = {
+        wvous-tr-corner = 13; # top right corner - lock screen
+        wvous-tl-corner = 2; # top left corner - mission control
+        wvous-br-corner = 4; # bottom right corner - desktop
+        showhidden = true;
+        show-recents = false;
+        mru-spaces = false;
+        autohide = true;
+        autohide-delay = 0.0;
+      };
+      NSGlobalDomain = {
+        NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticCapitalizationEnabled = false;
+        AppleWindowTabbingMode = "always";
+        AppleTemperatureUnit = "Celsius";
+        AppleShowAllExtensions = true;
+        AppleScrollerPagingBehavior = true;
+        ApplePressAndHoldEnabled = false;
+        AppleMetricUnits = 1;
+        AppleInterfaceStyleSwitchesAutomatically = false;
+        AppleInterfaceStyle = "Dark";
+      };
+      LaunchServices.LSQuarantine = false;
+      CustomUserPreferences = {
+        "digital.twisted.noTunes" = {
+          "replacement" = "/Applications/Arc.app";
+        };
+      };
     };
   };
 
