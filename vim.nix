@@ -29,10 +29,6 @@
       { key = "<leader>pp"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
       { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
-      { key = "W"; action = "w"; } # w is changed by spider, but sometimes the old behaviour is useful
-      { key = "B"; action = "b"; } # b is changed by spider, but sometimes the old behaviour is useful
-      { key = "E"; action = "e"; } # e is changed by spider, but sometimes the old behaviour is useful
-      { key = "gE"; action = "ge"; } # ge is changed by spider, but sometimes the old behaviour is useful
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
 
       # LSP Mappings
@@ -159,10 +155,10 @@
       spider = {
         enable = true;
         keymaps.motions = {
-          b = "b";
-          e = "e";
-          ge = "ge";
-          w = "w";
+          b = "B";
+          e = "E";
+          ge = "gE";
+          w = "W";
         };
         skipInsignificantPunctuation = false;
       };
