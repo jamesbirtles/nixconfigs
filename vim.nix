@@ -51,6 +51,15 @@
       { mode = "x"; key = "p"; action = "pgvy"; }
     ];
 
+    extraConfigLua = ''
+      local get_option = vim.filetype.get_option
+      vim.filetype.get_option = function(filetype, option)
+        return option == "commentstring"
+          and require("ts_context_commentstring.internal").calculate_commentstring()
+          or get_option(filetype, option)
+      end
+    '';
+
     plugins = {
       lsp = {
         enable = true;
@@ -174,6 +183,10 @@
           lspFallback = true;
         };
         notifyOnError = true;
+      };
+      ts-context-commentstring = {
+        enable = true;
+        extraOptions.enable_autocmd = false;
       };
     };
   };
