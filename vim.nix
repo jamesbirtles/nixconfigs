@@ -22,12 +22,17 @@
       tabstop = 2;
       foldlevelstart = 99;
       cursorline = true;
+      swapfile = false;
+      backup = false;
+      undofile = true;
+      wrap = true;
     };
 
     keymaps = [
       { key = "<leader>b"; action = ":CHADopen<CR>"; } # Open file explorer to the left
       { key = "<leader>pp"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
+      { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
       { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
 
