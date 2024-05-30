@@ -33,9 +33,27 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./darwin-configuration.nix
+        ./shared.nix
+        ./home-manager.nix
         ./vim.nix
         home-manager.darwinModules.home-manager
         nixvim.nixDarwinModules.nixvim
+      ];
+    };
+
+    nixosConfigurations.mac-arm-vm = nixpkgs.lib.nixosSystem rec {
+      system = "aarch64-linux";
+      specialArgs = {
+        pnpm2nix = pnpm2nix.packages.${system};
+      };
+      modules = [
+        ./machines/mac-arm-vm/hardware-configuration.nix
+        ./configuration.nix
+        ./shared.nix
+        ./home-manager.nix
+        ./vim.nix
+        home-manager.nixosModules.home-manager
+        nixvim.nixosModules.nixvim
       ];
     };
   };
