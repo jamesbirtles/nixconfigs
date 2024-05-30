@@ -65,7 +65,19 @@
       lsp = {
         enable = true;
         servers = {
-          svelte.enable = true;
+          svelte = {
+            enable = true;
+            # Ensures that svelte knows about changes to typescript files
+            onAttach.function = ''
+              vim.api.nvim_create_autocmd("BufWritePost", {
+                pattern = { "*.js", "*.ts" },
+                group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
+                callback = function(ctx)
+                  client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+                end,
+              })
+            '';
+          };
           tsserver.enable = true;
           tsserver.extraOptions.init_options = {
             # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
