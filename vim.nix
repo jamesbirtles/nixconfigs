@@ -1,6 +1,7 @@
 { config, pkgs, pnpm2nix, ... }:
 {
   environment.variables.EDITOR = "nvim";
+  environment.systemPackages = with pkgs; [ prettierd ];
   programs.nixvim = {
     enable = true;
     viAlias = true;
@@ -20,6 +21,7 @@
       softtabstop = 2;
       tabstop = 2;
       foldlevelstart = 99;
+      cursorline = true;
     };
 
     keymaps = [
@@ -92,7 +94,7 @@
       };
       lsp-lines.enable = true;
       indent-blankline.enable = true;
-      indent-o-matic.enable = true;
+      sleuth.enable = true;
       treesitter = {
         enable = true;
         folding = true;
@@ -156,6 +158,23 @@
         skipInsignificantPunctuation = false;
       };
       twilight.enable = true;
+      conform-nvim = {
+        enable = true;
+        formattersByFt = {
+          javascript = [["prettierd" "prettier"]];
+          typescript = [["prettierd" "prettier"]];
+          html = [["prettierd" "prettier"]];
+          css = [["prettierd" "prettier"]];
+          markdown = [["prettierd" "prettier"]];
+          json = [["prettierd" "prettier"]];
+          yaml = [["prettierd" "prettier"]];
+        };
+        formatOnSave = {
+          timeoutMs = 500;
+          lspFallback = true;
+        };
+        notifyOnError = true;
+      };
     };
   };
 }
