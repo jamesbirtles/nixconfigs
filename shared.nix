@@ -32,7 +32,6 @@
       eval "$(zoxide init --cmd cd zsh)"
     '';
   };
-  users.defaultUserShell = pkgs.zsh;
 
   fonts.fontDir.enable = true;
 

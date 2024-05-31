@@ -16,10 +16,10 @@
     home = "/Users/james";
   };
 
-  # environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-  # environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
-  # environment.shells = [pkgs.zsh];
-  # environment.systemPath = ["$HOME/.cargo/bin"];
+  environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
+  environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
+  environment.shells = [pkgs.zsh];
+  environment.systemPath = ["$HOME/.cargo/bin"];
 
   homebrew.enable = true;
   # todo: these should probably almost all be moved to using nix packages
