@@ -154,7 +154,6 @@
         enable = true;
         lightbulb.enable = false;
       };
-      barbar.enable = true;
       copilot-lua = {
         enable = true;
         panel.enabled = false;
