@@ -15,6 +15,11 @@
       enable = true;
       useTheme = "half-life";
     };
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
 
     programs.wezterm = {
       enable = true;
@@ -25,7 +30,7 @@
 
         config.color_scheme = "Ayu Dark (Gogh)"
         config.font = wezterm.font("Berkeley Mono Variable")
-        config.font_size = 14.0
+        config.font_size = 12.0
         config.use_fancy_tab_bar = false
         config.hide_tab_bar_if_only_one_tab = true
         config.tab_bar_at_bottom = true
