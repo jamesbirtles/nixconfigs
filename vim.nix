@@ -216,6 +216,7 @@
         enable = true;
         extraOptions.enable_autocmd = false;
       };
+      crates-nvim.enable = true;
     };
   };
 }
