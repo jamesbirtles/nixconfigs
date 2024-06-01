@@ -35,6 +35,9 @@
       { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
       { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
+      { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
+      { key = "<leader>v"; action = "\"+p"; } # Paste from system clipboard
+      { key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
       { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
@@ -50,6 +53,19 @@
 
       # Keep current clipboard contents when pasting over selection
       { mode = "x"; key = "p"; action = "pgvy"; }
+    ];
+
+    autoGroups = {
+      highlight-yank = { clear = true; };
+    };
+    autoCmd = [
+      {
+        event = ["TextYankPost"];
+        desc = "Highlight when yanking text";
+        group = "highlight-yank";
+        # command = "lua vim.highlight.on_yank()";
+        callback.__raw = "function() vim.highlight.on_yank() end";
+      }
     ];
 
     extraConfigLua = ''
