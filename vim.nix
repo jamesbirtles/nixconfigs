@@ -128,6 +128,11 @@
           html.enable = true;
           graphql.enable = true;
           cssls.enable = true;
+          rust-analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
         };
       };
       lsp-lines.enable = true;
