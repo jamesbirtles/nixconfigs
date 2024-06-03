@@ -113,6 +113,10 @@
                 installInPlace = true;
                 distDir = "packages/typescript-plugin";
                 script = "--filter typescript-svelte-plugin build";
+                installPhase = ''
+                  mkdir -p $out/node_modules/typescript-svelte-plugin
+                  mv packages/typescript-plugin/* $out/node_modules/typescript-svelte-plugin
+                '';
               };
             in [
               {
