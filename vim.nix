@@ -37,15 +37,16 @@
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
       { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
       { key = "<leader>v"; action = "\"+p"; } # Paste from system clipboard
+      { key = "<leader>w"; action = "<cmd>2<CR>"; } # Save file
       { key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
       { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
       { key = "ga"; action = ":Lspsaga code_action<CR>"; }
-      { key = "gd"; action = ":Lspsaga peek_definition<CR>"; }
-      { key = "gD"; action = ":Lspsaga goto_definition<CR>"; }
-      { key = "gt"; action = ":Lspsaga peek_type_definition<CR>"; }
-      { key = "gT"; action = ":Lspsaga goto_type_definition<CR>"; }
+      { key = "gD"; action = ":Lspsaga peek_definition<CR>"; }
+      { key = "gd"; action = ":Lspsaga goto_definition<CR>"; }
+      { key = "gT"; action = ":Lspsaga peek_type_definition<CR>"; }
+      { key = "gt"; action = ":Lspsaga goto_type_definition<CR>"; }
       { key = "gn"; action = ":Lspsaga diagnostic_jump_next<CR>"; }
       { key = "gp"; action = ":Lspsaga diagnostic_jump_prev<CR>"; }
       { key = "gi"; action = ":Lspsaga finder<CR>"; }
@@ -63,7 +64,6 @@
         event = ["TextYankPost"];
         desc = "Highlight when yanking text";
         group = "highlight-yank";
-        # command = "lua vim.highlight.on_yank()";
         callback.__raw = "function() vim.highlight.on_yank() end";
       }
     ];
