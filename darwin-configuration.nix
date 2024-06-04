@@ -178,7 +178,7 @@
       cmd + alt - l : yabai -m window --swap east
       cmd + alt - h : yabai -m window --swap west
       cmd + alt - n : yabai -m window --display east; yabai -m display --focus east
-      cmd + alt - j : yabai -m window --display west; yabai -m display --focus west
+      cmd + alt - p : yabai -m window --display west; yabai -m display --focus west
 
       cmd + ctrl + alt - j : yabai -m window --warp south
       cmd + ctrl + alt - k : yabai -m window --warp north
