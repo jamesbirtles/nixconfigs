@@ -29,7 +29,9 @@
     };
 
     keymaps = [
-      { key = "<leader>b"; action = ":CHADopen<CR>"; } # Open file explorer to the left
+      { key = "<leader>b"; action = "<cmd>Neotree last toggle<CR>"; } # Toggle neotree
+      { key = "<leader>tf"; action = "<cmd>Neotree filesystem<CR>"; } # Show file explorer 
+      { key = "<leader>tb"; action = "<cmd>Neotree buffers<CR>"; } # Show buffer explorer 
       { key = "<leader>pp"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
       { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
@@ -148,7 +150,10 @@
         nixvimInjections = true;
       };
       treesitter-context.enable = true;
-      chadtree.enable = true;
+      neo-tree = {
+        enable = true;
+        closeIfLastWindow = true;
+      };
       telescope = {
         enable = true;
         extensions.fzf-native.enable = true;
