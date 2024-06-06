@@ -98,6 +98,8 @@
           };
           tsserver.enable = true;
           tsserver.extraOptions.init_options = {
+            # Enable to debug the tsserver, logs are put in .logs in the workspace
+            # tsserver.logVerbosity = "normal";
             # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
             # This effectively mimics what the svelte vscode plugin does by default.
             plugins = let 
@@ -114,10 +116,11 @@
                 };
                 installInPlace = true;
                 distDir = "packages/typescript-plugin";
-                script = "--filter typescript-svelte-plugin build";
+                script = "--filter typescript-svelte-plugin... build";
                 installPhase = ''
                   mkdir -p $out/node_modules/typescript-svelte-plugin
-                  mv packages/typescript-plugin/* $out/node_modules/typescript-svelte-plugin
+                  cp -LR node_modules/.pnpm/node_modules/. $out/node_modules
+                  cp -LR packages/typescript-plugin/. $out/node_modules/typescript-svelte-plugin
                 '';
               };
             in [
