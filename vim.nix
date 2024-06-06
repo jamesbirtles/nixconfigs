@@ -37,7 +37,7 @@
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
       { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
       { key = "<leader>v"; action = "\"+p"; } # Paste from system clipboard
-      { key = "<leader>w"; action = "<cmd>2<CR>"; } # Save file
+      { key = "<leader>w"; action = "<cmd>w<CR>"; } # Save file
       { key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
