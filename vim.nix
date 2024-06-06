@@ -29,9 +29,9 @@
     };
 
     keymaps = [
-      { key = "<leader>b"; action = "<cmd>Neotree last toggle<CR>"; } # Toggle neotree
-      { key = "<leader>tf"; action = "<cmd>Neotree filesystem<CR>"; } # Show file explorer 
-      { key = "<leader>tb"; action = "<cmd>Neotree buffers<CR>"; } # Show buffer explorer 
+      { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; } # Toggle neotree
+      { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; } # Show file explorer
+      { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; } # Show buffer explorer
       { key = "<leader>pp"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
       { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
