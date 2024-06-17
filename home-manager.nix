@@ -43,10 +43,11 @@
       enable = true;
       userEmail = "james@birtles.dev";
       userName = "James Birtles";
-      signing = {
-        signByDefault = true;
-        key = null;
-      };
+      # TODO: re-enable
+      # signing = {
+      #   signByDefault = true;
+      #   key = null;
+      # };
       extraConfig = {
         push.autoSetupRemote = true;
         init.defaultBranch = "main";

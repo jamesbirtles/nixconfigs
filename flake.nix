@@ -21,9 +21,11 @@
       url = "github:nzbr/pnpm2nix-nzbr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, ... }: {
+
+  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, nixos-hardware, ... }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
       specialArgs = {
@@ -41,19 +43,20 @@
       ];
     };
 
-    nixosConfigurations.mac-arm-vm = nixpkgs.lib.nixosSystem rec {
-      system = "aarch64-linux";
+    nixosConfigurations.jb-fwk16 = nixpkgs.lib.nixosSystem rec {
+      system = "x86_64-linux";
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
       };
       modules = [
-        ./machines/mac-arm-vm/hardware-configuration.nix
+        ./machines/jb-fwk16/hardware-configuration.nix
         ./configuration.nix
         ./shared.nix
         ./home-manager.nix
         ./vim.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
+        nixos-hardware.nixosModules.framework-16-7040-amd
       ];
     };
   };
