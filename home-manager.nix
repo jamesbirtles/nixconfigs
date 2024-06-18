@@ -36,6 +36,9 @@
         font = {
           size = 13;
         };
+        colors = {
+          transparent_background_colors = true;
+        };
       };
     };
 

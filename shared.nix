@@ -18,6 +18,8 @@
     wrangler
     vultr-cli
     infisical
+    btop
+    bat
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

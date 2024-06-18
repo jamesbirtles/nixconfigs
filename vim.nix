@@ -152,7 +152,6 @@
         folding = true;
         nixvimInjections = true;
       };
-      treesitter-context.enable = true;
       neo-tree = {
         enable = true;
         closeIfLastWindow = true;
