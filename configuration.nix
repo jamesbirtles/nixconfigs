@@ -24,15 +24,20 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  # TODO: not actually sure if I need this anymore?
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "gb";
       variant = "";
     };
   };
+  # TODO: could I get away without one?
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  programs.hyprland.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   services.printing.enable = true;
 
   console.keyMap = "uk";
@@ -54,6 +59,7 @@
     packages = with pkgs; [
       bitwarden-desktop
       chromium
+      discord
     ];
   };
 
@@ -65,6 +71,12 @@
 
   environment.systemPackages = with pkgs; [
     mangohud
+  ];
+
+  fonts.packages = with pkgs; [
+    nerdfonts
+    fira-code
+    fira-code-symbols
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
