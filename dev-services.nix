@@ -18,4 +18,10 @@
       ALTER DATABASE polarity OWNER TO polarity;
     '';
   };
+  services.pgadmin = {
+    enable = true;
+    initialEmail = "james@birtles.dev";
+    # This is local, i'm really not bothered about this being in plain text and on git
+    initialPasswordFile = pkgs.writeText "pgadmin-password" "postgres";
+  };
 }
