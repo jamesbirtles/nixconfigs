@@ -1,5 +1,5 @@
 # Common programs used across platforms
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home-manager.users.james = {
     programs.zsh = {
@@ -26,7 +26,7 @@
           blur = true;
         };
         font = {
-          size = 13;
+          size = lib.mkDefault 13;
         };
         colors = {
           transparent_background_colors = true;

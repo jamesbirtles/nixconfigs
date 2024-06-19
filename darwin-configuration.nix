@@ -24,11 +24,9 @@
   homebrew.enable = true;
   # todo: these should probably almost all be moved to using nix packages
   homebrew.brews = [
-    "chezmoi"
     "pinentry-mac"
   ];
   homebrew.casks = [
-    "wezterm"
     "basictex"
     "unnaturalscrollwheels"
     "visual-studio-code"
@@ -110,7 +108,7 @@
         NSAutomaticPeriodSubstitutionEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticCapitalizationEnabled = false;
-        AppleWindowTabbingMode = "always";
+        AppleWindowTabbingMode = "manual";
         AppleTemperatureUnit = "Celsius";
         AppleShowAllExtensions = true;
         AppleScrollerPagingBehavior = true;

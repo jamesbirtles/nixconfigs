@@ -40,7 +40,7 @@
       { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
       { key = "<leader>v"; action = "\"+p"; } # Paste from system clipboard
       { key = "<leader>w"; action = "<cmd>w<CR>"; } # Save file
-      { key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
+      { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
       { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
