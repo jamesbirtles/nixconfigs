@@ -43,14 +43,11 @@
     "orbstack"
     "postman"
     "qmk-toolbox"
-    "spotify"
     "vial"
-    "vlc"
     "whatsapp"
     "steam"
     "royal-tsx"
     "notunes"
-    "discord"
     "balenaetcher"
   ];
   homebrew.masApps = {

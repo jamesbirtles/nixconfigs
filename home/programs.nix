@@ -1,7 +1,15 @@
 # Common programs used across platforms
 { pkgs, lib, ... }:
 {
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "raycast"
+    "discord"
+  ];
   home-manager.users.james = {
+    home.packages = with pkgs; [
+      discord
+    ];
+
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;

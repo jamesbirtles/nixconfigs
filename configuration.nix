@@ -59,7 +59,6 @@
     packages = with pkgs; [
       bitwarden-desktop
       chromium
-      discord
     ];
   };
 

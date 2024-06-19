@@ -1,10 +1,10 @@
 { nixpkgs, lib, pkgs, ... }:
 {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "raycast"
-  ];
   home-manager.users.james = {
-    home.packages = [ pkgs.raycast ];
+    home.packages = with pkgs; [
+      raycast
+      vlc-bin
+    ];
     programs.alacritty.settings.font.size = 15;
   };
 }
