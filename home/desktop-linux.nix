@@ -1,73 +1,8 @@
-{ config, pkgs, ... }:
+# Hyprland/Desktop environment set up for linux
+{ pkgs, ... }:
 {
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.james = { pkgs, ... }: {
-    home.stateVersion = "23.11";
-
-    xdg.enable = true;
-
-    programs.zsh = {
-      enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-    };
-    programs.oh-my-posh = {
-      enable = true;
-      useTheme = "half-life";
-    };
-    programs.direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
-    programs.obs-studio = {
-      enable = true;
-    };
-
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        import = [ "${pkgs.alacritty-theme}/ayu_dark.toml" ];
-        window = {
-          opacity = 0.8;
-          blur = true;
-        };
-        font = {
-          size = 13;
-        };
-        colors = {
-          transparent_background_colors = true;
-        };
-      };
-    };
-
-    programs.git = {
-      enable = true;
-      userEmail = "james@birtles.dev";
-      userName = "James Birtles";
-      # TODO: re-enable
-      # signing = {
-      #   signByDefault = true;
-      #   key = null;
-      # };
-      extraConfig = {
-        push.autoSetupRemote = true;
-        init.defaultBranch = "main";
-      };
-      ignores = [
-        ".DS_Store"
-        "Desktop.ini"
-        ".Spotlight-V100"
-        ".Trashes"
-      ];
-    };
-
-    programs.lazygit = {
-      enable = true;
-      settings.gui.showFileTree = false;
-    };
-
+  security.pam.services.hyprlock = {};
+  home-manager.users.james = {
     programs.waybar = {
       enable = true;
       systemd = {
@@ -119,11 +54,11 @@
           format = "{}% ";
         };
         network = {
-          format-wifi = "{essid} ({signalStrength}%) ";
+          format-wifi = "{essid} ({signalstrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
           tooltip-format = "{ifname} {ipaddr} via {gwaddr} 󱂇";
-          format-linked = "{ifname} (No IP) ";
-          format-disconnected = "Disconnected 󰖪";
+          format-linked = "{ifname} (no ip) ";
+          format-disconnected = "disconnected 󰖪";
           format-alt = "{ifname}: {ipaddr}/{cidr}";
         };
       }];
@@ -131,7 +66,7 @@
     services.mako.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+      extraportals = [ pkgs.xdg-desktop-portal-hyprland ];
       config.common.default = "*";
     };
     services.hyprpaper = {
@@ -146,48 +81,48 @@
     };
     services.avizo.enable = true;
     programs.hyprlock.enable = true;
-    wayland.windowManager.hyprland = {
+    wayland.windowmanager.hyprland = {
       enable = true;
       systemd.enable = true;
-      systemd.enableXdgAutostart = true;
+      systemd.enablexdgautostart = true;
       settings = {
-        monitor = "eDP-2, 2560x1600@165, 0x0, 1";
-        "$mod" = "SUPER";
+        monitor = "edp-2, 2560x1600@165, 0x0, 1";
+        "$mod" = "super";
         "$browser" = "firefox";
         "$terminal" = "alacritty";
         "$menu" = "rofi -show drun -show-icons";
         bind = [
-          "$mod, Q, exec, $terminal"
-          "$mod, C, killactive"
-          "$mod, M, exit"
-          "$mod, R, exec, $menu"
-          "$mod, B, exec, $browser"
+          "$mod, q, exec, $terminal"
+          "$mod, c, killactive"
+          "$mod, m, exit"
+          "$mod, r, exec, $menu"
+          "$mod, b, exec, $browser"
 
           "$mod, left, movefocus, l"
           "$mod, right, movefocus, r"
           "$mod, up, movefocus, u"
           "$mod, down, movefocus, d"
 
-          "$mod SHIFT, left, swapwindow, l"
-          "$mod SHIFT, right, swapwindow, r"
-          "$mod SHIFT, up, swapwindow, u"
-          "$mod SHIFT, down, swapwindow, d"
+          "$mod shift, left, swapwindow, l"
+          "$mod shift, right, swapwindow, r"
+          "$mod shift, up, swapwindow, u"
+          "$mod shift, down, swapwindow, d"
 
           "$mod, kp_left, resizeactive, -100 0"
           "$mod, kp_right, resizeactive, 100 0"
           "$mod, kp_up, resizeactive, 0 -100"
           "$mod, kp_down, resizeactive, 0 100"
 
-          "$mod, N, workspace, +1"
-          "$mod, P, workspace, -1"
+          "$mod, n, workspace, +1"
+          "$mod, p, workspace, -1"
 
-          ", XF86AudioMute, exec, volumectl toggle-mute"
+          ", xf86audiomute, exec, volumectl toggle-mute"
         ];
         binde = [
-          ", XF86AudioRaiseVolume, exec, volumectl -u up"
-          ", XF86AudioLowerVolume, exec, volumectl -u down"
-          ", XF86MonBrightnessUp, exec, lightctl up"
-          ", XF86MonBrightnessDown, exec, lightctl down"
+          ", xf86audioraisevolume, exec, volumectl -u up"
+          ", xf86audiolowervolume, exec, volumectl -u down"
+          ", xf86monbrightnessup, exec, lightctl up"
+          ", xf86monbrightnessdown, exec, lightctl down"
         ];
         input = {
           kb_layout = "gb";
@@ -215,10 +150,10 @@
           "workspaces, 1, 2, default"
         ];
         exec = [
-          "gsettings set org.gnome.desktop.interface gtk-theme \"YOUR_DARK_GTK3_THEME\""
+          "gsettings set org.gnome.desktop.interface gtk-theme \"your_dark_gtk3_theme\""
           "gsettings set org.gnome.desktop.interface color-scheme \"prefer-dark\""
         ];
-        env = ["QT_QPA_PLATFORMTHEME,qt6ct"];
+        env = ["qt_qpa_platformtheme,qt6ct"];
         # misc.disable_hyprland_logo = true;
         misc = {
           force_default_wallpaper = 0;
@@ -227,5 +162,4 @@
       };
     };
   };
-  security.pam.services.hyprlock = {};
 }

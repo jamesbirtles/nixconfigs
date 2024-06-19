@@ -36,7 +36,7 @@
         # so the old configuration file still takes effect
         ./darwin-configuration.nix
         ./shared.nix
-        ./home-manager.nix
+        ./home/darwin.nix
         ./vim.nix
         home-manager.darwinModules.home-manager
         nixvim.nixDarwinModules.nixvim
@@ -52,7 +52,7 @@
         ./machines/jb-fwk16/hardware-configuration.nix
         ./configuration.nix
         ./shared.nix
-        ./home-manager.nix
+        ./home/linux.nix
         ./vim.nix
         ./dev-services.nix
         home-manager.nixosModules.home-manager

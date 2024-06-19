@@ -1,0 +1,63 @@
+# Common programs used across platforms
+{ pkgs, ... }:
+{
+  home-manager.users.james = {
+    programs.zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+    };
+    programs.oh-my-posh = {
+      enable = true;
+      useTheme = "half-life";
+    };
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        import = [ "${pkgs.alacritty-theme}/ayu_dark.toml" ];
+        window = {
+          opacity = 0.8;
+          blur = true;
+        };
+        font = {
+          size = 13;
+        };
+        colors = {
+          transparent_background_colors = true;
+        };
+      };
+    };
+
+    programs.git = {
+      enable = true;
+      userEmail = "james@birtles.dev";
+      userName = "James Birtles";
+      signing = {
+        signByDefault = true;
+        key = null;
+      };
+      extraConfig = {
+        push.autoSetupRemote = true;
+        init.defaultBranch = "main";
+      };
+      ignores = [
+        ".DS_Store"
+        "Desktop.ini"
+        ".Spotlight-V100"
+        ".Trashes"
+      ];
+    };
+
+    programs.lazygit = {
+      enable = true;
+      settings.gui.showFileTree = false;
+    };
+  };
+}
+
