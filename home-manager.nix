@@ -144,6 +144,8 @@
       enable = true;
       package = pkgs.rofi-wayland;
     };
+    services.avizo.enable = true;
+    programs.hyprlock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -178,6 +180,14 @@
 
           "$mod, N, workspace, +1"
           "$mod, P, workspace, -1"
+
+          ", XF86AudioMute, exec, volumectl toggle-mute"
+        ];
+        binde = [
+          ", XF86AudioRaiseVolume, exec, volumectl -u up"
+          ", XF86AudioLowerVolume, exec, volumectl -u down"
+          ", XF86MonBrightnessUp, exec, lightctl up"
+          ", XF86MonBrightnessDown, exec, lightctl down"
         ];
         input = {
           kb_layout = "gb";
@@ -209,7 +219,13 @@
           "gsettings set org.gnome.desktop.interface color-scheme \"prefer-dark\""
         ];
         env = ["QT_QPA_PLATFORMTHEME,qt6ct"];
+        # misc.disable_hyprland_logo = true;
+        misc = {
+          force_default_wallpaper = 0;
+          focus_on_activate = true;
+        };
       };
     };
   };
+  security.pam.services.hyprlock = {};
 }
