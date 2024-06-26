@@ -49,6 +49,7 @@
     "royal-tsx"
     "notunes"
     "balenaetcher"
+    "obsidian"
   ];
   homebrew.masApps = {
     # To use the biometrics with the browser plugin, the app needs to be installed via the mac app store
