@@ -36,7 +36,11 @@
     '';
   };
 
-  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    nerdfonts
+    fira-code
+    fira-code-symbols
+  ];
 
   programs.gnupg.agent.enable = true;
 

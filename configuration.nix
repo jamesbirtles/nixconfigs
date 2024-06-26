@@ -72,11 +72,7 @@
     mangohud
   ];
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-    fira-code
-    fira-code-symbols
-  ];
+  fonts.fontDir.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
