@@ -86,7 +86,12 @@
       systemd.enable = true;
       systemd.enableXdgAutostart = true;
       settings = {
-        monitor = "eDP-2, 2560x1600@165, 0x0, 1";
+        monitor = [
+          "eDP-2, 2560x1600@165, 0x0, 1"
+          "desc:Samsung Electric Company S27C900P H1AK500000,highres,auto,1.6"
+          "desc:BNQ BenQ PD2705Q H8L01078019,highres,auto,1.5"
+          ",highres,auto,1"
+        ];
         "$mod" = "SUPER";
         "$browser" = "firefox";
         "$terminal" = "alacritty";
