@@ -10,6 +10,8 @@
 
   networking.networkmanager.enable = true;
 
+  nix.settings.trusted-users = [ "root" "@wheel" ];
+
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
@@ -76,6 +78,7 @@
   environment.systemPackages = with pkgs; [
     mangohud
     gamemode
+    devenv
   ];
 
   fonts.fontDir.enable = true;
