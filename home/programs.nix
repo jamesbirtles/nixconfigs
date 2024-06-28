@@ -30,7 +30,7 @@
       settings = {
         import = [ "${pkgs.alacritty-theme}/ayu_dark.toml" ];
         window = {
-          opacity = 0.8;
+          opacity = 1;
           blur = true;
         };
         font = {
