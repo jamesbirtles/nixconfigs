@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    nodejs_20
     zoxide
     git
     gnupg
@@ -12,8 +11,6 @@
     ansible
     pandoc
     hcloud
-    bun
-    rustup
     texliveSmall
     wrangler
     vultr-cli
