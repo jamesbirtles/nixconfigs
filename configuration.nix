@@ -78,7 +78,6 @@
   environment.systemPackages = with pkgs; [
     mangohud
     gamemode
-    devenv
   ];
 
   fonts.fontDir.enable = true;

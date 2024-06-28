@@ -17,6 +17,7 @@
     infisical
     btop
     bat
+    devenv
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
