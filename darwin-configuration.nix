@@ -6,6 +6,7 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+  nix.settings.trusted-users = [ "root" "@admin" ];
 
   environment.shellAliases = {
     db = "darwin-rebuild switch --flake .#jamesb-macos-personal";
