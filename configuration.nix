@@ -46,6 +46,7 @@
   programs.nix-ld.enable = true;
 
   services.printing.enable = true;
+  services.fwupd.enable = true;
 
   console.keyMap = "uk";
 
