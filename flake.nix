@@ -54,7 +54,6 @@
         ./shared.nix
         ./home/linux.nix
         ./vim.nix
-        ./dev-services.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd
