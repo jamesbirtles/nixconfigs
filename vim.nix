@@ -32,7 +32,8 @@
       { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; } # Toggle neotree
       { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; } # Show file explorer
       { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; } # Show buffer explorer
-      { key = "<C-p>"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
+      { key = "<leader>pp"; action = ":Telescope resume<CR>"; } # Resume last telescope query
+      { key = "<leader>pg"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
       { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
       { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
@@ -97,39 +98,39 @@
             '';
           };
           tsserver.enable = true;
-          tsserver.extraOptions.init_options = {
-            # Enable to debug the tsserver, logs are put in .logs in the workspace
-            # tsserver.logVerbosity = "normal";
-            # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
-            # This effectively mimics what the svelte vscode plugin does by default.
-            plugins = let 
-              # We have to build this manually as its unfortunately not in the nixpkgs repo. Also they use pnpm which
-              # makes it a little more awkward.
-              typescript-svelte-plugin = pnpm2nix.mkPnpmPackage rec {
-                pname = "typescript-svelte-plugin";
-                version = "0.3.38";
-                src = pkgs.fetchFromGitHub {
-                  owner = "sveltejs";
-                  repo = "language-tools";
-                  rev = "typescript-plugin-${version}";
-                  hash = "sha256-ZqeEBtknZfXpW31tpphqUT4Jk3ZnF6SGZFu5fR0J0qU=";
-                };
-                installInPlace = true;
-                distDir = "packages/typescript-plugin";
-                script = "--filter typescript-svelte-plugin... build";
-                installPhase = ''
-                  mkdir -p $out/node_modules/typescript-svelte-plugin
-                  cp -LR node_modules/.pnpm/node_modules/. $out/node_modules
-                  cp -LR packages/typescript-plugin/. $out/node_modules/typescript-svelte-plugin
-                '';
-              };
-            in [
-              {
-                name = "typescript-svelte-plugin";
-                location = "${typescript-svelte-plugin}";
-              }
-            ];
-          };
+          # tsserver.extraOptions.init_options = {
+          #   # Enable to debug the tsserver, logs are put in .logs in the workspace
+          #   # tsserver.logVerbosity = "normal";
+          #   # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
+          #   # This effectively mimics what the svelte vscode plugin does by default.
+          #   plugins = let 
+          #     # We have to build this manually as its unfortunately not in the nixpkgs repo. Also they use pnpm which
+          #     # makes it a little more awkward.
+          #     typescript-svelte-plugin = pnpm2nix.mkPnpmPackage rec {
+          #       pname = "typescript-svelte-plugin";
+          #       version = "0.3.38";
+          #       src = pkgs.fetchFromGitHub {
+          #         owner = "sveltejs";
+          #         repo = "language-tools";
+          #         rev = "typescript-plugin-${version}";
+          #         hash = "sha256-ZqeEBtknZfXpW31tpphqUT4Jk3ZnF6SGZFu5fR0J0qU=";
+          #       };
+          #       installInPlace = true;
+          #       distDir = "packages/typescript-plugin";
+          #       script = "--filter typescript-svelte-plugin... build";
+          #       installPhase = ''
+          #         mkdir -p $out/node_modules/typescript-svelte-plugin
+          #         cp -LR node_modules/.pnpm/node_modules/. $out/node_modules
+          #         cp -LR packages/typescript-plugin/. $out/node_modules/typescript-svelte-plugin
+          #       '';
+          #     };
+          #   in [
+          #     {
+          #       name = "typescript-svelte-plugin";
+          #       location = "${typescript-svelte-plugin}";
+          #     }
+          #   ];
+          # };
           tailwindcss.enable = true;
           eslint.enable = true;
           yamlls.enable = true;

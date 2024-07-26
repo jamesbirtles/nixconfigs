@@ -12,7 +12,7 @@
     pandoc
     hcloud
     texliveSmall
-    wrangler
+    # wrangler
     vultr-cli
     infisical
     btop
