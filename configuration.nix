@@ -73,6 +73,7 @@
   programs.firefox.enable = true;
   programs.chromium.enable = true;
   programs.steam.enable = true;
+  programs.partition-manager.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
