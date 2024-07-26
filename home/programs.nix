@@ -35,6 +35,7 @@
         };
         font = {
           size = lib.mkDefault 13;
+          normal = { family = "BerkeleyMonoVariable Nerd Font Mono"; style = "Regular"; };
         };
         colors = {
           transparent_background_colors = true;
