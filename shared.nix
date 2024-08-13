@@ -25,6 +25,8 @@
   environment.shellAliases = {
     lg = "lazygit";
     nb = "sudo nixos-rebuild switch --flake .#";
+    # Required by nvim-spectre
+    gsed = "sed";
   };
 
   programs.zsh = {
