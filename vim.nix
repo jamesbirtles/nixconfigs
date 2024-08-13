@@ -240,7 +240,10 @@
       spectre = {
         enable = true;
         findPackage = pkgs.ripgrep;
-        replacePackage = pkgs.gnused;
+        settings = {
+          default.replace.cmd = "oxi";
+          live_update = true;
+        };
       };
     };
   };
