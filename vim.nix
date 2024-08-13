@@ -32,10 +32,12 @@
       { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; } # Toggle neotree
       { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; } # Show file explorer
       { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; } # Show buffer explorer
+      { key = "<leader>p"; action = "<Nop>"; } # Make <leader>p do nothing so that if we linger on the rest of the command it doesn't paste
       { key = "<leader>pp"; action = ":Telescope resume<CR>"; } # Resume last telescope query
       { key = "<leader>pg"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
       { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
       { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
+      { key = "<leader>pr"; action = "<cmd>lua require('spectre').toggle()<CR>"; } # Replace in project
       { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
       { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
       { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
@@ -235,6 +237,11 @@
         extraOptions.enable_autocmd = false;
       };
       crates-nvim.enable = true;
+      spectre = {
+        enable = true;
+        findPackage = pkgs.ripgrep;
+        replacePackage = pkgs.gnused;
+      };
     };
   };
 }
