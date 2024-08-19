@@ -46,15 +46,16 @@
       { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
+      { key = "K"; action = ":Lspsaga hover_doc<CR>"; }
       { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
       { key = "ga"; action = ":Lspsaga code_action<CR>"; }
       { key = "gD"; action = ":Lspsaga peek_definition<CR>"; }
-      { key = "gd"; action = ":Lspsaga goto_definition<CR>"; }
+      { key = "gd"; action = ":Telescope lsp_definitions<CR>"; }
       { key = "gT"; action = ":Lspsaga peek_type_definition<CR>"; }
-      { key = "gt"; action = ":Lspsaga goto_type_definition<CR>"; }
+      { key = "gt"; action = ":Telescope lsp_type_definitions<CR>"; }
       { key = "gn"; action = ":Lspsaga diagnostic_jump_next<CR>"; }
       { key = "gp"; action = ":Lspsaga diagnostic_jump_prev<CR>"; }
-      { key = "gi"; action = ":Lspsaga finder<CR>"; }
+      { key = "gi"; action = ":Telescope lsp_references<CR>"; }
       { key = "gr"; action = ":Lspsaga rename<CR>"; }
 
       # Keep current clipboard contents when pasting over selection
