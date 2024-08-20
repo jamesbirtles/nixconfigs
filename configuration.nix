@@ -6,7 +6,7 @@
   boot.initrd.luks.devices."luks-a48122fc-9424-4da0-99c6-a0180a322bc2".device = "/dev/disk/by-uuid/a48122fc-9424-4da0-99c6-a0180a322bc2";
   networking.hostName = "jb-fwk16";
 
-  boot.kernelPackages = pkgs.linuxPackages_6_9;
+  boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   networking.networkmanager.enable = true;
 
