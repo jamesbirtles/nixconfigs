@@ -156,6 +156,7 @@
         enable = true;
         folding = true;
         nixvimInjections = true;
+        settings.highlight.enable = true;
       };
       neo-tree = {
         enable = true;
