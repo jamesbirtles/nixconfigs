@@ -40,6 +40,8 @@
         ./vim.nix
         home-manager.darwinModules.home-manager
         nixvim.nixDarwinModules.nixvim
+
+        (import ./overlays)
       ];
     };
 
