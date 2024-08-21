@@ -150,6 +150,39 @@ in
         }
       }
     '';
+    xdg.configFile."zellij/layouts/default.kdl".text = ''
+      layout {
+        tab name="Main" focus=true {
+          pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+          }
+          pane split_direction="vertical" {
+            pane size=80 {
+              pane name="Check"
+              pane name="Run"
+            }
+            pane {
+              name "Editor"
+              focus true
+            }
+          }
+          pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+          }
+        }
+        tab name="Lazygit" {
+          pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+          }
+          pane name="Lazygit" {
+            command "lazygit"
+          }
+          pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+          }
+        }
+      }
+    '';
   };
 }
 
