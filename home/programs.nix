@@ -184,7 +184,7 @@ in
           pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
           }
-          pane name="Lazygit" {
+          pane name="Lazygit" borderless=true {
             command "lazygit"
           }
           pane size=1 borderless=true {
