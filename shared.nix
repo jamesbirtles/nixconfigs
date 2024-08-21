@@ -25,6 +25,7 @@
   environment.shellAliases = {
     lg = "lazygit";
     nb = "sudo nixos-rebuild switch --flake .#";
+    kit = "zellij --layout sveltekit";
   };
 
   programs.zsh = {

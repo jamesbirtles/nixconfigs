@@ -160,35 +160,39 @@ in
         }
       }
     '';
-    xdg.configFile."zellij/layouts/default.kdl".text = ''
+    xdg.configFile."zellij/layouts/sveltekit.kdl".text = ''
       layout {
-        tab name="Main" focus=true {
+        default_tab_template {
           pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
           }
+          children
+          pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+          }
+        }
+        tab name="Main" focus=true {
           pane split_direction="vertical" {
             pane size=80 {
-              pane name="Check"
-              pane name="Run"
+              pane name="Check" {
+                command "npm"
+                args "run" "check:watch"
+              }
+              pane name="Run" {
+                command "devenv"
+                args "up"
+              }
             }
             pane {
               name "Editor"
               focus true
+              command "vim"
             }
-          }
-          pane size=1 borderless=true {
-            plugin location="zellij:status-bar"
           }
         }
         tab name="Lazygit" {
-          pane size=1 borderless=true {
-            plugin location="zellij:tab-bar"
-          }
           pane name="Lazygit" borderless=true {
             command "lazygit"
-          }
-          pane size=1 borderless=true {
-            plugin location="zellij:status-bar"
           }
         }
       }
