@@ -80,6 +80,7 @@
   environment.systemPackages = with pkgs; [
     mangohud
     gamemode
+    wl-clipboard-rs
   ];
 
   fonts.fontDir.enable = true;
