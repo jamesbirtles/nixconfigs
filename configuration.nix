@@ -63,7 +63,7 @@
   users.users.james = {
     isNormalUser = true;
     description = "James Birtles";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       bitwarden-desktop
       chromium
