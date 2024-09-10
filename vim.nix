@@ -219,20 +219,23 @@
       twilight.enable = true;
       conform-nvim = {
         enable = true;
-        formattersByFt = {
-          javascript = [["prettierd" "prettier"]];
-          typescript = [["prettierd" "prettier"]];
-          html = [["prettierd" "prettier"]];
-          css = [["prettierd" "prettier"]];
-          markdown = [["prettierd" "prettier"]];
-          json = [["prettierd" "prettier"]];
-          yaml = [["prettierd" "prettier"]];
+        settings = {
+          formatters_by_ft = {
+            javascript = [["prettierd" "prettier"]];
+            typescript = [["prettierd" "prettier"]];
+            html = [["prettierd" "prettier"]];
+            css = [["prettierd" "prettier"]];
+            markdown = [["prettierd" "prettier"]];
+            json = [["prettierd" "prettier"]];
+            yaml = [["prettierd" "prettier"]];
+            graphql = [["prettierd" "prettier"]];
+          };
+          format_on_save = {
+            timeoutMs = 500;
+            lspFallback = true;
+          };
+          notify_on_error = true;
         };
-        formatOnSave = {
-          timeoutMs = 500;
-          lspFallback = true;
-        };
-        notifyOnError = true;
       };
       ts-context-commentstring = {
         enable = true;
