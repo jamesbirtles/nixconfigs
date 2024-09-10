@@ -230,10 +230,7 @@
             yaml = [["prettierd" "prettier"]];
             graphql = [["prettierd" "prettier"]];
           };
-          format_on_save = {
-            timeoutMs = 500;
-            lspFallback = true;
-          };
+          format_on_save.lsp_format = "fallback";
           notify_on_error = true;
         };
       };
