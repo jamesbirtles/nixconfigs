@@ -171,6 +171,16 @@ in
             plugin location="zellij:status-bar"
           }
         }
+        tab name="Scratch" {
+          pane split_direction="vertical" {
+            pane
+            pane
+          }
+          pane split_direction="vertical" {
+            pane
+            pane
+          }
+        }
         tab name="Main" focus=true {
           pane split_direction="vertical" {
             pane size=80 {
