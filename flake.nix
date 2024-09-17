@@ -22,10 +22,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
   };
 
 
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, nixos-hardware, ... }: {
+  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, nixos-hardware, firefox-gnome-theme, ... }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
       specialArgs = {
@@ -49,6 +50,7 @@
       system = "x86_64-linux";
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
+        firefox-gnome-theme = firefox-gnome-theme;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -71,6 +73,7 @@
       system = "x86_64-linux";
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
+        firefox-gnome-theme = firefox-gnome-theme;
       };
       modules = [
         ./machines/jb-fwk13-execify/hardware-configuration.nix

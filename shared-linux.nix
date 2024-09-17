@@ -43,7 +43,6 @@
   users.defaultUserShell = pkgs.zsh;
 
   programs.nix-ld.enable = true;
-  programs.firefox.enable = true;
   programs.chromium.enable = true;
 
   fonts.fontDir.enable = true;
