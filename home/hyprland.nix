@@ -1,4 +1,4 @@
-# Hyprland/Desktop environment set up for linux
+# Hyprland Desktop environment set up for linux
 { pkgs, ... }:
 {
   security.pam.services.hyprlock = {};

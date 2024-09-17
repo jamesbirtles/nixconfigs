@@ -52,13 +52,36 @@
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
+        ./machines/jb-fwk16/configuration.nix
         ./configuration.nix
         ./shared.nix
+        ./shared-linux.nix
         ./home/linux.nix
+        ./home/hyprland.nix
         ./vim.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd
+
+        (import ./overlays)
+      ];
+    };
+
+    nixosConfigurations.jb-fwk13-execify = nixpkgs.lib.nixosSystem rec {
+      system = "x86_64-linux";
+      specialArgs = {
+        pnpm2nix = pnpm2nix.packages.${system};
+      };
+      modules = [
+        ./machines/jb-fwk13-execify/hardware-configuration.nix
+        ./machines/jb-fwk13-execify/configuration.nix
+        ./shared.nix
+        ./shared-linux.nix
+        ./home/linux.nix
+        ./vim.nix
+        home-manager.nixosModules.home-manager
+        nixvim.nixosModules.nixvim
+        nixos-hardware.nixosModules.framework-13-7040-amd
 
         (import ./overlays)
       ];
