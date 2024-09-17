@@ -56,6 +56,11 @@ in
       };
     };
 
+    programs.wezterm = {
+      enable = true;
+      extraConfig = builtins.readFile ./wezterm.lua;
+    };
+
     programs.git = {
       enable = true;
       userEmail = "james@birtles.dev";
