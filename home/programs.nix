@@ -48,7 +48,7 @@ in
         };
         font = {
           size = lib.mkDefault 13;
-          normal = { family = "BerkeleyMonoVariable Nerd Font Mono"; style = "Regular"; };
+          normal = { family = "BerkeleyMono Nerd Font"; style = "Regular"; };
         };
         colors = {
           transparent_background_colors = true;
@@ -61,7 +61,7 @@ in
       userEmail = "james@birtles.dev";
       userName = "James Birtles";
       signing = {
-        signByDefault = true;
+        signByDefault = false;
         key = null;
       };
       extraConfig = {
