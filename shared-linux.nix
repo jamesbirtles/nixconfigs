@@ -3,7 +3,9 @@
   nix.settings.trusted-users = [ "root" "@wheel" ];
   nixpkgs.config.allowUnfree = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
+  # Not compatible with 6.11 right now, can re-enable when https://github.com/NixOS/nixpkgs/pull/335482 is available on latest nixos unstable
+  hardware.framework.enableKmod = false;
 
   networking.networkmanager.enable = true;
 
