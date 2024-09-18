@@ -100,7 +100,7 @@
               })
             '';
           };
-          tsserver.enable = true;
+          ts-ls.enable = true;
           # tsserver.extraOptions.init_options = {
           #   # Enable to debug the tsserver, logs are put in .logs in the workspace
           #   # tsserver.logVerbosity = "normal";
