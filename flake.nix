@@ -55,7 +55,6 @@
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
         ./machines/jb-fwk16/configuration.nix
-        ./configuration.nix
         ./shared.nix
         ./shared-linux.nix
         ./home/linux.nix
