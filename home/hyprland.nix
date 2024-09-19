@@ -2,6 +2,7 @@
 { pkgs, ... }:
 {
   security.pam.services.hyprlock = {};
+  programs.hyprland.enable = true;
   home-manager.users.james = {
     programs.waybar = {
       enable = true;
