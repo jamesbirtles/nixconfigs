@@ -85,6 +85,14 @@ in
       enable = true;
       settings.gui.showFileTree = false;
     };
+    programs.nnn.enable = true;
+
+    programs.zoxide.enable = true;
+    programs.eza = {
+      enable = true;
+      icons = true;
+      git = true;
+    };
 
     programs.zellij = {
       enable = true;

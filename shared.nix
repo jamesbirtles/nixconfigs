@@ -1,18 +1,15 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    zoxide
     git
     gnupg
     gh
     ripgrep
     fd
-    lazygit
     ansible
     pandoc
     hcloud
     texliveSmall
-    # wrangler
     vultr-cli
     infisical
     btop
@@ -30,9 +27,6 @@
 
   programs.zsh = {
     enable = true;
-    interactiveShellInit = ''
-      eval "$(zoxide init --cmd cd zsh)"
-    '';
   };
 
   fonts.packages = with pkgs; [
