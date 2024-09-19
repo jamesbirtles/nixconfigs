@@ -1,19 +1,9 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    git
-    gnupg
-    gh
-    ripgrep
-    fd
-    ansible
-    pandoc
     hcloud
-    texliveSmall
     vultr-cli
     infisical
-    btop
-    bat
     devenv
   ];
 

@@ -80,6 +80,8 @@ in
         ".Trashes"
       ];
     };
+    programs.gpg.enable = true;
+    programs.gh.enable = true;
 
     programs.lazygit = {
       enable = true;
@@ -93,6 +95,10 @@ in
       icons = true;
       git = true;
     };
+    programs.btop.enable = true;
+    programs.ripgrep.enable = true;
+    programs.fd.enable = true;
+    programs.bat.enable = true;
 
     programs.zellij = {
       enable = true;
