@@ -41,8 +41,6 @@
         ./vim.nix
         home-manager.darwinModules.home-manager
         nixvim.nixDarwinModules.nixvim
-
-        (import ./overlays)
       ];
     };
 
@@ -62,8 +60,6 @@
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd
-
-        (import ./overlays)
       ];
     };
 
@@ -83,8 +79,6 @@
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd
-
-        (import ./overlays)
       ];
     };
   };
