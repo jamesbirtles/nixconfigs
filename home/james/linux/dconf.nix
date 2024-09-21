@@ -6,7 +6,17 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
+      last-panel = "background";
+      window-state = mkTuple [ 1508 1034 false ];
+    };
+
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/fold-l.jxl";
+      picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/fold-d.jxl";
+      primary-color = "#26a269";
+      secondary-color = "#000000";
     };
 
     "org/gnome/desktop/input-sources" = {
@@ -19,6 +29,14 @@ with lib.hm.gvariant;
       toolkit-accessibility = false;
     };
 
+    "org/gnome/desktop/notifications" = {
+      application-children = [ "org-gnome-settings" ];
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-settings" = {
+      application-id = "org.gnome.Settings.desktop";
+    };
+
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
     };
@@ -28,6 +46,14 @@ with lib.hm.gvariant;
       speed = 0.338346;
       tap-to-click = false;
       two-finger-scrolling-enabled = true;
+    };
+
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/fold-l.jxl";
+      primary-color = "#26a269";
+      secondary-color = "#000000";
     };
 
     "org/gnome/mutter" = {
