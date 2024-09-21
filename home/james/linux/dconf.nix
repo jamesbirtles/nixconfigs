@@ -5,6 +5,14 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/control-center" = {
+      last-panel = "keyboard";
+    };
+
+    "org/gnome/desktop/input-sources" = {
+      xkb-options = [ "caps:escape" ];
+    };
+
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       show-battery-percentage = true;
@@ -26,8 +34,16 @@ with lib.hm.gvariant;
       experimental-features = [ "scale-monitor-framebuffer" ];
     };
 
+    "org/gnome/nautilus/preferences" = {
+      migrated-gtk-settings = true;
+    };
+
     "org/gnome/shell" = {
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "org.gnome.Geary.desktop" "org.gnome.Calendar.desktop" ];
+    };
+
+    "org/gnome/shell/world-clocks" = {
+      locations = [];
     };
 
     "org/gtk/settings/file-chooser" = {

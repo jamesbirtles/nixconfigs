@@ -38,6 +38,8 @@
   services.fwupd.enable = true;
   services.fprintd.enable = true;
 
+  virtualisation.docker.enable = true;
+
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -52,11 +54,14 @@
 
   programs.nix-ld.enable = true;
   programs.chromium.enable = true;
+  programs.steam.enable = true;
 
   fonts.fontDir.enable = true;
 
   environment.systemPackages = with pkgs; [
     wl-clipboard-rs
     dconf2nix
+    mangohud
+    gamemode
   ];
 }

@@ -12,11 +12,6 @@
     db = "darwin-rebuild switch --flake .#jamesb-macos-personal";
   };
 
-  users.users.james = {
-    name = "james";
-    home = "/Users/james";
-  };
-
   environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
   environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
   environment.shells = [pkgs.zsh];
