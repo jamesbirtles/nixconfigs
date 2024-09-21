@@ -4,8 +4,6 @@
   nixpkgs.config.allowUnfree = true;
 
   boot.kernelPackages = pkgs.linuxPackages_6_11;
-  # Not compatible with 6.11 right now, can re-enable when https://github.com/NixOS/nixpkgs/pull/335482 is available on latest nixos unstable
-  hardware.framework.enableKmod = false;
 
   networking.networkmanager.enable = true;
 
@@ -38,6 +36,7 @@
 
   services.printing.enable = true;
   services.fwupd.enable = true;
+  services.fprintd.enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
