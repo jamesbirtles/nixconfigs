@@ -108,7 +108,11 @@ in
 
   programs.lazygit = {
     enable = true;
-    settings.gui.showFileTree = false;
+    settings.gui = {
+      showFileTree = false;
+      nerdFontsVersion = "3";
+      theme.selectedLineBgColor = [ "reverse" ];
+    };
   };
   programs.nnn.enable = true;
 
