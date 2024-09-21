@@ -1,4 +1,4 @@
-{ firefox-gnome-theme, ... }:
+{ firefox-gnome-theme, pkgs, ... }:
 {
   home-manager.users.james = {
     programs.obs-studio = {

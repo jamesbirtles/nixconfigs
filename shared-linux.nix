@@ -58,5 +58,6 @@
 
   environment.systemPackages = with pkgs; [
     wl-clipboard-rs
+    dconf2nix
   ];
 }
