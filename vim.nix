@@ -26,6 +26,7 @@
       backup = false;
       undofile = true;
       wrap = true;
+      winhl = "NormalFloat:PMenu";
     };
 
     keymaps = [
@@ -46,17 +47,17 @@
       { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
-      { key = "K"; action = ":Lspsaga hover_doc<CR>"; }
-      { key = "gh"; action = ":Lspsaga hover_doc<CR>"; }
-      { key = "ga"; action = ":Lspsaga code_action<CR>"; }
-      { key = "gD"; action = ":Lspsaga peek_definition<CR>"; }
+      { key = "K"; action = "<cmd>lua vim.lsp.buf.hover()<CR>"; }
+      { key = "ga"; action = "<cmd>lua vim.lsp.buf.code_action()<CR>"; }
       { key = "gd"; action = ":Telescope lsp_definitions<CR>"; }
-      { key = "gT"; action = ":Lspsaga peek_type_definition<CR>"; }
       { key = "gt"; action = ":Telescope lsp_type_definitions<CR>"; }
-      { key = "gn"; action = ":Lspsaga diagnostic_jump_next<CR>"; }
-      { key = "gp"; action = ":Lspsaga diagnostic_jump_prev<CR>"; }
+      # When in neovim 11, I belive these should be: 
+      # { key = "gn"; action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>"; }
+      # { key = "gp"; action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>"; }
+      { key = "gn"; action = "<cmd>lua vim.diagnostic.goto_next()<CR>"; }
+      { key = "gp"; action = "<cmd>lua vim.diagnostic.goto_prev()<CR>"; }
       { key = "gi"; action = ":Telescope lsp_references<CR>"; }
-      { key = "gr"; action = ":Lspsaga rename<CR>"; }
+      { key = "gr"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; }
 
       # Keep current clipboard contents when pasting over selection
       { mode = "x"; key = "p"; action = "pgvy"; }
@@ -188,15 +189,13 @@
           };
         };
       };
-      lspsaga = {
-        enable = true;
-        lightbulb.enable = false;
-      };
+      dressing.enable = true;
       copilot-lua = {
         enable = true;
         panel.enabled = false;
         suggestion.enabled = false;
       };
+      copilot-cmp.enable = true;
       fidget.enable = true;
       git-conflict.enable = true;
       gitsigns.enable = true;
