@@ -9,7 +9,6 @@
     description = "James Birtles";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      bitwarden-desktop
       chromium
     ];
   };

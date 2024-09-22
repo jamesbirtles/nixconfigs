@@ -232,6 +232,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-bitwarden-fix": {
+      "locked": {
+        "lastModified": 1726693619,
+        "narHash": "sha256-h0vF2Rc7gbdFZFWHWt2cOu7kfo/rWK435vNv08pVq44=",
+        "owner": "Bvngee",
+        "repo": "nixpkgs",
+        "rev": "6279e2360464fefc72a84e229d5db6336df14fb6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Bvngee",
+        "ref": "bitwarden-fix-system-auth",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "devshell": "devshell",
@@ -314,6 +330,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-bitwarden-fix": "nixpkgs-bitwarden-fix",
         "nixvim": "nixvim",
         "pnpm2nix": "pnpm2nix"
       }

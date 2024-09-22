@@ -10,6 +10,11 @@ with lib.hm.gvariant;
       last-window-size = mkTuple [ 1541 875 ];
     };
 
+    "org/gnome/Extensions" = {
+      window-height = 1178;
+      window-width = 1106;
+    };
+
     "org/gnome/Geary" = {
       images-trusted-domains = [ "ui.com" ];
       migrated-config = true;
@@ -55,12 +60,14 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/input-sources" = {
+      mru-sources = [ (mkTuple [ "xkb" "gb" ]) ];
       sources = [ (mkTuple [ "xkb" "gb" ]) ];
       xkb-options = [ "caps:escape" ];
     };
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      gtk-enable-primary-paste = false;
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
@@ -113,6 +120,15 @@ with lib.hm.gvariant;
       theme-name = "__custom";
     };
 
+    "org/gnome/epiphany" = {
+      ask-for-default = false;
+    };
+
+    "org/gnome/epiphany/state" = {
+      is-maximized = false;
+      window-size = mkTuple [ 1024 768 ];
+    };
+
     "org/gnome/evolution-data-server" = {
       migrated = true;
     };
@@ -139,6 +155,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
+      disable-user-extensions = false;
+      disabled-extensions = [ "trayIconsReloaded@selfmade.pl" "apps-menu@gnome-shell-extensions.gcampax.github.com" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "org.gnome.Geary.desktop" "org.gnome.Calendar.desktop" ];
       last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "46.4";
@@ -146,6 +165,10 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/world-clocks" = {
       locations = [];
+    };
+
+    "org/gnome/tweaks" = {
+      show-extensions-notice = false;
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {

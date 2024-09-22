@@ -63,5 +63,11 @@
     dconf2nix
     mangohud
     gamemode
+    bitwarden-desktop
+    gnomeExtensions.appindicator
+    gnome-tweaks
   ];
+  services.udev.packages = [ pkgs.gnome-settings-daemon ];
+
+  security.polkit.enable = true;
 }
