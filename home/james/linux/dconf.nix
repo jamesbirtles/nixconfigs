@@ -5,9 +5,21 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/Console" = {
+      last-window-maximised = false;
+      last-window-size = mkTuple [ 1541 875 ];
+    };
+
+    "org/gnome/Geary" = {
+      images-trusted-domains = [ "ui.com" ];
+      migrated-config = true;
+      window-height = 1423;
+      window-width = 2006;
+    };
+
     "org/gnome/control-center" = {
-      last-panel = "display";
-      window-state = mkTuple [ 1503 970 true ];
+      last-panel = "multitasking";
+      window-state = mkTuple [ 1503 970 false ];
     };
 
     "org/gnome/desktop/app-folders" = {
@@ -57,6 +69,18 @@ with lib.hm.gvariant;
       application-children = [ "org-gnome-settings" "org-gnome-nautilus" ];
     };
 
+    "org/gnome/desktop/notifications/application/firefox" = {
+      application-id = "firefox.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/gnome-power-panel" = {
+      application-id = "gnome-power-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-geary" = {
+      application-id = "org.gnome.Geary.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
       application-id = "org.gnome.Nautilus.desktop";
     };
@@ -84,20 +108,39 @@ with lib.hm.gvariant;
       secondary-color = "#000000";
     };
 
+    "org/gnome/desktop/sound" = {
+      event-sounds = true;
+      theme-name = "__custom";
+    };
+
     "org/gnome/evolution-data-server" = {
       migrated = true;
     };
 
     "org/gnome/mutter" = {
+      dynamic-workspaces = true;
       experimental-features = [ "scale-monitor-framebuffer" ];
+      workspaces-only-on-primary = true;
     };
 
     "org/gnome/nautilus/preferences" = {
+      default-folder-viewer = "icon-view";
       migrated-gtk-settings = true;
+      search-filter-time-type = "last_modified";
+    };
+
+    "org/gnome/nautilus/window-state" = {
+      initial-size = mkTuple [ 890 550 ];
+    };
+
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = false;
+      night-light-temperature = mkUint32 3652;
     };
 
     "org/gnome/shell" = {
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "org.gnome.Geary.desktop" "org.gnome.Calendar.desktop" ];
+      last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "46.4";
     };
 
