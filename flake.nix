@@ -26,7 +26,17 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, nixvim, pnpm2nix, nixos-hardware, firefox-gnome-theme, ... }: {
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    darwin,
+    home-manager,
+    nixvim,
+    pnpm2nix,
+    nixos-hardware,
+    firefox-gnome-theme,
+    ...
+  }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
       specialArgs = {

@@ -15,12 +15,11 @@
   };
 
   home-manager.extraSpecialArgs = {
-    firefox-gnome-theme = firefox-gnome-theme;
+    inherit firefox-gnome-theme;
   };
   home-manager.users.james = {
     home.stateVersion = "23.11";
     xdg.enable = true;
-
 
     imports = [
       ../accounts.nix
