@@ -27,37 +27,38 @@
       undofile = true;
       wrap = true;
       winhl = "NormalFloat:PMenu";
+      scroll = 10;
     };
 
     keymaps = [
-      { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; } # Toggle neotree
-      { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; } # Show file explorer
-      { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; } # Show buffer explorer
+      { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; options = { desc = "Toggle Neotree"; }; }
+      { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; options = { desc = "Show file explorer"; }; }
+      { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; options = { desc = "Show buffer explorer"; }; }
       { key = "<leader>p"; action = "<Nop>"; } # Make <leader>p do nothing so that if we linger on the rest of the command it doesn't paste
-      { key = "<leader>pp"; action = ":Telescope resume<CR>"; } # Resume last telescope query
-      { key = "<leader>pg"; action = ":Telescope git_files<CR>"; } # Fuzzy find git files
-      { key = "<leader>pf"; action = ":Telescope find_files<CR>"; } # Fuzzy find project files
-      { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; } # Search in project
-      { key = "<leader>pr"; action = "<cmd>lua require('spectre').toggle()<CR>"; } # Replace in project
-      { key = "<leader>lg"; action = ":LazyGit<CR>"; } # Open lazy git
-      { key = "<leader>pw"; action = "viwpgvy"; } # Paste over word
-      { key = "<leader>y"; action = "\"+y"; } # Copy to system clipboard
-      { key = "<leader>v"; action = "\"+p"; } # Paste from system clipboard
-      { key = "<leader>w"; action = "<cmd>w<CR>"; } # Save file
+      { key = "<leader>pp"; action = ":Telescope resume<CR>"; options = { desc = "Resume last telescope query"; }; }
+      { key = "<leader>pg"; action = ":Telescope git_files<CR>"; options = { desc = "Fuzzy find git file"; }; }
+      { key = "<leader>pf"; action = ":Telescope find_files<CR>"; options = { desc = "Fuzzy find project files"; }; }
+      { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; options = { desc = "Find in project"; }; }
+      { key = "<leader>pr"; action = "<cmd>lua require('spectre').toggle()<CR>"; options = { desc = "Find and replace in project"; }; }
+      { key = "<leader>lg"; action = ":LazyGit<CR>"; options = { desc = "Open Lazygit in floating window"; }; }
+      { key = "<leader>pw"; action = "viwpgvy"; options = { desc = "Paste over word"; }; }
+      { key = "<leader>y"; action = "\"+y"; options = { desc = "Copy to system clipboard"; }; }
+      { key = "<leader>v"; action = "\"+p"; options = { desc = "Paste from system clipboard"; }; }
+      { key = "<leader>w"; action = "<cmd>w<CR>"; options = { desc = "Save file"; }; }
       { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
 
       # LSP Mappings
       { key = "K"; action = "<cmd>lua vim.lsp.buf.hover()<CR>"; }
-      { key = "ga"; action = "<cmd>lua vim.lsp.buf.code_action()<CR>"; }
-      { key = "gd"; action = ":Telescope lsp_definitions<CR>"; }
-      { key = "gt"; action = ":Telescope lsp_type_definitions<CR>"; }
+      { key = "ga"; action = "<cmd>lua vim.lsp.buf.code_action()<CR>"; options = { desc = "Code Actions"; }; }
+      { key = "gd"; action = ":Telescope lsp_definitions<CR>"; options = { desc = "Definition"; }; }
+      { key = "gt"; action = ":Telescope lsp_type_definitions<CR>"; options = { desc = "Type Definition"; }; }
       # When in neovim 11, I belive these should be: 
       # { key = "gn"; action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>"; }
       # { key = "gp"; action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>"; }
-      { key = "gn"; action = "<cmd>lua vim.diagnostic.goto_next()<CR>"; }
-      { key = "gp"; action = "<cmd>lua vim.diagnostic.goto_prev()<CR>"; }
-      { key = "gi"; action = ":Telescope lsp_references<CR>"; }
-      { key = "gr"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; }
+      { key = "gn"; action = "<cmd>lua vim.diagnostic.goto_next()<CR>"; options = { desc = "Next diagnostic"; }; }
+      { key = "gp"; action = "<cmd>lua vim.diagnostic.goto_prev()<CR>"; options = { desc = "Previous diagnostic"; }; }
+      { key = "gi"; action = ":Telescope lsp_references<CR>"; options = { desc = "References"; }; }
+      { key = "gr"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; options = { desc = "Rename"; }; }
 
       # Keep current clipboard contents when pasting over selection
       { mode = "x"; key = "p"; action = "pgvy"; }
@@ -244,6 +245,18 @@
         settings = {
           default.replace.cmd = "oxi";
           live_update = true;
+        };
+      };
+      mini = {
+        enable = true;
+        modules = {
+          clue = {
+            triggers = [
+              { mode = "n"; keys = "<leader>"; }
+              { mode = "n"; keys = "g"; }
+            ];
+          };
+          surround = {};
         };
       };
     };
