@@ -100,6 +100,14 @@
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd
+        {
+          nixpkgs.overlays = [
+            (final: prev: {
+              inherit (nixpkgs-bitwarden-fix.legacyPackages.${prev.system})
+                bitwarden-desktop;
+            })
+          ];
+        }
       ];
     };
   };

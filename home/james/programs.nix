@@ -43,7 +43,7 @@ in
       };
       font = {
         size = lib.mkDefault 13;
-        normal = { family = "BerkeleyMono Nerd Font"; style = "Regular"; };
+        normal = { family = lib.mkDefault "BerkeleyMono Nerd Font"; style = "Regular"; };
       };
       colors = {
         transparent_background_colors = true;

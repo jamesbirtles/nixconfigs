@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   nix.settings.trusted-users = [ "root" "@wheel" ];
-  nixpkgs.config.allowUnfree = true;
 
   boot.kernelPackages = pkgs.linuxPackages_6_11;
 
