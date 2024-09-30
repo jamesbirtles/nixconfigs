@@ -71,7 +71,12 @@ in
     ];
   };
   programs.gpg.enable = true;
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+    };
+  };
 
   programs.lazygit = {
     enable = true;

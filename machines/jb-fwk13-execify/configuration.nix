@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, outPath, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -7,4 +7,21 @@
   networking.hostName = "jb-fwk13-execify"; 
 
   system.stateVersion = "24.05";
+
+  services.clamav.daemon.enable = true;
+  services.clamav.scanner.enable = true;
+  services.clamav.updater.enable = true;
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
+  };
 }

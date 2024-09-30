@@ -89,6 +89,7 @@
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
+        outPath = self.outPath;
       };
       modules = [
         ./machines/jb-fwk13-execify/hardware-configuration.nix
@@ -97,6 +98,7 @@
         ./shared-linux.nix
         ./home/james/linux/default.nix
         ./vim.nix
+        ./apps/drata-agent.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd

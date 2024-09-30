@@ -25,6 +25,7 @@
       ../programs.nix
       ./dconf.nix
       ./programs.nix
+      ./execify.nix
     ];
   };
 }
