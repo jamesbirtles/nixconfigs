@@ -69,4 +69,9 @@
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
   security.polkit.enable = true;
+
+  # Allows zoom to find xdg-desktop-portal to allow for screensharing
+  systemd.tmpfiles.rules = [
+    "L+ /usr/libexec/xdg-desktop-portal - - - - ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"
+  ];
 }
