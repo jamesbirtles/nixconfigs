@@ -14,6 +14,7 @@
     lg = "lazygit";
     nb = "sudo nixos-rebuild switch --flake .#";
     kit = "zellij --layout sveltekit";
+    mkit = "zellij --layout sveltekit-mini";
   };
 
   programs.zsh = {
