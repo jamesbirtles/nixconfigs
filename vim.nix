@@ -197,6 +197,7 @@
         suggestion.enabled = false;
       };
       copilot-cmp.enable = true;
+      copilot-chat.enable = true;
       fidget.enable = true;
       git-conflict.enable = true;
       gitsigns.enable = true;
@@ -259,6 +260,7 @@
           surround = {};
         };
       };
+      web-devicons.enable = true;
     };
   };
 }
