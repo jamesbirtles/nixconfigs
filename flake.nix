@@ -25,6 +25,7 @@
     firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
     # Has fix for bitwarden system auth - https://github.com/NixOS/nixpkgs/pull/339384
     nixpkgs-bitwarden-fix.url = "github:Bvngee/nixpkgs/bitwarden-fix-system-auth";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
 
@@ -38,6 +39,7 @@
     nixos-hardware,
     firefox-gnome-theme,
     nixpkgs-bitwarden-fix,
+    nix-vscode-extensions,
     ...
   }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
@@ -62,6 +64,7 @@
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
+        vscode-extensions = nix-vscode-extensions.vscode-marketplace;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -90,6 +93,7 @@
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
         outPath = self.outPath;
+        vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
       };
       modules = [
         ./machines/jb-fwk13-execify/hardware-configuration.nix

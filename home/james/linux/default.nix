@@ -1,4 +1,4 @@
-{ pkgs, firefox-gnome-theme, ...}:
+{ pkgs, firefox-gnome-theme, vscode-extensions, ...}:
 {
   imports = [
     ../../config.nix
@@ -14,7 +14,7 @@
   };
 
   home-manager.extraSpecialArgs = {
-    inherit firefox-gnome-theme;
+    inherit firefox-gnome-theme vscode-extensions;
   };
   home-manager.users.james = {
     home.stateVersion = "23.11";
