@@ -102,7 +102,7 @@
               })
             '';
           };
-          ts-ls.enable = true;
+          ts_ls.enable = true;
           # tsserver.extraOptions.init_options = {
           #   # Enable to debug the tsserver, logs are put in .logs in the workspace
           #   # tsserver.logVerbosity = "normal";
@@ -143,7 +143,7 @@
           html.enable = true;
           graphql.enable = true;
           cssls.enable = true;
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installCargo = false;
             installRustc = false;
