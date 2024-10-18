@@ -86,6 +86,14 @@
     '';
 
     plugins = {
+      typescript-tools = {
+        enable = true;
+        settings = {
+          tsserverMaxMemory = 8192;
+          separateDiagnosticServer = false;
+          exposeAsCodeAction = "all";
+        };
+      };
       lsp = {
         enable = true;
         servers = {
@@ -102,7 +110,6 @@
               })
             '';
           };
-          ts_ls.enable = true;
           # tsserver.extraOptions.init_options = {
           #   # Enable to debug the tsserver, logs are put in .logs in the workspace
           #   # tsserver.logVerbosity = "normal";
