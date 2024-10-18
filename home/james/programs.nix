@@ -91,7 +91,7 @@ in
   programs.zoxide.enable = true;
   programs.eza = {
     enable = true;
-    icons = true;
+    icons = "auto";
     git = true;
   };
   programs.btop.enable = true;
