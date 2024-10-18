@@ -170,6 +170,7 @@
       neo-tree = {
         enable = true;
         closeIfLastWindow = true;
+        filesystem.followCurrentFile.enabled = true;
       };
       telescope = {
         enable = true;
