@@ -22,6 +22,7 @@
         "asvetliakov.vscode-neovim" = 1;
       };
       "svelte.enable-ts-plugin" = true;
+      "typescript.tsserver.maxTsServerMemory" = 4096;
     };
   };
 }
