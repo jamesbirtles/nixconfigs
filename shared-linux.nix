@@ -3,6 +3,7 @@
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_11;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.networkmanager.enable = true;
 
