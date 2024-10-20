@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 {
   nix.settings.trusted-users = [ "root" "@wheel" ];
+  nix.gc = {
+    automatic = true;
+    randomizedDelaySec = "14m";
+    options = "--delete-older-than 10d";
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_6_11;
   boot.loader.systemd-boot.configurationLimit = 10;
