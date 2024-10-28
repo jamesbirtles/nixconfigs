@@ -44,6 +44,7 @@
   services.fprintd.enable = true;
 
   virtualisation.docker.enable = true;
+  services.redis.servers."".enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
