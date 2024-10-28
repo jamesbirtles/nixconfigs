@@ -143,7 +143,10 @@
           #     }
           #   ];
           # };
-          tailwindcss.enable = true;
+          tailwindcss = {
+            enable = true;
+            filetypes = ["svelte" "html" "css" "postcss" "typescriptreact" "javascriptreact"];
+          };
           eslint.enable = true;
           yamlls.enable = true;
           jsonls.enable = true;
@@ -170,7 +173,10 @@
       neo-tree = {
         enable = true;
         closeIfLastWindow = true;
-        filesystem.followCurrentFile.enabled = true;
+        filesystem.followCurrentFile = {
+          enabled = true;
+          leaveDirsOpen = true;
+        };
       };
       telescope = {
         enable = true;
