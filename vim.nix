@@ -89,9 +89,11 @@
       typescript-tools = {
         enable = true;
         settings = {
-          tsserverMaxMemory = 8192;
-          separateDiagnosticServer = false;
-          exposeAsCodeAction = "all";
+          settings = {
+            tsserver_max_memory = 8192;
+            separate_diagnostic_server = false;
+            expose_as_code_action = "all";
+          };
         };
       };
       lsp = {
