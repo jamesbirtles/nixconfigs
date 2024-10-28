@@ -28,6 +28,7 @@
       wrap = true;
       winhl = "NormalFloat:PMenu";
       scroll = 10;
+      splitright = true;
     };
 
     keymaps = [
@@ -59,6 +60,8 @@
       { key = "gp"; action = "<cmd>lua vim.diagnostic.goto_prev()<CR>"; options = { desc = "Previous diagnostic"; }; }
       { key = "gi"; action = ":Telescope lsp_references<CR>"; options = { desc = "References"; }; }
       { key = "gr"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; options = { desc = "Rename"; }; }
+      # Open in a vsplit
+      { key = "gvd"; action = ":vsplit | lua vim.lsp.buf.definition()<CR>"; options = { desc = "Definition in vsplit"; }; }
 
       # Keep current clipboard contents when pasting over selection
       { mode = "x"; key = "p"; action = "pgvy"; }
