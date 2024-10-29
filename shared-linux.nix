@@ -65,7 +65,7 @@
   fonts.fontDir.enable = true;
 
   environment.systemPackages = with pkgs; [
-    wl-clipboard-rs
+    wl-clipboard
     dconf2nix
     mangohud
     gamemode
