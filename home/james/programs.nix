@@ -35,7 +35,9 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
-      import = [ "${pkgs.alacritty-theme}/ayu_dark.toml" ];
+      general = {
+        import = [ "${pkgs.alacritty-theme}/ayu_dark.toml" ];
+      };
       window = {
         opacity = 1;
         blur = true;
