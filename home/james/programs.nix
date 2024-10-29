@@ -264,5 +264,46 @@ in
       }
     }
   '';
+  xdg.configFile."zellij/layouts/execify.kdl".text = ''
+    layout {
+      default_tab_template {
+        pane size=1 borderless=true {
+          plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+          plugin location="zellij:status-bar"
+        }
+      }
+      tab name="Editor" focus=true {
+        pane {
+          name "Editor"
+          focus true
+          command "vim"
+        }
+      }
+      tab name="Lazygit" {
+        pane {
+          name "Lazygit"
+          command "lazygit"
+        }
+      }
+      tab name="Server" {
+        pane split_direction="vertical" {
+          pane name="Vite Dev" {
+            command "npm"
+            args "run" "dev"
+          }
+          pane name="ngrok" {
+            command "ngrok"
+            args "http" "5173" "--domain" "execify-james.ngrok.dev"
+          }
+        }
+      }
+      tab name="Scratch" {
+        pane name="Scratch"
+      }
+    }
+  '';
 }
 

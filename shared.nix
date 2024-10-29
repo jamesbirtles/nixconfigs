@@ -15,6 +15,7 @@
     nb = "sudo nixos-rebuild switch --flake .#";
     kit = "zellij --layout sveltekit";
     mkit = "zellij --layout sveltekit-mini";
+    execify = "zellij --layout execify";
   };
 
   programs.zsh = {
