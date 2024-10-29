@@ -7,5 +7,8 @@
     zoom-us
     zed-editor
     vscode.fhs
+    ngrok
+    nodejs_22
+    corepack_22
   ];
 }
