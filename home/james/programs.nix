@@ -71,6 +71,7 @@ in
       ".Spotlight-V100"
       ".Trashes"
     ];
+    lfs.enable = true;
   };
   programs.gpg.enable = true;
   programs.gh = {
