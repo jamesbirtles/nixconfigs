@@ -103,6 +103,7 @@
         ./home/james/linux/default.nix
         ./vim.nix
         ./apps/drata-agent.nix
+        ./apps/zen-browser.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd
