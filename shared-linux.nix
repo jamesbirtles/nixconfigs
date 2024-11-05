@@ -43,6 +43,13 @@
   services.fwupd.enable = true;
   services.fprintd.enable = true;
 
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "65536";
+  }];
+
   virtualisation.docker.enable = true;
   services.redis.servers."".enable = true;
 

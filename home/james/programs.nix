@@ -276,12 +276,8 @@ in
           plugin location="zellij:status-bar"
         }
       }
-      tab name="Editor" focus=true {
-        pane {
-          name "Editor"
-          focus true
-          command "vim"
-        }
+      tab name="Scratch" {
+        pane name="Scratch"
       }
       tab name="Lazygit" {
         pane {
@@ -300,9 +296,6 @@ in
             args "http" "5173" "--domain" "execify-james.ngrok.dev"
           }
         }
-      }
-      tab name="Scratch" {
-        pane name="Scratch"
       }
     }
   '';
