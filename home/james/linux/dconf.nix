@@ -5,9 +5,19 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "ca/desrt/dconf-editor" = {
+      saved-pathbar-path = "/org/gnome/";
+      saved-view = "/org/gnome/";
+      window-height = 500;
+      window-is-maximized = false;
+      window-width = 540;
+    };
+
     "org/gnome/Console" = {
+      custom-font = "BerkeleyMono Nerd Font 10";
       last-window-maximised = false;
       last-window-size = mkTuple [ 1541 875 ];
+      use-system-font = false;
     };
 
     "org/gnome/Extensions" = {
@@ -16,10 +26,29 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/Geary" = {
+      ask-open-attachment = true;
+      compose-as-html = true;
+      formatting-toolbar-visible = false;
       images-trusted-domains = [ "ui.com" ];
       migrated-config = true;
+      optional-plugins = [ "sent-sound" ];
+      run-in-background = true;
       window-height = 1423;
+      window-maximize = true;
       window-width = 2006;
+    };
+
+    "org/gnome/TextEditor" = {
+      last-save-directory = "file:///home/james/Documents";
+    };
+
+    "org/gnome/baobab/ui" = {
+      is-maximized = false;
+      window-size = mkTuple [ 960 600 ];
+    };
+
+    "org/gnome/calendar" = {
+      active-view = "month";
     };
 
     "org/gnome/control-center" = {
@@ -73,7 +102,20 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-settings" "org-gnome-nautilus" ];
+      application-children = [ "org-gnome-settings" "org-gnome-nautilus" "org-gnome-geary" ];
+      show-banners = true;
+    };
+
+    "org/gnome/desktop/notifications/application/bitwarden" = {
+      application-id = "bitwarden.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/code-url-handler" = {
+      application-id = "code-url-handler.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/dev-zed-zed" = {
+      application-id = "dev.zed.Zed.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -82,6 +124,22 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
       application-id = "gnome-power-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-baobab" = {
+      application-id = "org.gnome.baobab.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-characters" = {
+      application-id = "org.gnome.Characters.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-console" = {
+      application-id = "org.gnome.Console.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" = {
+      application-id = "org.gnome.Evolution-alarm-notify.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-geary" = {
@@ -96,8 +154,17 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Settings.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/slack" = {
+      application-id = "slack.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/zoom" = {
+      application-id = "Zoom.desktop";
+    };
+
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
+      speed = -0.1578947368421053;
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
@@ -115,22 +182,27 @@ with lib.hm.gvariant;
       secondary-color = "#000000";
     };
 
+    "org/gnome/desktop/search-providers" = {
+      sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+    };
+
     "org/gnome/desktop/sound" = {
       event-sounds = true;
       theme-name = "__custom";
     };
 
-    "org/gnome/epiphany" = {
-      ask-for-default = false;
+    "org/gnome/file-roller/listing" = {
+      list-mode = "as-folder";
+      name-column-width = 65;
+      show-path = false;
+      sort-method = "name";
+      sort-type = "ascending";
     };
 
-    "org/gnome/epiphany/state" = {
-      is-maximized = false;
-      window-size = mkTuple [ 1024 768 ];
-    };
-
-    "org/gnome/evolution-data-server" = {
-      migrated = true;
+    "org/gnome/file-roller/ui" = {
+      sidebar-width = 200;
+      window-height = 480;
+      window-width = 600;
     };
 
     "org/gnome/mutter" = {
@@ -149,6 +221,23 @@ with lib.hm.gvariant;
       initial-size = mkTuple [ 890 550 ];
     };
 
+    "org/gnome/nm-applet/eap/ac2f5a5d-155c-42f8-80fc-b3b8ae48d686" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/portal/filechooser/1password" = {
+      last-folder-path = "/home/james/Downloads";
+    };
+
+    "org/gnome/portal/filechooser/chromium-browser" = {
+      last-folder-path = "/home/james/code/Execify/main-app/tracing_output_folder";
+    };
+
+    "org/gnome/portal/filechooser/slack" = {
+      last-folder-path = "/home/james/Pictures";
+    };
+
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = false;
       night-light-temperature = mkUint32 3652;
@@ -158,13 +247,19 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disabled-extensions = [ "trayIconsReloaded@selfmade.pl" "apps-menu@gnome-shell-extensions.gcampax.github.com" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "org.gnome.Geary.desktop" "org.gnome.Calendar.desktop" ];
+      favorite-apps = [ "zen.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "cursor.desktop" "org.gnome.Geary.desktop" ];
       last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "46.4";
     };
 
     "org/gnome/shell/world-clocks" = {
       locations = [];
+    };
+
+    "org/gnome/software" = {
+      check-timestamp = mkInt64 1730712804;
+      first-run = false;
+      flatpak-purge-timestamp = mkInt64 1730640112;
     };
 
     "org/gnome/tweaks" = {
