@@ -79,6 +79,7 @@
     bitwarden-desktop
     gnomeExtensions.appindicator
     gnome-tweaks
+    jq
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
 

@@ -5,6 +5,12 @@ let
     asvetliakov.vscode-neovim
     dbaeumer.vscode-eslint
     esbenp.prettier-vscode
+    usernamehw.errorlens
+    bbenoist.nix
+    joshmu.periscope
+    tompollak.lazygit-vscode
+    vscode-icons-team.vscode-icons
+    bradlc.vscode-tailwindcss
   ];
 
   codeSettings = {
@@ -13,11 +19,26 @@ let
     "editor.fontLigatures" = false;
     "editor.defaultFormatter" = "esbenp.prettier-vscode";
     "editor.formatOnSave" = true;
+    "editor.lineNumbers" = "relative";
+    "workbench.iconTheme" = "vscode-icons";
+    "workbench.colorCustomizations" = {
+      "editor.lineHighlightBackground" = "#262626";
+    };
+    "files.trimTrailingWhitespace" = true;
 
     "extensions.ignoreRecommendations" = true;
     "extensions.experimental.affinity" = {
       "asvetliakov.vscode-neovim" = 1;
     };
+
+    "problems.autoReveal" = false;
+    "problems.defaultViewMode" = "table";
+    "problems.sortOrder" = "position";
+
+    "errorLens.gutterIconsEnabled" = true;
+    "errorLens.gutterIconSet" = "defaultOutline";
+    "errorLens.statusBarColorsEnabled" = true;
+    "errorLens.statusBarMessageEnabled" = true;
 
     "svelte.enable-ts-plugin" = true;
     "svelte.plugin.svelte.defaultScriptLanguage" = "ts";
@@ -37,31 +58,34 @@ let
     "typescript.tsserver.maxTsServerMemory" = 1024 * 8;
 
     "eslint.run" = "onSave";
+
+    "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
+
+    "lazygit-vscode.lazygitPath" = "${pkgs.lazygit}/bin/lazygit";
   };
 in
 {
 
+  programs.code-cursor = {
+    enable = true;
+    extensions = codeExtensions;
+    userSettings = codeSettings;
+  };
   programs.vscode = {
     enable = true;
     extensions = with vscode-extensions; [
       ms-vsliveshare.vsliveshare
-      # z4yross.anysphere-dark
       gustavoprietodepaula.anysphere-modern
     ] ++ codeExtensions;
     userSettings = lib.mkMerge [
       codeSettings
       {
         # Match cursor defaults
-        "workbench.activityBar.location" = "top";
         "workbench.colorTheme" = "Anysphere Modern";
+        "workbench.activityBar.location" = "top";
         "window.titleBarStyle" = "custom";
       }
     ];
-  };
-  programs.code-cursor = {
-    enable = true;
-    extensions = codeExtensions;
-    userSettings = codeSettings;
   };
 
   programs.obs-studio = {
