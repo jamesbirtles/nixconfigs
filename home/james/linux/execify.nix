@@ -8,8 +8,8 @@
     zed-editor
     vscode.fhs
     ngrok
-    nodejs_22
-    corepack_22
+    nodejs_20
+    corepack_20
     code-cursor
   ];
 }
