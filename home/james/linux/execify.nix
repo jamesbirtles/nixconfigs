@@ -6,10 +6,8 @@
     _1password-gui
     zoom-us
     zed-editor
-    vscode.fhs
     ngrok
     nodejs_20
     corepack_20
-    code-cursor
   ];
 }

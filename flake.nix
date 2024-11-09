@@ -64,7 +64,7 @@
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
-        vscode-extensions = nix-vscode-extensions.vscode-marketplace;
+        vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -73,6 +73,7 @@
         ./shared-linux.nix
         ./home/james/linux
         ./vim.nix
+        ./apps/zen-browser.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd

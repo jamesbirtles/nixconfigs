@@ -24,6 +24,7 @@
       ../accounts.nix
       ../programs.nix
       ./dconf.nix
+      ./cursor.nix
       ./programs.nix
       ./execify.nix
     ];
