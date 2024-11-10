@@ -21,6 +21,7 @@ let
     "editor.formatOnSave" = true;
     "editor.lineNumbers" = "relative";
     "workbench.iconTheme" = "vscode-icons";
+    "workbench.activityBar.location" = "bottom";
     "workbench.colorCustomizations" = {
       "editor.lineHighlightBackground" = "#262626";
     };
@@ -62,7 +63,13 @@ let
     "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
 
     "lazygit-vscode.lazygitPath" = "${pkgs.lazygit}/bin/lazygit";
+    "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
   };
+
+  codeKeybinds = [
+    { key = "space"; command = "vscode-neovim.send"; args = "<space>"; when = "filesExplorerFocus"; }
+    { key = "B"; command = "vscode-neovim.send"; args = "b"; when = "filesExplorerFocus"; }
+  ];
 in
 {
 
@@ -70,6 +77,8 @@ in
     enable = true;
     extensions = codeExtensions;
     userSettings = codeSettings;
+    keybindings = codeKeybinds;
+    mutableExtensionsDir = false;
   };
   programs.vscode = {
     enable = true;
@@ -82,10 +91,11 @@ in
       {
         # Match cursor defaults
         "workbench.colorTheme" = "Anysphere Modern";
-        "workbench.activityBar.location" = "top";
         "window.titleBarStyle" = "custom";
       }
     ];
+    keybindings = codeKeybinds;
+    mutableExtensionsDir = false;
   };
 
   programs.obs-studio = {
