@@ -2,12 +2,12 @@
 let
 
   pname = "zen";
-  version = "1.0.1-a.17";
+  version = "1.0.1-a.19";
   name = "${pname}-${version}";
 
   src = pkgs.fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/${pname}-specific.AppImage";
-    hash = "sha256-gvaIaMn6FHa3X/9TJQAtV1p1qjyfmhQlr7X59C2s+tY=";
+    hash = "sha256-qAPZ4VyVmeZLRfL0kPHF75zyrSUFHKQUSUcpYKs3jk8=";
   };
 
   appimageContents = pkgs.appimageTools.extractType2 { inherit name src; };
