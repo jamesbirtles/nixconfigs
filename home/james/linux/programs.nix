@@ -59,11 +59,10 @@ let
     "typescript.tsserver.maxTsServerMemory" = 1024 * 8;
 
     "eslint.run" = "onSave";
-
     "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
-
     "lazygit-vscode.lazygitPath" = "${pkgs.lazygit}/bin/lazygit";
     "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
+    "vsicons.dontShowNewVersionMessage" = true;
   };
 
   codeKeybinds = [
