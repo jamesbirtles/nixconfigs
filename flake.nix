@@ -26,6 +26,10 @@
     # Has fix for bitwarden system auth - https://github.com/NixOS/nixpkgs/pull/339384
     nixpkgs-bitwarden-fix.url = "github:Bvngee/nixpkgs/bitwarden-fix-system-auth";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 
@@ -40,6 +44,7 @@
     firefox-gnome-theme,
     nixpkgs-bitwarden-fix,
     nix-vscode-extensions,
+    zen-browser,
     ...
   }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
@@ -65,6 +70,7 @@
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
         vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        zen-browser = zen-browser.packages.${system}.specific;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -73,7 +79,6 @@
         ./shared-linux.nix
         ./home/james/linux
         ./vim.nix
-        ./apps/zen-browser.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd
@@ -95,6 +100,7 @@
         firefox-gnome-theme = firefox-gnome-theme;
         outPath = self.outPath;
         vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        zen-browser = zen-browser.packages.${system}.specific;
       };
       modules = [
         ./machines/jb-fwk13-execify/hardware-configuration.nix
@@ -104,7 +110,6 @@
         ./home/james/linux/default.nix
         ./vim.nix
         ./apps/drata-agent.nix
-        ./apps/zen-browser.nix
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd

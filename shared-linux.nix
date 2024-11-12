@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, zen-browser, ... }:
 {
   nix.settings.trusted-users = [ "root" "@wheel" ];
   nix.gc = {
@@ -80,6 +80,7 @@
     gnomeExtensions.appindicator
     gnome-tweaks
     jq
+    zen-browser
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
