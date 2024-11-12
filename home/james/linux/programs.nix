@@ -21,7 +21,7 @@ let
     "editor.formatOnSave" = true;
     "editor.lineNumbers" = "relative";
     "workbench.iconTheme" = "vscode-icons";
-    "workbench.activityBar.location" = "bottom";
+    "workbench.activityBar.orientation" = "vertical";
     "workbench.colorCustomizations" = {
       "editor.lineHighlightBackground" = "#262626";
     };
@@ -46,7 +46,6 @@ let
     "svelte.plugin.html.tagComplete.enable" = false;
 
     "typescript.format.enable" = false;
-    "typescript.inlayHints.functionLikeReturnTypes.enabled" = true;
     "typescript.preferences.importModuleSpecifierEnding" = "js";
     "typescript.preferences.preferTypeOnlyAutoImports" = true;
     "typescript.preferGoToSourceDefinition" = true;
