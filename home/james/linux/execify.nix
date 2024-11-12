@@ -9,5 +9,6 @@
     ngrok
     nodejs_20
     corepack_20
+    jetbrains-toolbox
   ];
 }
