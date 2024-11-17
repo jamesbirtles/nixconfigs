@@ -25,6 +25,7 @@ let
     "workbench.colorCustomizations" = {
       "editor.lineHighlightBackground" = "#262626";
     };
+    "window.experimentalControlOverlay" = false;
     "files.trimTrailingWhitespace" = true;
 
     "extensions.ignoreRecommendations" = true;

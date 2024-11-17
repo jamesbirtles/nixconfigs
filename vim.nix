@@ -193,7 +193,7 @@
         autoEnableSources = true;
         settings = {
           sources = [
-            { name = "copilot"; }
+            # { name = "copilot"; }
             { name = "nvim_lsp"; }
             { name = "path"; }
             { name = "buffer"; }
@@ -210,13 +210,13 @@
         };
       };
       dressing.enable = true;
-      copilot-lua = {
-        enable = true;
-        panel.enabled = false;
-        suggestion.enabled = false;
-      };
-      copilot-cmp.enable = true;
-      copilot-chat.enable = true;
+      # copilot-lua = {
+      #   enable = true;
+      #   panel.enabled = false;
+      #   suggestion.enabled = false;
+      # };
+      # copilot-cmp.enable = true;
+      # copilot-chat.enable = true;
       fidget.enable = true;
       git-conflict.enable = true;
       gitsigns.enable = true;
