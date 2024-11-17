@@ -135,5 +135,13 @@ in
     enable = true;
     extraConfig.general.unsafe-accounts-conf = true;
   };
+
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host *
+          IdentityAgent ~/.1password/agent.sock
+    '';
+  };
 }
 
