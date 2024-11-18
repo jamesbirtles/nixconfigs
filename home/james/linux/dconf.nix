@@ -42,6 +42,11 @@ with lib.hm.gvariant;
       last-save-directory = "file:///home/james/Documents";
     };
 
+    "org/gnome/Totem" = {
+      active-plugins = [ "vimeo" "apple-trailers" "open-directory" "screensaver" "autoload-subtitles" "skipto" "screenshot" "movie-properties" "variable-rate" "save-file" "recent" "mpris" "rotation" ];
+      subtitle-encoding = "UTF-8";
+    };
+
     "org/gnome/baobab/ui" = {
       is-maximized = false;
       window-size = mkTuple [ 960 600 ];
@@ -49,6 +54,8 @@ with lib.hm.gvariant;
 
     "org/gnome/calendar" = {
       active-view = "month";
+      window-maximized = true;
+      window-size = mkTuple [ 768 600 ];
     };
 
     "org/gnome/control-center" = {
@@ -102,7 +109,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-settings" "org-gnome-nautilus" "org-gnome-geary" ];
+      application-children = [ "org-gnome-settings" "org-gnome-nautilus" "org-gnome-geary" "slack" ];
       show-banners = true;
     };
 
@@ -112,6 +119,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/code-url-handler" = {
       application-id = "code-url-handler.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/code" = {
+      application-id = "code.desktop";
     };
 
     "org/gnome/desktop/notifications/application/dev-zed-zed" = {
@@ -124,6 +135,14 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
       application-id = "gnome-power-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/jetbrains-fleet" = {
+      application-id = "jetbrains-fleet.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/jetbrains-toolbox" = {
+      application-id = "jetbrains-toolbox.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-baobab" = {
@@ -158,13 +177,17 @@ with lib.hm.gvariant;
       application-id = "slack.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/zen" = {
+      application-id = "zen.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/zoom" = {
       application-id = "Zoom.desktop";
     };
 
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
-      speed = -0.1578947368421053;
+      speed = -0.157895;
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
@@ -189,6 +212,10 @@ with lib.hm.gvariant;
     "org/gnome/desktop/sound" = {
       event-sounds = true;
       theme-name = "__custom";
+    };
+
+    "org/gnome/evolution-data-server" = {
+      migrated = true;
     };
 
     "org/gnome/file-roller/listing" = {
@@ -219,6 +246,7 @@ with lib.hm.gvariant;
 
     "org/gnome/nautilus/window-state" = {
       initial-size = mkTuple [ 890 550 ];
+      initial-size-file-chooser = mkTuple [ 890 550 ];
     };
 
     "org/gnome/nm-applet/eap/ac2f5a5d-155c-42f8-80fc-b3b8ae48d686" = {
@@ -240,6 +268,7 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = false;
+      night-light-schedule-automatic = false;
       night-light-temperature = mkUint32 3652;
     };
 
@@ -277,6 +306,10 @@ with lib.hm.gvariant;
       type-format = "category";
       view-type = "list";
       window-size = mkTuple [ 859 366 ];
+    };
+
+    "org/gtk/settings/color-chooser" = {
+      selected-color = mkTuple [ true 0.9607843137254902 0.7607843137254902 6.666666666666667e-2 1.0 ];
     };
 
     "org/gtk/settings/file-chooser" = {
