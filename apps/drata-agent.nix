@@ -22,6 +22,4 @@ let
     '';
   };
 in
-{
-  environment.systemPackages = [ drata-agent ];
-}
+  drata-agent
