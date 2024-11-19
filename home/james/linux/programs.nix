@@ -66,12 +66,11 @@ let
   };
 
   codeKeybinds = [
-    { key = "space"; command = "vscode-neovim.send"; args = "<space>"; when = "filesExplorerFocus"; }
-    { key = "B"; command = "vscode-neovim.send"; args = "b"; when = "filesExplorerFocus"; }
+    { key = "space"; command = "vscode-neovim.send"; args = "<space>"; when = "filesExplorerFocus && !inputFocus"; }
+    { key = "B"; command = "vscode-neovim.send"; args = "b"; when = "filesExplorerFocus && !inputFocus"; }
   ];
 in
 {
-
   programs.code-cursor = {
     enable = true;
     extensions = codeExtensions;
