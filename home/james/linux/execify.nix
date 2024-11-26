@@ -17,6 +17,7 @@ in
     corepack_20
     jetbrains-toolbox
     drata-agent
+    stripe-cli
   ];
   home.file = builtins.listToAttrs (map
     (pkg:
