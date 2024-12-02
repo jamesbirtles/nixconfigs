@@ -23,6 +23,8 @@ in
     (pkg:
       {
         name = ".config/autostart/" + pkg.pname + ".desktop";
+        # I'm not fussed about overwriting autostart files...
+        force = true;
         value =
           if pkg ? desktopItem then {
             # Application has a desktopItem entry.
