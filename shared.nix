@@ -23,7 +23,7 @@
   };
 
   fonts.packages = with pkgs; [
-    nerdfonts
+    nerd-fonts.fira-code
     fira-code
     fira-code-symbols
   ];

@@ -10,10 +10,10 @@ let
     hash = "sha256-ZHwQdw1XXOeiYCrRHffQXCD3uS9FnYBZcjUQah3sLzY=";
   };
 
-  appimageContents = pkgs.appimageTools.extractType2 { inherit name src; };
+  appimageContents = pkgs.appimageTools.extractType2 { inherit pname version src; };
 
   drata-agent = pkgs.appimageTools.wrapType2 rec {
-    inherit name pname version src;
+    inherit pname version src;
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
