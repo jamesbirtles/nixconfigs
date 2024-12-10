@@ -13,8 +13,6 @@ in
     zoom-us
     zed-editor
     ngrok
-    nodejs_20
-    corepack_20
     jetbrains-toolbox
     drata-agent
     stripe-cli

@@ -71,6 +71,11 @@ let
   ];
 in
 {
+  home.packages = with pkgs; [
+    nodejs_20
+    corepack_20
+  ];
+
   programs.code-cursor = {
     enable = true;
     extensions = codeExtensions;
