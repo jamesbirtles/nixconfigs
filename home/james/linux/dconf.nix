@@ -145,6 +145,10 @@ with lib.hm.gvariant;
       application-id = "jetbrains-toolbox.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/microsoft-edge" = {
+      application-id = "microsoft-edge.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-baobab" = {
       application-id = "org.gnome.baobab.desktop";
     };
@@ -276,7 +280,7 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disabled-extensions = [ "trayIconsReloaded@selfmade.pl" "apps-menu@gnome-shell-extensions.gcampax.github.com" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "zen.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "cursor.desktop" "org.gnome.Geary.desktop" ];
+      favorite-apps = [ "microsoft-edge.desktop" "slack.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "cursor.desktop" "org.gnome.Geary.desktop" ];
       last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "46.4";
     };
