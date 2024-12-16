@@ -85,6 +85,7 @@
     gnome-tweaks
     jq
     zen-browser
+    microsoft-edge
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
