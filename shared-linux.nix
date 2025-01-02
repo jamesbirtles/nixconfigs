@@ -86,6 +86,7 @@
     jq
     zen-browser
     microsoft-edge
+    ghostty
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
