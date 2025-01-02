@@ -70,7 +70,7 @@
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
         vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-        zen-browser = zen-browser.packages.${system}.specific;
+        zen-browser = zen-browser.packages.${system}.default;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -100,7 +100,7 @@
         firefox-gnome-theme = firefox-gnome-theme;
         outPath = self.outPath;
         vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-        zen-browser = zen-browser.packages.${system}.specific;
+        zen-browser = zen-browser.packages.${system}.default;
       };
       modules = [
         ./machines/jb-fwk13-execify/hardware-configuration.nix
