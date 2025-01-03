@@ -24,4 +24,20 @@
     dates = "02:00";
     randomizedDelaySec = "45min";
   };
+
+  # Wake up for updates and clamav scans
+  services.autosuspend = {
+    enable = true;
+    checks.LogindSessionsIdle.enabled = true;
+    wakeups.clamav = {
+      enabled = true;
+      class = "SystemdTimer";
+      match = "clamdscan";
+    };
+    wakeups.autoupgrade = {
+      enabled = true;
+      class = "SystemdTimer";
+      match = "nixos-upgrade";
+    };
+  };
 }
