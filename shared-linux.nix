@@ -79,7 +79,6 @@
     wl-clipboard
     dconf2nix
     mangohud
-    gamemode
     bitwarden-desktop
     gnomeExtensions.appindicator
     gnome-tweaks
@@ -87,8 +86,18 @@
     zen-browser
     microsoft-edge
     ghostty
+    protonup-qt
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
+  programs.gamemode.enable = true;
+  services.flatpak.enable = true;
+  systemd.services.flatpak-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
 
   security.polkit.enable = true;
 
