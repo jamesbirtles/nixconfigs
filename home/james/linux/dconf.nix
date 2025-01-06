@@ -218,6 +218,10 @@ with lib.hm.gvariant;
       theme-name = "__custom";
     };
 
+    "org/gnome/epiphany" = {
+      ask-for-default = false;
+    };
+
     "org/gnome/evolution-data-server" = {
       migrated = true;
     };
@@ -280,7 +284,7 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disabled-extensions = [ "trayIconsReloaded@selfmade.pl" "apps-menu@gnome-shell-extensions.gcampax.github.com" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "microsoft-edge.desktop" "slack.desktop" "org.gnome.Nautilus.desktop" "Alacritty.desktop" "cursor.desktop" "org.gnome.Geary.desktop" ];
+      favorite-apps = [ "microsoft-edge.desktop" "slack.desktop" "org.gnome.Nautilus.desktop" "com.mitchellh.ghostty.desktop" "cursor.desktop" "org.gnome.Geary.desktop" ];
       last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "46.4";
     };
@@ -313,7 +317,8 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/settings/color-chooser" = {
-      selected-color = mkTuple [ true 0.9607843137254902 0.7607843137254902 6.666666666666667e-2 1.0 ];
+      custom-colors = [ (mkTuple [ 0.984313725490196 0.7372549019607844 0.5333333333333333 1.0 ]) (mkTuple [ 0.960784 0.760784 6.6667e-2 1.0 ]) ];
+      selected-color = mkTuple [ true 0.960784 0.760784 6.6667e-2 1.0 ];
     };
 
     "org/gtk/settings/file-chooser" = {
