@@ -25,7 +25,6 @@ let
     "workbench.colorCustomizations" = {
       "editor.lineHighlightBackground" = "#262626";
     };
-    "window.experimentalControlOverlay" = false;
     "files.trimTrailingWhitespace" = true;
 
     "extensions.ignoreRecommendations" = true;
@@ -63,6 +62,8 @@ let
     "lazygit-vscode.lazygitPath" = "${pkgs.lazygit}/bin/lazygit";
     "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
     "vsicons.dontShowNewVersionMessage" = true;
+    "window.titleBarStyle" = "custom";
+    "window.experimentalControlOverlay" = true;
   };
 
   codeKeybinds = [
@@ -94,7 +95,6 @@ in
       {
         # Match cursor defaults
         "workbench.colorTheme" = "Anysphere Modern";
-        "window.titleBarStyle" = "custom";
       }
     ];
     keybindings = codeKeybinds;
