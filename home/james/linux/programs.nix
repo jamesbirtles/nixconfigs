@@ -73,8 +73,8 @@ let
 in
 {
   home.packages = with pkgs; [
-    nodejs_20
-    corepack_20
+    nodejs_22
+    corepack_22
   ];
 
   programs.code-cursor = {
