@@ -2,7 +2,8 @@
 let
   codeExtensions = with vscode-extensions; [
     svelte.svelte-vscode
-    asvetliakov.vscode-neovim
+    # asvetliakov.vscode-neovim
+    vscodevim.vim
     dbaeumer.vscode-eslint
     esbenp.prettier-vscode
     usernamehw.errorlens
@@ -20,6 +21,8 @@ let
     "editor.defaultFormatter" = "esbenp.prettier-vscode";
     "editor.formatOnSave" = true;
     "editor.lineNumbers" = "relative";
+    # Effectively turns off middle click paste
+    "editor.selectionClipboard" = false;
     "workbench.iconTheme" = "vscode-icons";
     "workbench.activityBar.orientation" = "vertical";
     "workbench.colorCustomizations" = {
@@ -29,7 +32,8 @@ let
 
     "extensions.ignoreRecommendations" = true;
     "extensions.experimental.affinity" = {
-      "asvetliakov.vscode-neovim" = 1;
+      # "asvetliakov.vscode-neovim" = 1;
+      "vscodevim.vim" = 1;
     };
 
     "problems.autoReveal" = false;
@@ -58,17 +62,41 @@ let
     "typescript.tsserver.maxTsServerMemory" = 1024 * 8;
 
     "eslint.run" = "onSave";
-    "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
+    # "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
+    # "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
     "lazygit-vscode.lazygitPath" = "${pkgs.lazygit}/bin/lazygit";
-    "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
     "vsicons.dontShowNewVersionMessage" = true;
     "window.titleBarStyle" = "custom";
     "window.experimentalControlOverlay" = true;
+
+    "vim.useSystemClipboard" = true;
+    "vim.highlightedyank.enable" = true;
+    "vim.leader" = " ";
+    "vim.camelCaseMotion.enable" = true;
+    "vim.normalModeKeyBindings" = [
+      { "before" = ["<leader>" "b"]; "commands" = ["workbench.action.toggleSidebarVisibility"]; }
+      { "before" = ["<leader>" "t"]; "commands" = ["workbench.action.createTerminalEditor"]; }
+      { "before" = ["<leader>" "p" "f"]; "commands" = ["workbench.action.quickOpen"]; }
+      { "before" = ["<leader>" "p" "s"]; "commands" = ["periscope.search"]; }
+      { "before" = ["<leader>" "p" "r"]; "commands" = ["workbench.action.replaceInFiles"]; }
+      { "before" = ["<leader>" "l" "g"]; "commands" = ["lazygit-vscode.toggle"]; }
+      { "before" = ["<leader>" "w"]; "commands" = ["workbench.action.files.save"]; }
+      { "before" = ["<leader>" "W"]; "commands" = ["workbench.action.files.saveAll"]; }
+      { "before" = ["g" "a"]; "commands" = ["editor.action.quickFix"]; }
+      { "before" = ["g" "n"]; "commands" = ["editor.action.marker.next"]; }
+      { "before" = ["g" "p"]; "commands" = ["editor.action.marker.prev"]; }
+      { "before" = ["g" "r"]; "commands" = ["editor.action.rename"]; }
+    ];
   };
 
   codeKeybinds = [
-    { key = "space"; command = "vscode-neovim.send"; args = "<space>"; when = "filesExplorerFocus && !inputFocus"; }
-    { key = "B"; command = "vscode-neovim.send"; args = "b"; when = "filesExplorerFocus && !inputFocus"; }
+    # { key = "space"; command = "vscode-neovim.send"; args = "<space>"; when = "filesExplorerFocus && !inputFocus"; }
+    # { key = "B"; command = "vscode-neovim.send"; args = "b"; when = "filesExplorerFocus && !inputFocus"; }
+    { key = "shift+k"; command = "editor.action.showHover"; "when" = "editorTextFocus && vim.mode == 'Normal'"; }
+    { key = "ctrl+u"; command = "editor.action.pageUpHover"; "when" = "editorHoverFocused"; }
+    { key = "ctrl+d"; command = "editor.action.pageDownHover"; "when" = "editorHoverFocused"; }
+    { key = "ctrl+n"; command = "selectNextCodeAction"; "when" = "codeActionMenuVisible"; }
+    { key = "ctrl+p"; command = "selectPrevCodeAction"; "when" = "codeActionMenuVisible"; }
   ];
 in
 {
