@@ -90,6 +90,7 @@
     ghostty
     protonup-qt
     rclone
+    parsec-bin
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
