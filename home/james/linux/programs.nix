@@ -40,10 +40,10 @@ let
     "problems.defaultViewMode" = "table";
     "problems.sortOrder" = "position";
 
-    "errorLens.gutterIconsEnabled" = true;
+    "errorLens.gutterIconsEnabled" = false;
     "errorLens.gutterIconSet" = "defaultOutline";
-    "errorLens.statusBarColorsEnabled" = true;
-    "errorLens.statusBarMessageEnabled" = true;
+    "errorLens.statusBarColorsEnabled" = false;
+    "errorLens.statusBarMessageEnabled" = false;
 
     "svelte.enable-ts-plugin" = true;
     "svelte.plugin.svelte.defaultScriptLanguage" = "ts";
@@ -57,9 +57,9 @@ let
     "typescript.suggest.jsdoc.generateReturns" = false;
     "typescript.surveys.enabled" = false;
     # This sounds like it might be intensive
-    "typescript.tsserver.experimental.enableProjectDiagnostics" = true;
-    "typescript.tsserver.nodePath" = "${pkgs.nodejs_20}/bin/node";
-    "typescript.tsserver.maxTsServerMemory" = 1024 * 8;
+    "typescript.tsserver.experimental.enableProjectDiagnostics" = false;
+    "typescript.tsserver.nodePath" = "${pkgs.nodejs_22}/bin/node";
+    "typescript.tsserver.maxTsServerMemory" = 1024 * 10;
 
     "eslint.run" = "onSave";
     # "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
@@ -97,12 +97,15 @@ let
     { key = "ctrl+d"; command = "editor.action.pageDownHover"; "when" = "editorHoverFocused"; }
     { key = "ctrl+n"; command = "selectNextCodeAction"; "when" = "codeActionMenuVisible"; }
     { key = "ctrl+p"; command = "selectPrevCodeAction"; "when" = "codeActionMenuVisible"; }
+    { key = "ctrl+n"; command = "quickInput.next"; "when" = "inQuickInput && quickInputType == 'quickPick'"; }
+    { key = "ctrl+p"; command = "quickInput.previous"; "when" = "inQuickInput && quickInputType == 'quickPick'"; }
   ];
 in
 {
   home.packages = with pkgs; [
     nodejs_22
     corepack_22
+    gnome-obfuscate
   ];
 
   programs.code-cursor = {

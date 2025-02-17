@@ -13,9 +13,9 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nix-darwin.follows = "darwin";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.home-manager.follows = "home-manager";
+      # inputs.nix-darwin.follows = "darwin";
     };
     pnpm2nix = {
       url = "github:nzbr/pnpm2nix-nzbr";
