@@ -12,6 +12,7 @@ let
     tompollak.lazygit-vscode
     vscode-icons-team.vscode-icons
     bradlc.vscode-tailwindcss
+    tamasfe.even-better-toml
   ];
 
   codeSettings = {
