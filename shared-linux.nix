@@ -89,6 +89,7 @@
     microsoft-edge
     ghostty
     protonup-qt
+    rclone
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
@@ -107,4 +108,26 @@
   systemd.tmpfiles.rules = [
     "L+ /usr/libexec/xdg-desktop-portal - - - - ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"
   ];
+
+  # In theory I could add something like this but would need to figure out storing the password
+  # instead just configure it with `rclone config`
+  # environment.etc."rclone-mnt.conf".text = ''
+  #   [myremote]
+  #   type = sftp
+  #   host = 192.0.2.2
+  #   user = myuser
+  #   key_file = /root/.ssh/id_rsa
+  # '';
+
+  fileSystems."/home/james/ProtonDrive" = {
+    device = "protondrive:";
+    fsType = "rclone";
+    options = [
+      "nodev"
+      "nofail"
+      "allow_other"
+      "args2env"
+      "config=/home/james/.config/rclone/rclone.conf"
+    ];
+  };
 }
