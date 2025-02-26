@@ -91,6 +91,7 @@
     protonup-qt
     rclone
     parsec-bin
+    prusa-slicer
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
