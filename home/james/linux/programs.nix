@@ -13,6 +13,8 @@ let
     vscode-icons-team.vscode-icons
     bradlc.vscode-tailwindcss
     tamasfe.even-better-toml
+    connor4312.esbuild-problem-matchers
+    ms-vscode.extension-test-runner
   ];
 
   codeSettings = {
