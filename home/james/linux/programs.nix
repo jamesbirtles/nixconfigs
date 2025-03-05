@@ -4,17 +4,17 @@ let
     svelte.svelte-vscode
     # asvetliakov.vscode-neovim
     vscodevim.vim
-    dbaeumer.vscode-eslint
+    # dbaeumer.vscode-eslint
     esbenp.prettier-vscode
     usernamehw.errorlens
     bbenoist.nix
     joshmu.periscope
-    tompollak.lazygit-vscode
-    vscode-icons-team.vscode-icons
     bradlc.vscode-tailwindcss
     tamasfe.even-better-toml
     connor4312.esbuild-problem-matchers
     ms-vscode.extension-test-runner
+    # tompollak.lazygit-vscode
+    # vscode-icons-team.vscode-icons
   ];
 
   codeSettings = {
@@ -51,9 +51,11 @@ let
     "svelte.enable-ts-plugin" = true;
     "svelte.plugin.svelte.defaultScriptLanguage" = "ts";
     "svelte.plugin.html.tagComplete.enable" = false;
+    "svelte.language-server.runtime" = "${pkgs.nodejs_22}/bin/node";
+    "svelte.language-server.runtime-args" = [ "--max-old-space-size=10240" ];
 
     "typescript.format.enable" = false;
-    "typescript.preferences.importModuleSpecifierEnding" = "js";
+    "typescript.preferences.importModuleSpecifierEnding" = "minimal";
     "typescript.preferences.preferTypeOnlyAutoImports" = true;
     "typescript.preferGoToSourceDefinition" = true;
     "typescript.suggest.completeFunctionCalls" = true;
@@ -63,6 +65,7 @@ let
     "typescript.tsserver.experimental.enableProjectDiagnostics" = false;
     "typescript.tsserver.nodePath" = "${pkgs.nodejs_22}/bin/node";
     "typescript.tsserver.maxTsServerMemory" = 1024 * 10;
+    "typescript.disableAutomaticTypeAcquisition" = true;
 
     "eslint.run" = "onSave";
     # "vscode-neovim.neovimInitVimPaths.linux" = ./neovim-vscode.lua;
