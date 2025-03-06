@@ -6,7 +6,7 @@
     userName = "james@birtles.dev";
     realName = "James Birtles";
     passwordCommand = "rbw get \"Migadu Email\"";
-    aerc.enable = true;
+    # aerc.enable = true;
     imap = {
       host = "imap.migadu.com";
       port = 993;

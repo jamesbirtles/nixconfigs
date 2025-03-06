@@ -172,10 +172,10 @@ in
     settings.email = "jameshbirtles@gmail.com";
     settings.pinentry = pkgs.pinentry-gnome3;
   };
-  programs.aerc = {
-    enable = true;
-    extraConfig.general.unsafe-accounts-conf = true;
-  };
+  # programs.aerc = {
+  #   enable = true;
+  #   extraConfig.general.unsafe-accounts-conf = true;
+  # };
 
   programs.ssh = {
     enable = true;
