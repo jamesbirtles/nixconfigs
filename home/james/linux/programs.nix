@@ -123,18 +123,20 @@ in
   };
   programs.vscode = {
     enable = true;
-    extensions = with vscode-extensions; [
-      ms-vsliveshare.vsliveshare
-      gustavoprietodepaula.anysphere-modern
-    ] ++ codeExtensions;
-    userSettings = lib.mkMerge [
-      codeSettings
-      {
-        # Match cursor defaults
-        "workbench.colorTheme" = "Anysphere Modern";
-      }
-    ];
-    keybindings = codeKeybinds;
+    profiles.default = {
+      extensions = with vscode-extensions; [
+        ms-vsliveshare.vsliveshare
+        gustavoprietodepaula.anysphere-modern
+      ] ++ codeExtensions;
+      userSettings = lib.mkMerge [
+        codeSettings
+        {
+          # Match cursor defaults
+          "workbench.colorTheme" = "Anysphere Modern";
+        }
+      ];
+      keybindings = codeKeybinds;
+    };
     mutableExtensionsDir = false;
   };
 
