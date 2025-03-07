@@ -58,8 +58,10 @@ in
     userEmail = "james@birtles.dev";
     userName = "James Birtles";
     signing = {
-      signByDefault = false;
-      key = null;
+      signByDefault = true;
+      format = "ssh";
+      signer = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvUudGnuBJItRUSZen7D4Emkh1ZCA4C1t93Ke4A1yFr";
     };
     extraConfig = {
       push.autoSetupRemote = true;
@@ -73,7 +75,6 @@ in
     ];
     lfs.enable = true;
   };
-  programs.gpg.enable = true;
   programs.gh = {
     enable = true;
     settings = {
