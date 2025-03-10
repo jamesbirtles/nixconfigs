@@ -103,6 +103,10 @@
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   security.polkit.enable = true;
 
