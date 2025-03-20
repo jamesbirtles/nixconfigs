@@ -156,7 +156,7 @@
           yamlls.enable = true;
           jsonls.enable = true;
           html.enable = true;
-          graphql.enable = true;
+          # graphql.enable = true;
           cssls.enable = true;
           rust_analyzer = {
             enable = true;

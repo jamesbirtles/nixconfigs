@@ -114,31 +114,31 @@ in
     gnome-obfuscate
   ];
 
-  programs.code-cursor = {
-    enable = true;
-    extensions = codeExtensions;
-    userSettings = codeSettings;
-    keybindings = codeKeybinds;
-    mutableExtensionsDir = false;
-  };
-  programs.vscode = {
-    enable = true;
-    profiles.default = {
-      extensions = with vscode-extensions; [
-        ms-vsliveshare.vsliveshare
-        gustavoprietodepaula.anysphere-modern
-      ] ++ codeExtensions;
-      userSettings = lib.mkMerge [
-        codeSettings
-        {
-          # Match cursor defaults
-          "workbench.colorTheme" = "Anysphere Modern";
-        }
-      ];
-      keybindings = codeKeybinds;
-    };
-    mutableExtensionsDir = false;
-  };
+  # programs.code-cursor = {
+  #   enable = true;
+  #   extensions = codeExtensions;
+  #   userSettings = codeSettings;
+  #   keybindings = codeKeybinds;
+  #   mutableExtensionsDir = false;
+  # };
+  # programs.vscode = {
+  #   enable = true;
+  #   profiles.default = {
+  #     extensions = with vscode-extensions; [
+  #       ms-vsliveshare.vsliveshare
+  #       gustavoprietodepaula.anysphere-modern
+  #     ] ++ codeExtensions;
+  #     userSettings = lib.mkMerge [
+  #       codeSettings
+  #       {
+  #         # Match cursor defaults
+  #         "workbench.colorTheme" = "Anysphere Modern";
+  #       }
+  #     ];
+  #     keybindings = codeKeybinds;
+  #   };
+  #   mutableExtensionsDir = false;
+  # };
 
   programs.obs-studio = {
     enable = true;
