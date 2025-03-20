@@ -92,6 +92,7 @@
     rclone
     parsec-bin
     prusa-slicer
+    vscode.fhs
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;

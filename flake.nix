@@ -25,7 +25,10 @@
     firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
     # Has fix for bitwarden system auth - https://github.com/NixOS/nixpkgs/pull/339384
     nixpkgs-bitwarden-fix.url = "github:Bvngee/nixpkgs/bitwarden-fix-system-auth";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

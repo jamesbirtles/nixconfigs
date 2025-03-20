@@ -114,13 +114,13 @@ in
     gnome-obfuscate
   ];
 
-  # programs.code-cursor = {
-  #   enable = true;
-  #   extensions = codeExtensions;
-  #   userSettings = codeSettings;
-  #   keybindings = codeKeybinds;
-  #   mutableExtensionsDir = false;
-  # };
+  programs.code-cursor = {
+    enable = true;
+    extensions = codeExtensions;
+    userSettings = codeSettings;
+    keybindings = codeKeybinds;
+    mutableExtensionsDir = false;
+  };
   # programs.vscode = {
   #   enable = true;
   #   profiles.default = {
