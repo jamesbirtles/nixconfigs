@@ -34,6 +34,8 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    PLAYWRIGHT_BROWSERS_PATH= "${pkgs.playwright-driver.browsers}";
+    PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
   # Enable the GNOME Desktop Environment.
