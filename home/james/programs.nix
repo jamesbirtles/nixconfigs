@@ -277,25 +277,29 @@ in
           plugin location="zellij:status-bar"
         }
       }
-      tab name="Scratch" {
-        pane name="Scratch"
+      tab name="Execify" {
+        pane split_direction="vertical" {
+          pane name="Scratch"
+          pane stacked=true {
+            pane name="ngrok" {
+              command "ngrok"
+              args "http" "5173" "--domain" "execify-james.ngrok.dev"
+            }
+            pane name="Background Jobs" {
+              command "npm"
+              args "run" "dev-jobs" "--" "--port" "5174"
+            }
+            pane name="SvelteKit Server" {
+              command "npm"
+              args "run" "dev-clean"
+            }
+          }
+        }
       }
       tab name="Lazygit" {
         pane {
           name "Lazygit"
           command "lazygit"
-        }
-      }
-      tab name="Server" {
-        pane split_direction="vertical" {
-          pane name="Vite Dev" {
-            command "npm"
-            args "run" "dev"
-          }
-          pane name="ngrok" {
-            command "ngrok"
-            args "http" "5173" "--domain" "execify-james.ngrok.dev"
-          }
         }
       }
     }
