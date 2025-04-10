@@ -40,4 +40,8 @@
       match = "nixos-upgrade";
     };
   };
+
+  # Consider anything below 100% power to be low power, enabling battery saver mode
+  # This will only trigger when on battery
+  services.upower.percentageLow = 99;
 }
