@@ -261,7 +261,6 @@
       crates.enable = true;
       spectre = {
         enable = true;
-        findPackage = pkgs.ripgrep;
         settings = {
           default.replace.cmd = "oxi";
           live_update = true;
