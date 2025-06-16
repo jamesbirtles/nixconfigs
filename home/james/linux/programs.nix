@@ -15,6 +15,7 @@ let
     ms-vscode.extension-test-runner
     # tompollak.lazygit-vscode
     # vscode-icons-team.vscode-icons
+    effectful-tech.effect-vscode
   ];
 
   codeSettings = {
@@ -52,7 +53,7 @@ let
     "svelte.plugin.svelte.defaultScriptLanguage" = "ts";
     "svelte.plugin.html.tagComplete.enable" = false;
     "svelte.language-server.runtime" = "${pkgs.nodejs_22}/bin/node";
-    "svelte.language-server.runtime-args" = [ "--max-old-space-size=10240" ];
+    "svelte.language-server.runtime-args" = [ "--max-old-space-size=16184" ];
 
     "typescript.format.enable" = false;
     "typescript.preferences.importModuleSpecifierEnding" = "minimal";
@@ -64,7 +65,7 @@ let
     # This sounds like it might be intensive
     "typescript.tsserver.experimental.enableProjectDiagnostics" = false;
     "typescript.tsserver.nodePath" = "${pkgs.nodejs_22}/bin/node";
-    "typescript.tsserver.maxTsServerMemory" = 1024 * 10;
+    "typescript.tsserver.maxTsServerMemory" = 1024 * 16;
     "typescript.disableAutomaticTypeAcquisition" = true;
 
     "eslint.run" = "onSave";
@@ -185,6 +186,27 @@ in
       Host *
           IdentityAgent ~/.1password/agent.sock
     '';
+  };
+
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      keybind = [
+        "alt+one=unbind"
+        "alt+two=unbind"
+        "alt+three=unbind"
+        "alt+four=unbind"
+        "alt+five=unbind"
+        "alt+six=unbind"
+        "alt+seven=unbind"
+        "alt+eight=unbind"
+        "alt+nine=unbind"
+        "shift+enter=text:\\n"
+      ];
+      font-family = "BerkeleyMono Nerd Font";
+      theme = "ayu";
+    };
   };
 }
 

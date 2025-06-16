@@ -94,12 +94,6 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 768 600 ];
     };
 
-    "org/gnome/clocks" = {
-      world-clocks = [ {
-        location = mkVariant [ (mkUint32 2) (mkVariant [ "Los Angeles" "KCQT" true [ (mkTuple [ 0.5937028397045019 (-2.064433611082862) ]) ] [ (mkTuple [ 0.5943236009595587 (-2.063741622941031) ]) ] ]) ];
-      } ];
-    };
-
     "org/gnome/clocks/state/window" = {
       maximized = false;
       panel-id = "world";

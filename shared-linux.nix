@@ -88,8 +88,6 @@
     gnome-tweaks
     jq
     zen-browser
-    microsoft-edge
-    ghostty
     protonup-qt
     rclone
     parsec-bin
