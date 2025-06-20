@@ -1,6 +1,6 @@
 { config, pkgs, pnpm2nix, ... }:
 {
-  environment.variables.EDITOR = "nvim";
+  environment.variables.EDITOR = "zeditor";
   environment.systemPackages = with pkgs; [ prettierd ];
   programs.nixvim = {
     enable = true;
