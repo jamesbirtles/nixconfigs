@@ -151,10 +151,10 @@ in
       {
         context = "VimControl && !menu";
         bindings = {
-          "space p f" = "file_finder::Toggle",
+          "space p f" = "file_finder::Toggle";
           "space p p" = "command_palette::Toggle";
           "space p s" = "pane::DeploySearch";
-          "space p r" = ["pane::DeploySearch"; { replace_enabled = true }];
+          "space p r" = ["pane::DeploySearch" { replace_enabled = true; }];
           "space w" = "workspace::Save";
           "space W" = "workspace::SaveWithoutFormat";
           "space b" = "workspace::ToggleLeftDock";
@@ -163,14 +163,14 @@ in
           "g r" = "editor::Rename";
           "g n" = "editor::GoToDiagnostic";
           "g p" = "editor::GoToPreviousDiagnostic";
-        }
-      };
+        };
+      }
       {
         context = "vim_mode == normal && !menu";
         bindings = {
-          shift-y = ["workspace::SendKeystrokes", "y $"]; # Use neovim's yank behavior: yank to end of line.
-        }
-      };
+          shift-y = ["workspace::SendKeystrokes" "y $"]; # Use neovim's yank behavior: yank to end of line.
+        };
+      }
     ];
     userSettings = {
       icon_theme = "Catppuccin Frappé";
@@ -180,7 +180,7 @@ in
             path = "npx";
             args = ["@niklaserik/effect-mcp"];
             env = null;
-          },
+          };
           settings = {};
         };
         postgres-context-server = {
