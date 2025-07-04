@@ -11,7 +11,6 @@ in
   home.packages = with pkgs; [
     slack
     zoom-us
-    zed-editor
     ngrok
     jetbrains-toolbox
     drata-agent
