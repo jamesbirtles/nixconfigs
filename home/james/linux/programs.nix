@@ -146,6 +146,8 @@ in
     extensions = [
       "catppuccin-icons"
       "svelte"
+      "github-theme"
+      "postgres-context-server"
     ];
     userKeymaps = [
       {
@@ -176,6 +178,7 @@ in
       icon_theme = "Catppuccin Frappé";
       context_servers = {
         effect-mcp = {
+          source = "custom";
           command = {
             path = "npx";
             args = ["@niklaserik/effect-mcp"];
@@ -184,6 +187,7 @@ in
           settings = {};
         };
         postgres-context-server = {
+          source = "extension";
           settings = {
             database_url = "postgresql://postgres:postgres@127.0.0.1:54322/postgres";
           };
