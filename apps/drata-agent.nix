@@ -2,12 +2,12 @@
 let
 
   pname = "drata-agent";
-  version = "3.6.1";
+  version = "3.8.0";
   name = "${pname}-${version}";
 
   src = pkgs.fetchurl {
-    url = "https://github.com/drata/agent-releases/releases/download/v${version}/Drata-Agent-linux.AppImage";
-    hash = "sha256-ZHwQdw1XXOeiYCrRHffQXCD3uS9FnYBZcjUQah3sLzY=";
+    url = "https://github.com/drata/agent-releases/releases/download/${version}/Drata-Agent-linux.AppImage";
+    hash = "sha256-m1lE8eaKXzWzFIWaB+XhQDFoXX77wf8+upTV5oNktwI=";
   };
 
   appimageContents = pkgs.appimageTools.extractType2 { inherit pname version src; };
