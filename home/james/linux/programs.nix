@@ -173,6 +173,13 @@ in
           shift-y = ["workspace::SendKeystrokes" "y $"]; # Use neovim's yank behavior: yank to end of line.
         };
       }
+      {
+        context = "Editor && showing_completions";
+        bindings = {
+          # Disable tab from completing suggestion (I use enter and only ever accidentally use tab when trying to complete the AI completion)
+          tab = null;
+        };
+      }
     ];
     userSettings = {
       icon_theme = "Catppuccin Frappé";
