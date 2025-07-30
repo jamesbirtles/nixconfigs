@@ -161,10 +161,6 @@ with lib.hm.gvariant;
       show-banners = true;
     };
 
-    "org/gnome/desktop/notifications/application/bitwarden" = {
-      application-id = "bitwarden.desktop";
-    };
-
     "org/gnome/desktop/notifications/application/code-url-handler" = {
       application-id = "code-url-handler.desktop";
     };

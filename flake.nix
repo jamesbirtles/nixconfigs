@@ -23,8 +23,6 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
-    # Has fix for bitwarden system auth - https://github.com/NixOS/nixpkgs/pull/339384
-    nixpkgs-bitwarden-fix.url = "github:Bvngee/nixpkgs/bitwarden-fix-system-auth";
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +44,6 @@
     pnpm2nix,
     nixos-hardware,
     firefox-gnome-theme,
-    nixpkgs-bitwarden-fix,
     nix-vscode-extensions,
     zen-browser,
     ...
@@ -86,14 +83,6 @@
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-16-7040-amd
-        {
-          nixpkgs.overlays = [
-            (final: prev: {
-              inherit (nixpkgs-bitwarden-fix.legacyPackages.${prev.system})
-                bitwarden-desktop;
-            })
-          ];
-        }
       ];
     };
 
@@ -117,14 +106,6 @@
         home-manager.nixosModules.home-manager
         nixvim.nixosModules.nixvim
         nixos-hardware.nixosModules.framework-13-7040-amd
-        {
-          nixpkgs.overlays = [
-            (final: prev: {
-              inherit (nixpkgs-bitwarden-fix.legacyPackages.${prev.system})
-                bitwarden-desktop;
-            })
-          ];
-        }
       ];
     };
   };

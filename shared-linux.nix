@@ -83,7 +83,6 @@
     wl-clipboard
     dconf2nix
     mangohud
-    bitwarden-desktop
     gnomeExtensions.appindicator
     gnome-tweaks
     jq
