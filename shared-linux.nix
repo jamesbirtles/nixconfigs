@@ -92,6 +92,7 @@
     parsec-bin
     prusa-slicer
     vscode.fhs
+    spotify
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
