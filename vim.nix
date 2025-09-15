@@ -234,7 +234,7 @@
           ge = "gE";
           w = "W";
         };
-        skipInsignificantPunctuation = false;
+        settings.skipInsignificantPunctuation = false;
       };
       twilight.enable = true;
       conform-nvim = {

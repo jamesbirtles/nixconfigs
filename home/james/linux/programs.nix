@@ -186,12 +186,9 @@ in
       context_servers = {
         effect-mcp = {
           source = "custom";
-          command = {
-            path = "npx";
-            args = ["@niklaserik/effect-mcp"];
-            env = null;
-          };
-          settings = {};
+          command = "npx";
+          args = ["@niklaserik/effect-mcp"];
+          env = null;
         };
         postgres-context-server = {
           source = "extension";
@@ -204,10 +201,9 @@ in
         always_allow_tool_actions = true;
         default_model = {
           provider = "zed.dev";
-          model = "claude-sonnet-4";
+          model = "claude-opus-4-1";
         };
         default_profile = "write";
-        version = "2";
       };
       features = {
           edit_prediction_provider = "zed";

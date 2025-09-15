@@ -7,7 +7,7 @@
     options = "--delete-older-than 10d";
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
   boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.networkmanager.enable = true;
