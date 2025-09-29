@@ -91,6 +91,7 @@
     rclone
     parsec-bin
     prusa-slicer
+    orca-slicer
     vscode.fhs
     spotify
   ];
