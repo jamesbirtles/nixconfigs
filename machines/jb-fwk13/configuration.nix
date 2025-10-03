@@ -7,41 +7,4 @@
   networking.hostName = "jb-fwk13"; 
 
   system.stateVersion = "24.05";
-
-  services.clamav.daemon.enable = true;
-  services.clamav.scanner.enable = true;
-  services.clamav.updater.enable = true;
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = outPath;
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "--commit-lock-file"
-      "-L" # print build logs
-    ];
-    dates = "02:00";
-    randomizedDelaySec = "45min";
-  };
-
-  # Wake up for updates and clamav scans
-  services.autosuspend = {
-    enable = true;
-    checks.LogindSessionsIdle.enabled = true;
-    wakeups.clamav = {
-      enabled = true;
-      class = "SystemdTimer";
-      match = "clamdscan";
-    };
-    wakeups.autoupgrade = {
-      enabled = true;
-      class = "SystemdTimer";
-      match = "nixos-upgrade";
-    };
-  };
-
-  # Consider anything below 100% power to be low power, enabling battery saver mode
-  # This will only trigger when on battery
-  services.upower.percentageLow = 99;
 }
