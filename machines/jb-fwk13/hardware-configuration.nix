@@ -14,20 +14,43 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f0b1a460-1965-4ce4-b45e-2e942ba25f4f";
-      fsType = "ext4";
+    { device = "/dev/disk/by-uuid/2bd659f0-3677-434c-a727-a46e42f798db";
+      fsType = "btrfs";
+      options = [ "subvol=@" ];
     };
 
-  boot.initrd.luks.devices."luks-b9ffad89-e8f9-41c6-aa78-a1cff0ba1b35".device = "/dev/disk/by-uuid/b9ffad89-e8f9-41c6-aa78-a1cff0ba1b35";
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/2bd659f0-3677-434c-a727-a46e42f798db";
+      fsType = "btrfs";
+      options = [ "subvol=@home" ];
+    };
+
+  fileSystems."/code" =
+    { device = "/dev/disk/by-uuid/2bd659f0-3677-434c-a727-a46e42f798db";
+      fsType = "btrfs";
+      options = [ "subvol=@code" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/2bd659f0-3677-434c-a727-a46e42f798db";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" ];
+    };
+
+  fileSystems."/.snapshots" =
+    { device = "/dev/disk/by-uuid/2bd659f0-3677-434c-a727-a46e42f798db";
+      fsType = "btrfs";
+      options = [ "subvol=@snapshots" ];
+    };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/749A-467E";
+    { device = "/dev/disk/by-uuid/CB3C-5966";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/53f3e5dd-f02c-4c92-ad47-521004c077eb"; }
+    [ { device = "/dev/disk/by-uuid/fe5b839c-4b9e-4da6-ab8e-5a1ea911efc9"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -35,7 +58,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp195s0f3u1.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
