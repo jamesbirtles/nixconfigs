@@ -86,7 +86,7 @@
       ];
     };
 
-    nixosConfigurations.jb-fwk13-execify = nixpkgs.lib.nixosSystem rec {
+    nixosConfigurations.jb-fwk13 = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = {
         pnpm2nix = pnpm2nix.packages.${system};
@@ -96,8 +96,8 @@
         zen-browser = zen-browser.packages.${system}.default;
       };
       modules = [
-        ./machines/jb-fwk13-execify/hardware-configuration.nix
-        ./machines/jb-fwk13-execify/configuration.nix
+        ./machines/jb-fwk13/hardware-configuration.nix
+        ./machines/jb-fwk13/configuration.nix
         ./shared.nix
         ./shared-linux.nix
         ./home/james/linux/default.nix

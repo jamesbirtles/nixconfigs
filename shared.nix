@@ -12,11 +12,10 @@
 
   environment.shellAliases = {
     lg = "lazygit";
-    nb = "rm -f ~/.config/autostart/drata-agent.desktop.hm-backup && sudo nixos-rebuild switch --flake .#";
+    nb = "sudo nixos-rebuild switch --flake .#";
     nix-repair = "sudo nix-store --repair --verify --check-contents"; # Use when having weird issues with source being not found or whatever
     kit = "zellij --layout sveltekit";
     mkit = "zellij --layout sveltekit-mini";
-    execify = "zellij --layout execify";
   };
 
   programs.zsh = {

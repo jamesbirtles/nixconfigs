@@ -266,43 +266,5 @@ in
       }
     }
   '';
-  xdg.configFile."zellij/layouts/execify.kdl".text = ''
-    layout {
-      default_tab_template {
-        pane size=1 borderless=true {
-          plugin location="zellij:tab-bar"
-        }
-        children
-        pane size=2 borderless=true {
-          plugin location="zellij:status-bar"
-        }
-      }
-      tab name="Execify" {
-        pane split_direction="vertical" {
-          pane name="Scratch"
-          pane stacked=true {
-            pane name="ngrok" {
-              command "ngrok"
-              args "http" "5173" "--domain" "execify-james.ngrok.dev"
-            }
-            pane name="Background Jobs" {
-              command "npm"
-              args "run" "dev-jobs" "--" "--port" "5174"
-            }
-            pane name="SvelteKit Server" {
-              command "npm"
-              args "run" "dev-clean"
-            }
-          }
-        }
-      }
-      tab name="Lazygit" {
-        pane {
-          name "Lazygit"
-          command "lazygit"
-        }
-      }
-    }
-  '';
 }
 

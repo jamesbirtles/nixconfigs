@@ -364,10 +364,6 @@ with lib.hm.gvariant;
       last-folder-path = "/home/james/Downloads";
     };
 
-    "org/gnome/portal/filechooser/chromium-browser" = {
-      last-folder-path = "/home/james/code/Execify/main-app/tracing_output_folder";
-    };
-
     "org/gnome/portal/filechooser/microsoft-edge" = {
       last-folder-path = "/home/james/Documents";
     };
