@@ -94,6 +94,7 @@
     orca-slicer
     vscode.fhs
     spotify
+    claude-code
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;

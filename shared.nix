@@ -13,6 +13,7 @@
   environment.shellAliases = {
     lg = "lazygit";
     nb = "sudo nixos-rebuild switch --flake .#";
+    nu = "nix flake update --commit-lock-file";
     nix-repair = "sudo nix-store --repair --verify --check-contents"; # Use when having weird issues with source being not found or whatever
     kit = "zellij --layout sveltekit";
     mkit = "zellij --layout sveltekit-mini";

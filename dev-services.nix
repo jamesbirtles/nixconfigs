@@ -114,6 +114,7 @@
 
   services.grafana = {
     enable = true;
+    settings.server.http_port = 3300;
     provision = {
       enable = true;
       datasources.settings = {
