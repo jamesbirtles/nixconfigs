@@ -324,7 +324,7 @@ in
         "shift+enter=text:\\n"
       ];
       font-family = "BerkeleyMono Nerd Font";
-      theme = "ayu";
+      theme = "Ayu";
     };
   };
 }
