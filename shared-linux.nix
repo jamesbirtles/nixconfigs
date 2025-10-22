@@ -95,6 +95,7 @@
     vscode.fhs
     spotify
     claude-code
+    prisma
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
