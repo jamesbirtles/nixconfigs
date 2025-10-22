@@ -177,10 +177,12 @@
       };
       neo-tree = {
         enable = true;
-        closeIfLastWindow = true;
-        filesystem.followCurrentFile = {
-          enabled = true;
-          leaveDirsOpen = true;
+        settings = {
+          close_if_last_window = true;
+          filesystem.follow_current_file = {
+            enabled = true;
+            leave_dirs_open = true;
+          };
         };
       };
       telescope = {
@@ -256,7 +258,7 @@
       };
       ts-context-commentstring = {
         enable = true;
-        extraOptions.enable_autocmd = false;
+        settings.enable_autocmd = false;
       };
       crates.enable = true;
       spectre = {
