@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    elephant.url = "github:abenz1267/elephant";
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
   };
 
 
@@ -46,6 +51,7 @@
     firefox-gnome-theme,
     nix-vscode-extensions,
     zen-browser,
+    walker,
     ...
   }: {
     darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
@@ -68,10 +74,12 @@
     nixosConfigurations.jb-fwk16 = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = {
+        inherit walker;
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
         vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
         zen-browser = zen-browser.packages.${system}.default;
+        outPath = self.outPath;
       };
       modules = [
         ./machines/jb-fwk16/hardware-configuration.nix
@@ -89,6 +97,7 @@
     nixosConfigurations.jb-fwk13 = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = {
+        inherit walker;
         pnpm2nix = pnpm2nix.packages.${system};
         firefox-gnome-theme = firefox-gnome-theme;
         outPath = self.outPath;

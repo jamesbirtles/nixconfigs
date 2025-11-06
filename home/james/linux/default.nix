@@ -1,4 +1,4 @@
-{ pkgs, firefox-gnome-theme, vscode-extensions, ...}:
+{ pkgs, firefox-gnome-theme, vscode-extensions, walker, ...}:
 {
   imports = [
     ../../config.nix
@@ -26,6 +26,8 @@
       ./dconf.nix
       ./cursor.nix
       ./programs.nix
+      walker.homeManagerModules.default
+      ./hyprland.nix
     ];
   };
 }

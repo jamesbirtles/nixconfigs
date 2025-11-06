@@ -1,6 +1,10 @@
-{ config, pkgs, zen-browser, ... }:
+{ config, pkgs, zen-browser, outPath, ... }:
 {
-  nix.settings.trusted-users = [ "root" "@wheel" ];
+  nix.settings = {
+    trusted-users = [ "root" "@wheel" ];
+    extra-substituters = ["https://walker.cachix.org" "https://walker-git.cachix.org"];
+    extra-trusted-public-keys = ["walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM=" "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="];
+  };
   nix.gc = {
     automatic = true;
     randomizedDelaySec = "14m";
@@ -42,6 +46,10 @@
   services.displayManager.gdm.enable = true;
   services.displayManager.gdm.wayland = true;
   services.desktopManager.gnome.enable = true;
+
+  # Hyprland
+  programs.hyprland.enable = true;
+  programs.hyprland.withUWSM  = true;
 
   services.printing.enable = true;
   services.fwupd.enable = true;
@@ -96,6 +104,98 @@
     spotify
     claude-code
     prisma
+    playerctl
+    hyprpolkitagent
+    (pkgs.writeShellScriptBin "check-updates" ''
+      # Default values
+      FLAKE_DIR="${outPath}"
+      IGNORE_INPUTS=""
+
+      # Parse arguments
+      while [[ $# -gt 0 ]]; do
+        case $1 in
+          --ignore)
+            IGNORE_INPUTS="$2"
+            shift 2
+            ;;
+          --flake-dir)
+            FLAKE_DIR="$2"
+            shift 2
+            ;;
+          *)
+            FLAKE_DIR="$1"
+            shift
+            ;;
+        esac
+      done
+      
+      if [ ! -f "$FLAKE_DIR/flake.nix" ]; then
+        echo "Error: Cannot find flake.nix at $FLAKE_DIR"
+        exit 1
+      fi
+      
+      # Get all direct inputs
+      ${pkgs.nix}/bin/nix flake metadata "$FLAKE_DIR" --json | ${pkgs.jq}/bin/jq -r '
+        .locks.nodes.root.inputs | 
+        to_entries[] | 
+        .key as $name | 
+        .value as $node |
+        "\($name) \($node)"
+      ' | while read -r name node; do
+        # Check if this input should be ignored
+        if echo " $IGNORE_INPUTS " | grep -q " $name "; then
+          continue
+        fi
+
+        # Get the locked node info
+        locked=$(${pkgs.nix}/bin/nix flake metadata "$FLAKE_DIR" --json | ${pkgs.jq}/bin/jq -r ".locks.nodes.\"$node\"")
+        
+        # Build the original reference
+        original=$(echo "$locked" | ${pkgs.jq}/bin/jq -r '
+          if .original.type == "github" then
+            "github:\(.original.owner)/\(.original.repo)" + (if .original.ref then "/\(.original.ref)" else "" end)
+          elif .original.type == "indirect" then
+            .original.id
+          else
+            .original.url // empty
+          end
+        ')
+        
+        if [ -z "$original" ] || [ "$original" = "null" ]; then
+          continue
+        fi
+        
+        # Get fingerprints
+        current=$(echo "$locked" | ${pkgs.jq}/bin/jq -r '.locked.narHash // empty')
+        latest=$(${pkgs.nix}/bin/nix flake metadata "$original" --refresh --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '.locked.narHash // empty')
+        
+        if [ -n "$current" ] && [ -n "$latest" ] && [ "$current" != "$latest" ]; then
+          echo "$name $current -> $latest"
+        fi
+      done
+    '')
+  (pkgs.writeShellScriptBin "update-system" ''
+    set -e
+    
+    echo "Updating system from: $HOME/nixconfigs"
+    cd "$HOME/nixconfigs"
+    
+    # Update flake
+    echo "Running nix flake update..."
+    nix flake update --commit-lock-file
+    
+    # Build the system
+    echo "Building system..."
+    sudo nixos-rebuild switch --flake .#
+    
+    # Push if build succeeded
+    echo "Build successful, pushing..."
+    ${pkgs.git}/bin/git push
+    
+    echo "Done!"
+    echo "Press enter to exit"
+    read
+  '')
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
