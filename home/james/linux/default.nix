@@ -1,4 +1,11 @@
-{ pkgs, firefox-gnome-theme, vscode-extensions, walker, ...}:
+{
+  pkgs,
+  firefox-gnome-theme,
+  vscode-extensions,
+  walker,
+  ashell,
+  ...
+}:
 {
   imports = [
     ../../config.nix
@@ -7,14 +14,18 @@
   users.users.james = {
     isNormalUser = true;
     description = "James Birtles";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [
       chromium
     ];
   };
 
   home-manager.extraSpecialArgs = {
-    inherit firefox-gnome-theme vscode-extensions;
+    inherit firefox-gnome-theme vscode-extensions ashell;
   };
   home-manager.users.james = {
     home.stateVersion = "23.11";
@@ -27,7 +38,8 @@
       ./cursor.nix
       ./programs.nix
       walker.homeManagerModules.default
-      ./hyprland.nix
+      # ./hyprland.nix
+      ./niri.nix
     ];
   };
 }

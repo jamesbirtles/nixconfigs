@@ -1,9 +1,24 @@
-{ config, pkgs, zen-browser, outPath, ... }:
+{
+  config,
+  pkgs,
+  zen-browser,
+  outPath,
+  ...
+}:
 {
   nix.settings = {
-    trusted-users = [ "root" "@wheel" ];
-    extra-substituters = ["https://walker.cachix.org" "https://walker-git.cachix.org"];
-    extra-trusted-public-keys = ["walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM=" "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+    extra-substituters = [
+      "https://walker.cachix.org"
+      "https://walker-git.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+    ];
   };
   nix.gc = {
     automatic = true;
@@ -34,11 +49,12 @@
   services.xserver.xkb = {
     layout = "gb";
     variant = "";
+    options = "caps:escape";
   };
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    PLAYWRIGHT_BROWSERS_PATH= "${pkgs.playwright-driver.browsers}";
+    PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
     PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
@@ -48,19 +64,21 @@
   services.desktopManager.gnome.enable = true;
 
   # Hyprland
-  programs.hyprland.enable = true;
-  programs.hyprland.withUWSM  = true;
+  # programs.hyprland.enable = true;
+  # programs.hyprland.withUWSM  = true;
 
   services.printing.enable = true;
   services.fwupd.enable = true;
   services.fprintd.enable = true;
 
-  security.pam.loginLimits = [{
-    domain = "*";
-    type = "soft";
-    item = "nofile";
-    value = "65536";
-  }];
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "65536";
+    }
+  ];
 
   virtualisation.docker.enable = true;
 
@@ -105,7 +123,9 @@
     claude-code
     prisma
     playerctl
-    hyprpolkitagent
+    nil
+    nixd
+    # hyprpolkitagent
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values
       FLAKE_DIR="${outPath}"
@@ -128,17 +148,17 @@
             ;;
         esac
       done
-      
+
       if [ ! -f "$FLAKE_DIR/flake.nix" ]; then
         echo "Error: Cannot find flake.nix at $FLAKE_DIR"
         exit 1
       fi
-      
+
       # Get all direct inputs
       ${pkgs.nix}/bin/nix flake metadata "$FLAKE_DIR" --json | ${pkgs.jq}/bin/jq -r '
-        .locks.nodes.root.inputs | 
-        to_entries[] | 
-        .key as $name | 
+        .locks.nodes.root.inputs |
+        to_entries[] |
+        .key as $name |
         .value as $node |
         "\($name) \($node)"
       ' | while read -r name node; do
@@ -149,7 +169,7 @@
 
         # Get the locked node info
         locked=$(${pkgs.nix}/bin/nix flake metadata "$FLAKE_DIR" --json | ${pkgs.jq}/bin/jq -r ".locks.nodes.\"$node\"")
-        
+
         # Build the original reference
         original=$(echo "$locked" | ${pkgs.jq}/bin/jq -r '
           if .original.type == "github" then
@@ -160,42 +180,42 @@
             .original.url // empty
           end
         ')
-        
+
         if [ -z "$original" ] || [ "$original" = "null" ]; then
           continue
         fi
-        
+
         # Get fingerprints
         current=$(echo "$locked" | ${pkgs.jq}/bin/jq -r '.locked.narHash // empty')
         latest=$(${pkgs.nix}/bin/nix flake metadata "$original" --refresh --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '.locked.narHash // empty')
-        
+
         if [ -n "$current" ] && [ -n "$latest" ] && [ "$current" != "$latest" ]; then
           echo "$name $current -> $latest"
         fi
       done
     '')
-  (pkgs.writeShellScriptBin "update-system" ''
-    set -e
-    
-    echo "Updating system from: $HOME/nixconfigs"
-    cd "$HOME/nixconfigs"
-    
-    # Update flake
-    echo "Running nix flake update..."
-    nix flake update --commit-lock-file
-    
-    # Build the system
-    echo "Building system..."
-    sudo nixos-rebuild switch --flake .#
-    
-    # Push if build succeeded
-    echo "Build successful, pushing..."
-    ${pkgs.git}/bin/git push
-    
-    echo "Done!"
-    echo "Press enter to exit"
-    read
-  '')
+    (pkgs.writeShellScriptBin "update-system" ''
+      set -e
+
+      echo "Updating system from: $HOME/nixconfigs"
+      cd "$HOME/nixconfigs"
+
+      # Update flake
+      echo "Running nix flake update..."
+      nix flake update --commit-lock-file
+
+      # Build the system
+      echo "Building system..."
+      sudo nixos-rebuild switch --flake .#
+
+      # Push if build succeeded
+      echo "Build successful, pushing..."
+      ${pkgs.git}/bin/git push
+
+      echo "Done!"
+      echo "Press enter to exit"
+      read
+    '')
   ];
   services.udev.packages = [ pkgs.gnome-settings-daemon ];
   programs.gamemode.enable = true;
