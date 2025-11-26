@@ -119,7 +119,6 @@
     prusa-slicer
     orca-slicer
     vscode.fhs
-    spotify
     claude-code
     prisma
     playerctl
