@@ -80,6 +80,7 @@ in
     settings = {
       git_protocol = "ssh";
     };
+    extensions = with pkgs; [ gh-notify ];
   };
 
   programs.lazygit = {

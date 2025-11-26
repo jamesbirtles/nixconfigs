@@ -1,16 +1,32 @@
-{ config, pkgs, pnpm2nix, ... }:
 {
-  environment.variables.EDITOR = "zeditor";
-  environment.systemPackages = with pkgs; [ prettierd ];
+  config,
+  pkgs,
+  ...
+}:
+let
+  nv = config.lib.nixvim;
+in
+{
+  environment.variables.EDITOR = "nvim";
   programs.nixvim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
+
+    extraPackages = with pkgs; [
+      nixfmt-rfc-style
+      dwt1-shell-color-scripts
+    ];
+
     colorschemes.ayu.enable = true;
 
-    globals = {
-      mapleader = " ";
-    };
+    # Use system clipboard for everything
+    clipboard.register = "unnamedplus";
+
+    # show diagnostics to the right of line
+    diagnostic.settings.virtual_text = true;
+
+    globals.mapleader = " ";
 
     opts = {
       scrolloff = 10;
@@ -18,8 +34,8 @@
       relativenumber = true;
       expandtab = true;
       smartindent = true;
-      softtabstop = 2;
-      tabstop = 2;
+      softtabstop = 4;
+      tabstop = 4;
       foldlevelstart = 99;
       cursorline = true;
       swapfile = false;
@@ -29,258 +45,463 @@
       winhl = "NormalFloat:PMenu";
       scroll = 10;
       splitright = true;
+      completeopt = [
+        "menuone"
+        "noselect"
+        "popup"
+      ];
+
+      # time in millis before CursorHold event is fired
+      updatetime = 250;
     };
 
     keymaps = [
-      { key = "<leader>b"; action = "<cmd>Neotree last toggle reveal<CR>"; options = { desc = "Toggle Neotree"; }; }
-      { key = "<leader>tf"; action = "<cmd>Neotree filesystem reveal<CR>"; options = { desc = "Show file explorer"; }; }
-      { key = "<leader>tb"; action = "<cmd>Neotree buffers reveal<CR>"; options = { desc = "Show buffer explorer"; }; }
-      { key = "<leader>p"; action = "<Nop>"; } # Make <leader>p do nothing so that if we linger on the rest of the command it doesn't paste
-      { key = "<leader>pp"; action = ":Telescope resume<CR>"; options = { desc = "Resume last telescope query"; }; }
-      { key = "<leader>pg"; action = ":Telescope git_files<CR>"; options = { desc = "Fuzzy find git file"; }; }
-      { key = "<leader>pf"; action = ":Telescope find_files<CR>"; options = { desc = "Fuzzy find project files"; }; }
-      { key = "<leader>ps"; action = ":Telescope live_grep<CR>"; options = { desc = "Find in project"; }; }
-      { key = "<leader>pr"; action = "<cmd>lua require('spectre').toggle()<CR>"; options = { desc = "Find and replace in project"; }; }
-      { key = "<leader>lg"; action = ":LazyGit<CR>"; options = { desc = "Open Lazygit in floating window"; }; }
-      { key = "<leader>pw"; action = "viwpgvy"; options = { desc = "Paste over word"; }; }
-      { key = "<leader>y"; action = "\"+y"; options = { desc = "Copy to system clipboard"; }; }
-      { key = "<leader>v"; action = "\"+p"; options = { desc = "Paste from system clipboard"; }; }
-      { key = "<leader>w"; action = "<cmd>w<CR>"; options = { desc = "Save file"; }; }
-      { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; } # Clear highlight on escape
-
-      # LSP Mappings
-      { key = "K"; action = "<cmd>lua vim.lsp.buf.hover()<CR>"; }
-      { key = "ga"; action = "<cmd>lua vim.lsp.buf.code_action()<CR>"; options = { desc = "Code Actions"; }; }
-      { key = "gd"; action = ":Telescope lsp_definitions<CR>"; options = { desc = "Definition"; }; }
-      { key = "gt"; action = ":Telescope lsp_type_definitions<CR>"; options = { desc = "Type Definition"; }; }
-      # When in neovim 11, I belive these should be: 
-      # { key = "gn"; action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>"; }
-      # { key = "gp"; action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>"; }
-      { key = "gn"; action = "<cmd>lua vim.diagnostic.goto_next()<CR>"; options = { desc = "Next diagnostic"; }; }
-      { key = "gp"; action = "<cmd>lua vim.diagnostic.goto_prev()<CR>"; options = { desc = "Previous diagnostic"; }; }
-      { key = "gi"; action = ":Telescope lsp_references<CR>"; options = { desc = "References"; }; }
-      { key = "gr"; action = "<cmd>lua vim.lsp.buf.rename()<CR>"; options = { desc = "Rename"; }; }
-      # Open in a vsplit
-      { key = "gvd"; action = ":vsplit | lua vim.lsp.buf.definition()<CR>"; options = { desc = "Definition in vsplit"; }; }
-
-      # Keep current clipboard contents when pasting over selection
-      { mode = "x"; key = "p"; action = "pgvy"; }
-    ];
-
-    autoGroups = {
-      highlight-yank = { clear = true; };
-    };
-    autoCmd = [
       {
-        event = ["TextYankPost"];
-        desc = "Highlight when yanking text";
-        group = "highlight-yank";
-        callback.__raw = "function() vim.highlight.on_yank() end";
+        key = "<leader>b";
+        options.desc = "Toggle File Explorer";
+        action = nv.mkRaw ''
+          function()
+            Snacks.explorer.open()
+          end
+        '';
+      }
+      {
+        key = "<leader>pp";
+        options.desc = "Resume last picker session";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.resume()
+          end
+        '';
+      }
+      {
+        key = "<leader>pg";
+        options.desc = "Fuzzy find git file";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.git_files()
+          end
+        '';
+      }
+      {
+        key = "<leader>pf";
+        options.desc = "Fuzzy find project files";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.files()
+          end
+        '';
+      }
+      {
+        key = "<leader>ps";
+        options.desc = "Find in project";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.grep()
+          end
+        '';
+      }
+      {
+        key = "<leader>pw";
+        options.desc = "Find selection in project";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.grep_word()
+          end
+        '';
+      }
+      {
+        key = "<leader>pk";
+        options.desc = "Search keymap";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.keymaps()
+          end
+        '';
+      }
+      {
+        key = "<leader>pr";
+        action = "<cmd>lua require('spectre').toggle()<CR>";
+        options.desc = "Find and replace in project";
+      }
+      {
+        key = "<leader>lg";
+        action = nv.mkRaw ''
+          function()
+            Snacks.lazygit.open()
+          end
+        '';
+        options.desc = "Open Lazygit in floating window";
+      }
+      {
+        key = "<leader>pw";
+        action = "viwpgvy";
+        options.desc = "Paste over word";
+      }
+      {
+        key = "<leader>w";
+        action = "<cmd>w<CR>";
+        options.desc = "Save file";
+      }
+      {
+        mode = "n";
+        key = "<Esc>";
+        action = "<cmd>nohlsearch<CR>";
+        options.desc = "Clear highlight";
+      }
+
+      {
+        # Keep current clipboard contents when pasting over selection
+        mode = "x";
+        key = "p";
+        action = "pgvy";
       }
     ];
 
-    extraConfigLua = ''
-      local get_option = vim.filetype.get_option
-      vim.filetype.get_option = function(filetype, option)
-        return option == "commentstring"
-          and require("ts_context_commentstring.internal").calculate_commentstring()
-          or get_option(filetype, option)
-      end
-    '';
+    autoCmd = [
+      {
+        event = [ "TextYankPost" ];
+        desc = "Highlight when yanking text";
+        callback.__raw = "function() vim.highlight.on_yank() end";
+      }
+      {
+        event = [ "LspAttach" ];
+        desc = "Set up lsp highlighting under cursor";
+        callback = nv.mkRaw ''
+          function(args)
+            local bufnr = args.buf
+            pcall(vim.keymap.del, 'n', 'grr', { buffer = bufnr })
+            pcall(vim.keymap.del, 'n', 'gra', { buffer = bufnr })
+            pcall(vim.keymap.del, 'n', 'grn', { buffer = bufnr })
+            pcall(vim.keymap.del, 'n', 'gri', { buffer = bufnr })
+            pcall(vim.keymap.del, 'n', 'grt', { buffer = bufnr })
+            pcall(vim.keymap.del, 'v', 'gra', { buffer = bufnr })
+
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.document_highlight()
+              end,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorHoldI" }, {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.clear_references()
+              end,
+            })
+            vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
+          end
+        '';
+      }
+    ];
+
+    plugins.lspconfig.enable = true;
+
+    lsp.keymaps = [
+      {
+        key = "<leader>ff";
+        options.desc = "Format file";
+        lspBufAction = "format";
+      }
+      {
+        key = "gh";
+        options.desc = "Lsp Hover";
+        lspBufAction = "hover";
+      }
+      {
+        key = "gj";
+        options.desc = "Diagnostic Float";
+        action = nv.mkRaw "vim.diagnostic.open_float";
+      }
+      {
+        key = "ga";
+        options.desc = "Code Actions";
+        lspBufAction = "code_action";
+      }
+      {
+        key = "gd";
+        options.desc = "Go to definition";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.lsp_definitions()
+          end
+        '';
+      }
+      {
+        key = "gt";
+        options.desc = "Go to type definition";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.lsp_type_definitions()
+          end
+        '';
+      }
+      {
+        key = "gi";
+        options.desc = "References";
+        action = nv.mkRaw ''
+          function()
+            Snacks.picker.lsp_references()
+          end
+        '';
+      }
+      {
+        key = "gn";
+        options.desc = "Go to next diagnostic";
+        action = nv.mkRaw ''
+          function()
+            vim.diagnostic.jump({ count = 1, float = true })
+          end
+        '';
+      }
+      {
+        key = "gp";
+        options.desc = "Go to previous diagnostic";
+        action = nv.mkRaw ''
+          function()
+            vim.diagnostic.jump({ count = 1, float = true })
+          end
+        '';
+      }
+      {
+        key = "gr";
+        options.desc = "Rename";
+        lspBufAction = "rename";
+      }
+    ];
+
+    plugins.treesitter = {
+      enable = true;
+      settings = {
+        highlight.enable = true;
+        indent.enable = true;
+      };
+    };
+    plugins.fidget.enable = true;
+    # plugins.lazy.enable = true;
+    plugins.snacks = {
+      enable = true;
+      settings = {
+        indent.enabled = true;
+        lazygit.enabled = true;
+        explorer.enabled = true;
+        input.enabled = true;
+        notifier.enabled = true;
+        scroll.enabled = true;
+        statuscolumn.enabled = true;
+        # dashboard.example = "github";
+        dashboard.sections = [
+          { section = "header"; }
+          {
+            pane = 2;
+            section = "terminal";
+            cmd = "colorscript -e square";
+            height = 5;
+            padding = 1;
+          }
+          {
+            section = "keys";
+            gap = 1;
+            padding = 1;
+          }
+          {
+            pane = 2;
+            icon = " ";
+            desc = "Browse Repo";
+            padding = 1;
+            key = "b";
+            action = nv.mkRaw ''
+              function()
+                Snacks.gitbrowse()
+              end
+            '';
+          }
+          {
+            __raw = ''
+              function()
+                local in_git = Snacks.git.get_root() ~= nil
+                local cmds = {
+                  {
+                    title = "Notifications",
+                    cmd = "gh notify -s -a -n5",
+                    action = function()
+                      vim.ui.open("https://github.com/notifications")
+                    end,
+                    key = "n",
+                    icon = " ",
+                    height = 5,
+                    enabled = true,
+                  },
+                  {
+                    title = "Open Issues",
+                    cmd = "gh issue list -L 3",
+                    key = "i",
+                    action = function()
+                      vim.fn.jobstart("gh issue list --web", { detach = true })
+                    end,
+                    icon = " ",
+                    height = 7,
+                  },
+                  {
+                    icon = " ",
+                    title = "Open PRs",
+                    cmd = "gh pr list -L 3",
+                    key = "P",
+                    action = function()
+                      vim.fn.jobstart("gh pr list --web", { detach = true })
+                    end,
+                    height = 7,
+                  },
+                  {
+                    icon = " ",
+                    title = "Git Status",
+                    cmd = "git --no-pager diff --stat -B -M -C",
+                    height = 10,
+                  },
+                }
+                return vim.tbl_map(function(cmd)
+                  return vim.tbl_extend("force", {
+                    pane = 2,
+                    section = "terminal",
+                    enabled = in_git,
+                    padding = 1,
+                    ttl = 5 * 60,
+                    indent = 3,
+                  }, cmd)
+                end, cmds)
+              end
+            '';
+          }
+        ];
+      };
+    };
+    # plugins.gitsigns = {
+    #   enable = true;
+    #   settings.current_line_blame = true;
+    # };
+    plugins.hardtime.enable = true;
+    plugins.mini = {
+      enable = true;
+      modules = {
+        clue = {
+          triggers = [
+            {
+              mode = "n";
+              keys = "<leader>";
+            }
+            {
+              mode = "n";
+              keys = "g";
+            }
+          ];
+        };
+      };
+    };
+    plugins.web-devicons.enable = true;
+
+    # plugins.cmp = {
+    #   enable = true;
+    #   settings = {
+    #     sources = [
+    #       { name = "nvim_lsp"; }
+    #       # { name = "supermaven"; }
+    #       # { name = "path"; }
+    #       # { name = "buffer"; }
+    #     ];
+    #     mapping = {
+    #       "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+    #       "<C-u>" = "cmp.mapping.scroll_docs(4)";
+    #       "<C-e>" = "cmp.mapping.abort()";
+    #       "<A-l>" = "cmp.mapping.confirm({ select = true })";
+    #       "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+    #       "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+    #     };
+    #   };
+    # };
+    plugins.supermaven = {
+      enable = true;
+      settings = {
+        keymaps = {
+          accept_suggestion = "<A-l>";
+          accept_word = "<A-L>";
+        };
+      };
+    };
+
+    # Nix
+    plugins.nix.enable = true;
+    lsp.servers.nixd = {
+      enable = true;
+      config = {
+        formatting.command = "nixfmt";
+      };
+    };
+
+    # Rust
+    lsp.servers.rust_analyzer.enable = true;
+    plugins.crates.enable = true;
+
+    # Frontend
+    lsp.servers.vtsls.enable = true;
+    lsp.servers.tailwindcss.enable = true;
+    lsp.servers.html.enable = true;
+    lsp.servers.cssls.enable = true;
+
+    # Misc
+    lsp.servers.jsonls.enable = true;
+    lsp.servers.yamlls.enable = true;
 
     plugins = {
-      typescript-tools = {
-        enable = true;
-        settings = {
-          settings = {
-            tsserver_max_memory = 8192;
-            separate_diagnostic_server = false;
-            expose_as_code_action = "all";
-          };
-        };
-      };
-      lsp = {
-        enable = true;
-        servers = {
-          svelte = {
-            enable = true;
-            # Ensures that svelte knows about changes to typescript files
-            onAttach.function = ''
-              vim.api.nvim_create_autocmd("BufWritePost", {
-                pattern = { "*.js", "*.ts" },
-                group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
-                callback = function(ctx)
-                  client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-                end,
-              })
-            '';
-          };
-          # tsserver.extraOptions.init_options = {
-          #   # Enable to debug the tsserver, logs are put in .logs in the workspace
-          #   # tsserver.logVerbosity = "normal";
-          #   # Add the svelte typescript plugin globally to avoid needing to install and configure it in every repo.
-          #   # This effectively mimics what the svelte vscode plugin does by default.
-          #   plugins = let 
-          #     # We have to build this manually as its unfortunately not in the nixpkgs repo. Also they use pnpm which
-          #     # makes it a little more awkward.
-          #     typescript-svelte-plugin = pnpm2nix.mkPnpmPackage rec {
-          #       pname = "typescript-svelte-plugin";
-          #       version = "0.3.38";
-          #       src = pkgs.fetchFromGitHub {
-          #         owner = "sveltejs";
-          #         repo = "language-tools";
-          #         rev = "typescript-plugin-${version}";
-          #         hash = "sha256-ZqeEBtknZfXpW31tpphqUT4Jk3ZnF6SGZFu5fR0J0qU=";
-          #       };
-          #       installInPlace = true;
-          #       distDir = "packages/typescript-plugin";
-          #       script = "--filter typescript-svelte-plugin... build";
-          #       installPhase = ''
-          #         mkdir -p $out/node_modules/typescript-svelte-plugin
-          #         cp -LR node_modules/.pnpm/node_modules/. $out/node_modules
-          #         cp -LR packages/typescript-plugin/. $out/node_modules/typescript-svelte-plugin
-          #       '';
-          #     };
-          #   in [
-          #     {
-          #       name = "typescript-svelte-plugin";
-          #       location = "${typescript-svelte-plugin}";
-          #     }
-          #   ];
-          # };
-          tailwindcss = {
-            enable = true;
-            filetypes = ["svelte" "html" "css" "postcss" "typescriptreact" "javascriptreact"];
-          };
-          eslint.enable = true;
-          yamlls.enable = true;
-          jsonls.enable = true;
-          html.enable = true;
-          # graphql.enable = true;
-          cssls.enable = true;
-          rust_analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-            settings.check.command = "clippy";
-          };
-        };
-      };
-      lsp-lines.enable = true;
-      indent-blankline.enable = true;
-      sleuth.enable = true;
-      treesitter = {
-        enable = true;
-        folding = true;
-        nixvimInjections = true;
-        settings.highlight.enable = true;
-      };
-      neo-tree = {
-        enable = true;
-        settings = {
-          close_if_last_window = true;
-          filesystem.follow_current_file = {
-            enabled = true;
-            leave_dirs_open = true;
-          };
-        };
-      };
-      telescope = {
-        enable = true;
-        extensions.fzf-native.enable = true;
-        extensions.file-browser.enable = true;
-      };
-      cmp = {
-        enable = true;
-        autoEnableSources = true;
-        settings = {
-          sources = [
-            # { name = "copilot"; }
-            { name = "nvim_lsp"; }
-            { name = "path"; }
-            { name = "buffer"; }
-          ];
-          mapping = {
-            "<C-Space>" = "cmp.mapping.complete()";
-            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-            "<C-e>" = "cmp.mapping.close()";
-            "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<CR>" = "cmp.mapping.confirm({ select = false })";
-            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-          };
-        };
-      };
-      dressing.enable = true;
-      # copilot-lua = {
-      #   enable = true;
-      #   panel.enabled = false;
-      #   suggestion.enabled = false;
-      # };
-      # copilot-cmp.enable = true;
-      # copilot-chat.enable = true;
-      fidget.enable = true;
-      git-conflict.enable = true;
-      gitsigns.enable = true;
-      # hardtime.enable = true;
-      hmts.enable = true;
-      illuminate.enable = true;
-      lazygit.enable = true;
-      markdown-preview.enable = true;
-      nix.enable = true;
-      spider = {
-        enable = true;
-        keymaps.motions = {
-          b = "B";
-          e = "E";
-          ge = "gE";
-          w = "W";
-        };
-        settings.skipInsignificantPunctuation = false;
-      };
-      twilight.enable = true;
-      conform-nvim = {
-        enable = true;
-        settings = {
-          formatters_by_ft = {
-            javascript = [["prettierd" "prettier"]];
-            typescript = [["prettierd" "prettier"]];
-            html = [["prettierd" "prettier"]];
-            css = [["prettierd" "prettier"]];
-            markdown = [["prettierd" "prettier"]];
-            json = [["prettierd" "prettier"]];
-            yaml = [["prettierd" "prettier"]];
-            graphql = [["prettierd" "prettier"]];
-          };
-          format_on_save.lsp_format = "fallback";
-          notify_on_error = true;
-        };
-      };
-      ts-context-commentstring = {
-        enable = true;
-        settings.enable_autocmd = false;
-      };
-      crates.enable = true;
-      spectre = {
-        enable = true;
-        settings = {
-          default.replace.cmd = "oxi";
-          live_update = true;
-        };
-      };
-      mini = {
-        enable = true;
-        modules = {
-          clue = {
-            triggers = [
-              { mode = "n"; keys = "<leader>"; }
-              { mode = "n"; keys = "g"; }
-            ];
-          };
-          surround = {};
-        };
-      };
-      web-devicons.enable = true;
+      #   sleuth.enable = true;
+      #   dressing.enable = true;
+      #   fidget.enable = true;
+      #   git-conflict.enable = true;
+      #   gitsigns.enable = true;
+      #   hmts.enable = true;
+      #   illuminate.enable = true;
+      #   lazygit.enable = true;
+      #   markdown-preview.enable = true;
+      #   nix.enable = true;
+      #   spider = {
+      #     enable = true;
+      #     keymaps.motions = {
+      #       b = "B";
+      #       e = "E";
+      #       ge = "gE";
+      #       w = "W";
+      #     };
+      #     settings.skipInsignificantPunctuation = false;
+      #   };
+      #   twilight.enable = true;
+      #   conform-nvim = {
+      #     enable = true;
+      #     settings = {
+      #       formatters_by_ft = {
+      #         javascript = [["prettierd" "prettier"]];
+      #         typescript = [["prettierd" "prettier"]];
+      #         html = [["prettierd" "prettier"]];
+      #         css = [["prettierd" "prettier"]];
+      #         markdown = [["prettierd" "prettier"]];
+      #         json = [["prettierd" "prettier"]];
+      #         yaml = [["prettierd" "prettier"]];
+      #         graphql = [["prettierd" "prettier"]];
+      #       };
+      #       format_on_save.lsp_format = "fallback";
+      #       notify_on_error = true;
+      #     };
+      #   };
+      #   ts-context-commentstring = {
+      #     enable = true;
+      #     settings.enable_autocmd = false;
+      #   };
+      #   crates.enable = true;
+      #   spectre = {
+      #     enable = true;
+      #     settings = {
+      #       default.replace.cmd = "oxi";
+      #       live_update = true;
+      #     };
+      #   };
     };
   };
 }
