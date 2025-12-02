@@ -259,7 +259,7 @@ in
         options.desc = "Go to previous diagnostic";
         action = nv.mkRaw ''
           function()
-            vim.diagnostic.jump({ count = 1, float = true })
+            vim.diagnostic.jump({ count = -1, float = true })
           end
         '';
       }
