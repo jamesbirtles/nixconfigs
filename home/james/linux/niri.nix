@@ -260,6 +260,8 @@
       "XF86AudioPlay".action = spawn "playerctl" "play-pause";
       "XF86AudioPrev".action = spawn "playerctl" "previous";
       "XF86AudioNext".action = spawn "playerctl" "next";
+
+      "Print".action.screenshot = [];
     };
     layout = {
       gaps = 8;
