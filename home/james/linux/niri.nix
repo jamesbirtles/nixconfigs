@@ -208,6 +208,9 @@
 
   programs.niri.settings = {
     prefer-no-csd = true;
+    switch-events = with config.lib.niri.actions; {
+      lid-close.action = spawn "swaylock";
+    };
     binds = with config.lib.niri.actions; {
       "Mod+Escape".action = spawn "swaylock";
       "Mod+Shift+Escape".action = quit;
@@ -261,7 +264,7 @@
       "XF86AudioPrev".action = spawn "playerctl" "previous";
       "XF86AudioNext".action = spawn "playerctl" "next";
 
-      "Print".action.screenshot = [];
+      "Print".action.screenshot = [ ];
     };
     layout = {
       gaps = 8;
