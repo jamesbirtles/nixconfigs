@@ -20,7 +20,7 @@
   programs.swaylock = {
     enable = true;
     settings = {
-      color = "000000";
+      color = "111111";
       font-size = 24;
       indicator-idle-visible = false;
       indicator-radius = 100;
@@ -48,6 +48,24 @@
       inside-clear-color = "ebcb8b";
       ring-clear-color = "ebcb8b";
     };
+  };
+
+  services.swayidle = {
+    enable = true;
+    events.before-sleep = "swaylock -f";
+    extraArgs = [ "-w" ];
+    systemdTarget = "niri.service";
+    timeouts = [
+      {
+        timeout = 300;
+        command = "${pkgs.swaylock}/bin/swaylock -f";
+      }
+      {
+        timeout = 305;
+        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+        resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+      }
+    ];
   };
 
   # Notications
@@ -295,8 +313,7 @@
     };
     outputs =
       let
-        after = output: 
-          output.position.x + builtins.floor (output.mode.width / output.scale);
+        after = output: output.position.x + builtins.floor (output.mode.width / output.scale);
 
         fw13 = {
           scale = 1.5;
@@ -331,7 +348,8 @@
             y = 0;
           };
         };
-      in {
+      in
+      {
         "eDP-1" = fw13;
         "DP-10" = acer;
 
