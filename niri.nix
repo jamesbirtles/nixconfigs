@@ -3,7 +3,10 @@
   ...
 }:
 {
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri;
+  };
 
   environment.sessionVariables = {
     # Force zed to use server decorations
