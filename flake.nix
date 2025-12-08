@@ -130,5 +130,31 @@
           niri.nixosModules.niri
         ];
       };
+
+      nixosConfigurations.jb-thinkpad-t16 = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit walker;
+          pnpm2nix = pnpm2nix.packages.${system};
+          ashell = ashell.defaultPackage.${system};
+          firefox-gnome-theme = firefox-gnome-theme;
+          outPath = self.outPath;
+          vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+          zen-browser = zen-browser.packages.${system}.default;
+        };
+        modules = [
+          ./machines/jb-thinkpad-t16/hardware-configuration.nix
+          ./machines/jb-thinkpad-t16/configuration.nix
+          ./shared.nix
+          ./shared-linux.nix
+          ./home/james/linux/default.nix
+          ./vim.nix
+          ./niri.nix
+          home-manager.nixosModules.home-manager
+          nixvim.nixosModules.nixvim
+          nixos-hardware.nixosModules.lenovo-thinkpad-p16s-amd-gen4
+          niri.nixosModules.niri
+        ];
+      };
     };
 }

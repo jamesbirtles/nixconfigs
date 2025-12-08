@@ -353,10 +353,38 @@
             y = 0;
           };
         };
+        thinkpad = {
+          scale = 1.0;
+          mode = {
+            width = 1920;
+            height = 1200;
+          };
+          position = {
+            x = 0;
+            y = 0;
+          };
+          variable-refresh-rate = true;
+        };
+        tx-ultrawide = {
+          scale = 1.0;
+          mode = {
+            width = 3440;
+            height = 1440;
+            refresh = 59.973;
+          };
+          position = {
+            x = 0;
+            y = -1440;
+          };
+          variable-refresh-rate = true;
+        };
       in
       {
+        # TODO: this also matches the thinkpad display, and probably the fw16
         "eDP-1" = fw13;
         "DP-10" = acer;
+        "Lenovo Group Limited MNG007QT1-2 Unknown" = thinkpad;
+        "Iiyama North America PL3494WQ 1214142721111" = tx-ultrawide;
 
         # this monitor seems to change ports for whatever reason;
         "DP-12" = samsung;

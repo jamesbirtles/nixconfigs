@@ -124,6 +124,8 @@
     playerctl
     nil
     nixd
+    thunderbird
+    slack
     # hyprpolkitagent
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values
