@@ -5,6 +5,8 @@
   ...
 }:
 {
+  home.file.".icons/default".source = "${pkgs.apple-cursor}/share/icons/macOS";
+
   # App Launcher
   programs.walker = {
     enable = true;
@@ -252,7 +254,7 @@
 
       "Mod+Space".action = spawn "walker";
       "Mod+Return".action = spawn "ghostty";
-      "Mod+B".action = spawn "chromium";
+      "Mod+B".action = spawn "firefox";
 
       # Function Keys
       "XF86AudioRaiseVolume".action = spawn "swayosd-client" "--output-volume" "raise";
@@ -316,6 +318,11 @@
         click-method = "clickfinger";
       };
     };
+    cursor = {
+      # See top of this file for the default cursor
+      theme = "default";
+      size = 24;
+    };
     outputs =
       let
         after = output: output.position.x + builtins.floor (output.mode.width / output.scale);
@@ -373,22 +380,35 @@
             refresh = 59.973;
           };
           position = {
-            x = 0;
-            y = -1440;
+            x = 1920;
+            y = builtins.floor (thinkpad.mode.height / 3.0) - 1440;
           };
-          variable-refresh-rate = true;
+          # variable-refresh-rate = true;
+        };
+        dell-p2414h = {
+          scale = 1.0;
+          mode = {
+            width = 1920;
+            height = 1080;
+            refresh = 60.0;
+          };
+          position = {
+            x = tx-ultrawide.position.x + builtins.floor (tx-ultrawide.mode.width / 2.0);
+            y = tx-ultrawide.position.y - 1080;
+          };
         };
       in
       {
         # TODO: this also matches the thinkpad display, and probably the fw16
-        "eDP-1" = fw13;
-        "DP-10" = acer;
+        # "eDP-1" = fw13;
+        # "DP-10" = acer;
         "Lenovo Group Limited MNG007QT1-2 Unknown" = thinkpad;
         "Iiyama North America PL3494WQ 1214142721111" = tx-ultrawide;
+        "Dell Inc. DELL P2414H 4YN5344O06GL" = dell-p2414h;
 
         # this monitor seems to change ports for whatever reason;
-        "DP-12" = samsung;
-        "DP-13" = samsung;
+        # "DP-12" = samsung;
+        # "DP-13" = samsung;
       };
   };
 }
