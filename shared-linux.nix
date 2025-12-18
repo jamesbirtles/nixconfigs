@@ -126,6 +126,9 @@
     nixd
     thunderbird
     slack
+    python3
+    python3Packages.playwright
+    openconnect
     # hyprpolkitagent
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values

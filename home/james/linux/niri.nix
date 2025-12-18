@@ -338,6 +338,21 @@
             y = 0;
           };
         };
+        thinkpad = {
+          scale = 1.0;
+          mode = {
+            width = 1920;
+            height = 1200;
+          };
+          position = {
+            x = 0;
+            y = 0;
+          };
+          variable-refresh-rate = true;
+        };
+
+        builtin = thinkpad;
+
         samsung = {
           scale = 2.0;
           mode = {
@@ -345,7 +360,7 @@
             height = 2889;
           };
           position = {
-            x = after fw13;
+            x = after builtin;
             y = 0;
           };
         };
@@ -359,18 +374,6 @@
             x = after samsung;
             y = 0;
           };
-        };
-        thinkpad = {
-          scale = 1.0;
-          mode = {
-            width = 1920;
-            height = 1200;
-          };
-          position = {
-            x = 0;
-            y = 0;
-          };
-          variable-refresh-rate = true;
         };
         tx-ultrawide = {
           scale = 1.0;
@@ -399,16 +402,11 @@
         };
       in
       {
-        # TODO: this also matches the thinkpad display, and probably the fw16
-        # "eDP-1" = fw13;
-        # "DP-10" = acer;
+        "Acer Technologies SA240Y T92EE0012410" = acer;
         "Lenovo Group Limited MNG007QT1-2 Unknown" = thinkpad;
         "Iiyama North America PL3494WQ 1214142721111" = tx-ultrawide;
         "Dell Inc. DELL P2414H 4YN5344O06GL" = dell-p2414h;
-
-        # this monitor seems to change ports for whatever reason;
-        # "DP-12" = samsung;
-        # "DP-13" = samsung;
+        "Samsung Electric Company S27C900P H1AK500000" = samsung;
       };
   };
 }
