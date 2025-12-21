@@ -129,6 +129,7 @@
     python3
     python3Packages.playwright
     openconnect
+    obsidian
     # hyprpolkitagent
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values
