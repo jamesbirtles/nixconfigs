@@ -9,8 +9,6 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.home-manager.follows = "home-manager";
     };
     pnpm2nix = {
       url = "github:nzbr/pnpm2nix-nzbr";
@@ -55,68 +53,41 @@
       ashell,
       ...
     }:
+    let
+      mkSystem =
+        hostname:
+        {
+          hardware ? null,
+        }:
+        let
+          hwModule = if builtins.isString hardware then nixos-hardware.nixosModules.${hardware} else hardware;
+        in
+        nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit walker;
+            pnpm2nix = pnpm2nix.packages.${system};
+            ashell = ashell.defaultPackage.${system};
+            firefox-gnome-theme = firefox-gnome-theme;
+            vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+            zen-browser = zen-browser.packages.${system}.default;
+            outPath = self.outPath;
+          };
+          modules = [
+            ./hosts/${hostname}
+            ./vim.nix
+            home-manager.nixosModules.home-manager
+            nixvim.nixosModules.nixvim
+            niri.nixosModules.niri
+          ]
+          ++ nixpkgs.lib.optional (hwModule != null) hwModule;
+        };
+    in
     {
-      nixosConfigurations.jb-fwk16 = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit walker;
-          pnpm2nix = pnpm2nix.packages.${system};
-          ashell = ashell.defaultPackage.${system};
-          firefox-gnome-theme = firefox-gnome-theme;
-          vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-          zen-browser = zen-browser.packages.${system}.default;
-          outPath = self.outPath;
-        };
-        modules = [
-          ./hosts/jb-fwk16
-          ./vim.nix
-          home-manager.nixosModules.home-manager
-          nixvim.nixosModules.nixvim
-          nixos-hardware.nixosModules.framework-16-7040-amd
-          niri.nixosModules.niri
-        ];
-      };
-
-      nixosConfigurations.jb-fwk13 = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit walker;
-          pnpm2nix = pnpm2nix.packages.${system};
-          ashell = ashell.defaultPackage.${system};
-          firefox-gnome-theme = firefox-gnome-theme;
-          outPath = self.outPath;
-          vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-          zen-browser = zen-browser.packages.${system}.default;
-        };
-        modules = [
-          ./hosts/jb-fwk13
-          ./vim.nix
-          home-manager.nixosModules.home-manager
-          nixvim.nixosModules.nixvim
-          nixos-hardware.nixosModules.framework-13-7040-amd
-          niri.nixosModules.niri
-        ];
-      };
-
-      nixosConfigurations.jb-thinkpad-t16 = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit walker;
-          pnpm2nix = pnpm2nix.packages.${system};
-          ashell = ashell.defaultPackage.${system};
-          firefox-gnome-theme = firefox-gnome-theme;
-          outPath = self.outPath;
-          vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-          zen-browser = zen-browser.packages.${system}.default;
-        };
-        modules = [
-          ./hosts/jb-thinkpad-t16
-          ./vim.nix
-          home-manager.nixosModules.home-manager
-          nixvim.nixosModules.nixvim
-          nixos-hardware.nixosModules.lenovo-thinkpad-p16s-amd-gen4
-          niri.nixosModules.niri
-        ];
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
+        jb-fwk16.hardware = "framework-16-7040-amd";
+        jb-fwk13.hardware = "framework-13-7040-amd";
+        jb-thinkpad-t16.hardware = "lenovo-thinkpad-p16s-amd-gen4";
       };
     };
 }
