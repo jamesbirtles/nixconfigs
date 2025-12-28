@@ -42,7 +42,65 @@ in
 
       programs.oh-my-posh = {
         enable = true;
-        useTheme = "half-life";
+        settings = {
+          "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
+          version = 4;
+          blocks = [
+            {
+              alignment = "left";
+              type = "prompt";
+              segments = [
+                {
+                  foreground = "#7E46B6";
+                  style = "plain";
+                  template = "{{ .UserName }}{{ if .SSHSession }}@{{ .HostName }}{{ end }} ";
+                  type = "session";
+                }
+                {
+                  foreground = "#ffffff";
+                  style = "plain";
+                  template = "in ";
+                  type = "text";
+                }
+                {
+                  foreground = "#87FF00";
+                  properties = {
+                    style = "full";
+                  };
+                  style = "plain";
+                  template = "{{ .Path }} ";
+                  type = "path";
+                }
+                {
+                  foreground = "#5FD7FF";
+                  properties = {
+                    branch_ahead_icon = "";
+                    branch_behind_icon = "";
+                    branch_gone_icon = "";
+                    branch_icon = "";
+                    branch_identical_icon = "";
+                    cherry_pick_icon = "";
+                    commit_icon = "";
+                    fetch_status = true;
+                    merge_icon = "";
+                    rebase_icon = "";
+                    revert_icon = "";
+                    tag_icon = "";
+                  };
+                  style = "plain";
+                  template = "<#ffffff>on</> {{ .HEAD }}{{ if .Staging.Changed }}<#87FF00> \u25cf {{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }}<#D75F00> \u25cf {{ .Working.String }}</>{{ end }} ";
+                  type = "git";
+                }
+                {
+                  foreground = "#D75F00";
+                  style = "plain";
+                  template = "λ ";
+                  type = "text";
+                }
+              ];
+            }
+          ];
+        };
       };
 
       programs.direnv = {
