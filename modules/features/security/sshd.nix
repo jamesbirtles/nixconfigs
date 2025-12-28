@@ -13,6 +13,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Enable all terminfo for better terminal compatibility over SSH
+    environment.enableAllTerminfo = true;
+
     # Enable OpenSSH daemon
     services.openssh = {
       enable = true;
