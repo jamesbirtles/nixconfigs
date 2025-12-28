@@ -19,9 +19,10 @@ in
 
   config = lib.mkIf cfg.enable {
     # Home-manager configuration for user james
-    home-manager.users.james = {
+    home-manager.users.james = { config, ... }: {
       programs.zsh = {
         enable = true;
+        dotDir = "${config.xdg.configHome}/zsh";
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
         plugins = [
