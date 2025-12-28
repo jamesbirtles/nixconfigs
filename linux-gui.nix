@@ -1,50 +1,10 @@
 {
-  config,
   pkgs,
   zen-browser,
   outPath,
   ...
 }:
 {
-  nix.settings = {
-    trusted-users = [
-      "root"
-      "@wheel"
-    ];
-    extra-substituters = [
-      "https://walker.cachix.org"
-      "https://walker-git.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
-      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
-    ];
-  };
-  nix.gc = {
-    automatic = true;
-    randomizedDelaySec = "14m";
-    options = "--delete-older-than 10d";
-  };
-
-  boot.kernelPackages = pkgs.linuxPackages_6_17;
-  boot.loader.systemd-boot.configurationLimit = 10;
-
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Europe/London";
-  i18n.defaultLocale = "en_GB.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
   services.xserver.enable = true;
   services.xserver.xkb = {
     layout = "gb";
@@ -54,8 +14,6 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
-    PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
   # Enable the GNOME Desktop Environment.
@@ -63,24 +21,9 @@
   services.displayManager.gdm.wayland = true;
   services.desktopManager.gnome.enable = true;
 
-  # Hyprland
-  # programs.hyprland.enable = true;
-  # programs.hyprland.withUWSM  = true;
-
   services.printing.enable = true;
   services.fwupd.enable = true;
   services.fprintd.enable = true;
-
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "soft";
-      item = "nofile";
-      value = "65536";
-    }
-  ];
-
-  virtualisation.docker.enable = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -94,7 +37,6 @@
   console.keyMap = "uk";
   users.defaultUserShell = pkgs.zsh;
 
-  programs.nix-ld.enable = true;
   programs.chromium.enable = true;
   programs.steam.enable = true;
   programs._1password.enable = true;
@@ -111,26 +53,22 @@
     mangohud
     gnomeExtensions.appindicator
     gnome-tweaks
-    jq
     zen-browser
     protonup-qt
-    rclone
     parsec-bin
     prusa-slicer
     orca-slicer
     vscode.fhs
-    claude-code
-    prisma
     playerctl
-    nil
-    nixd
     thunderbird
     slack
-    python3
-    python3Packages.playwright
     openconnect
     obsidian
-    # hyprpolkitagent
+    protonvpn-gui
+    vlc
+    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+		pvr-iptvsimple
+	]))
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values
       FLAKE_DIR="${outPath}"

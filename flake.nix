@@ -94,7 +94,8 @@
           ./machines/jb-fwk16/hardware-configuration.nix
           ./machines/jb-fwk16/configuration.nix
           ./shared.nix
-          ./shared-linux.nix
+          ./linux.nix
+          ./linux-gui.nix
           ./home/james/linux
           ./vim.nix
           ./niri.nix
@@ -120,7 +121,8 @@
           ./machines/jb-fwk13/hardware-configuration.nix
           ./machines/jb-fwk13/configuration.nix
           ./shared.nix
-          ./shared-linux.nix
+          ./linux.nix
+          ./linux-gui.nix
           ./home/james/linux/default.nix
           ./vim.nix
           ./niri.nix
@@ -146,7 +148,8 @@
           ./machines/jb-thinkpad-t16/hardware-configuration.nix
           ./machines/jb-thinkpad-t16/configuration.nix
           ./shared.nix
-          ./shared-linux.nix
+          ./linux.nix
+          ./linux-gui.nix
           ./home/james/linux/default.nix
           ./vim.nix
           ./niri.nix
