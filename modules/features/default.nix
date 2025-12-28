@@ -18,6 +18,7 @@
     ./development/docker.nix
     ./development/git.nix
     ./development/dev-tools.nix
+    ./development/nodejs.nix
     ./development/cursor.nix
     ./development/vscode.nix
     ./development/zed.nix

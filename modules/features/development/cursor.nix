@@ -219,11 +219,6 @@ in
     home-manager.users.james = {
       imports = [ ../../lib/cursor.nix ];
 
-      home.packages = with pkgs; [
-        nodejs_22
-        corepack_22
-      ];
-
       programs.code-cursor = {
         enable = true;
         extensions = codeExtensions;
