@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.productivity;
+  cfg = config.features.productivity.misc;
 in
 {
-  options.features.apps.productivity = {
+  options.features.productivity.misc = {
     enable = lib.mkEnableOption "Productivity and remote desktop applications";
   };
 

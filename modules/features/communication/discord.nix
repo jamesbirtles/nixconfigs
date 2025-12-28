@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.discord;
+  cfg = config.features.communication.discord;
 in
 {
-  options.features.apps.discord = {
+  options.features.communication.discord = {
     enable = lib.mkEnableOption "Discord";
   };
 

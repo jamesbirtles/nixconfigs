@@ -28,25 +28,29 @@
     security.ssh.enable = lib.mkDefault true;
     security.vpn.enable = lib.mkDefault true;
 
-    # Shell
-    shell.zsh.enable = lib.mkDefault true;
+    # Terminal
+    terminal.zsh.enable = lib.mkDefault true;
+    terminal.ghostty.enable = lib.mkDefault true;
+    terminal.tools.enable = lib.mkDefault true;
+
+    # Development
+    development.cursor.enable = lib.mkDefault true;
+    development.zed.enable = lib.mkDefault true;
+    development.vscode.enable = lib.mkDefault true;
+
+    # Productivity
+    productivity.browsers.enable = lib.mkDefault true;
+    productivity.misc.enable = lib.mkDefault true;
+
+    # Communication
+    communication.email.enable = lib.mkDefault true;
 
     # Media
     media.players.enable = lib.mkDefault true;
     media.processing.enable = lib.mkDefault true;
+    media.obs-studio.enable = lib.mkDefault true;
 
     # Services
     services.flatpak.enable = lib.mkDefault true;
-
-    # Apps
-    apps.cursor.enable = lib.mkDefault true;
-    apps.zed.enable = lib.mkDefault true;
-    apps.browsers.enable = lib.mkDefault true;
-    apps.ghostty.enable = lib.mkDefault true;
-    apps.obs-studio.enable = lib.mkDefault true;
-    apps.terminal.enable = lib.mkDefault true;
-    apps.email.enable = lib.mkDefault true;
-    apps.vscode.enable = lib.mkDefault true;
-    apps.productivity.enable = lib.mkDefault true;
   };
 }

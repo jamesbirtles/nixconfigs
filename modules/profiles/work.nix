@@ -10,7 +10,7 @@
   ];
 
   features = {
-    apps.slack.enable = lib.mkDefault true;
-    apps.thunderbird.enable = lib.mkDefault true;
+    communication.slack.enable = lib.mkDefault true;
+    communication.thunderbird.enable = lib.mkDefault true;
   };
 }

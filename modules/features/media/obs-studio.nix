@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.obs-studio;
+  cfg = config.features.media.obs-studio;
 in
 {
-  options.features.apps.obs-studio = {
+  options.features.media.obs-studio = {
     enable = lib.mkEnableOption "OBS Studio for screen recording and streaming";
   };
 

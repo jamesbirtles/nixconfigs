@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.features.shell.zsh;
+  cfg = config.features.terminal.zsh;
 
   zellijAutoCompletion = pkgs.runCommand "zellij-completion" { } ''
     mkdir -p $out
@@ -13,7 +13,7 @@ let
   '';
 in
 {
-  options.features.shell.zsh = {
+  options.features.terminal.zsh = {
     enable = lib.mkEnableOption "Zsh shell with oh-my-posh and direnv";
   };
 

@@ -5,16 +5,16 @@
   ...
 }:
 let
-  cfg = config.features.apps.vscode;
+  cfg = config.features.communication.slack;
 in
 {
-  options.features.apps.vscode = {
-    enable = lib.mkEnableOption "Visual Studio Code";
+  options.features.communication.slack = {
+    enable = lib.mkEnableOption "Slack";
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      vscode.fhs
+      slack
     ];
   };
 }

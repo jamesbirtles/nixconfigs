@@ -13,7 +13,7 @@
     gaming.steam.enable = lib.mkDefault true;
     gaming.performance.enable = lib.mkDefault true;
     services.rclone-mount.enable = lib.mkDefault true;
-    apps."3d-printing".enable = lib.mkDefault true;
-    apps.discord.enable = lib.mkDefault true;
+    creative."3d-printing".enable = lib.mkDefault true;
+    communication.discord.enable = lib.mkDefault true;
   };
 }

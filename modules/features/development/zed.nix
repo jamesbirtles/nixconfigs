@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.zed;
+  cfg = config.features.development.zed;
 in
 {
-  options.features.apps.zed = {
+  options.features.development.zed = {
     enable = lib.mkEnableOption "Zed code editor";
   };
 

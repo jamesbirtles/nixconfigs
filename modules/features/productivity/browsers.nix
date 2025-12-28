@@ -7,10 +7,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.browsers;
+  cfg = config.features.productivity.browsers;
 in
 {
-  options.features.apps.browsers = {
+  options.features.productivity.browsers = {
     enable = lib.mkEnableOption "Web browsers (Firefox, Chromium, Zen)";
   };
 

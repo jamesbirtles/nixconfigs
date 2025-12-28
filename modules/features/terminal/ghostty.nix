@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.ghostty;
+  cfg = config.features.terminal.ghostty;
 in
 {
-  options.features.apps.ghostty = {
+  options.features.terminal.ghostty = {
     enable = lib.mkEnableOption "Ghostty terminal emulator";
   };
 

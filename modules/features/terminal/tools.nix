@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.terminal;
+  cfg = config.features.terminal.tools;
 in
 {
-  options.features.apps.terminal = {
+  options.features.terminal.tools = {
     enable = lib.mkEnableOption "Terminal Apps and Tools";
   };
 

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.features.apps.cursor;
+  cfg = config.features.development.cursor;
 
   codeExtensions = with vscode-extensions; [
     svelte.svelte-vscode
@@ -210,7 +210,7 @@ let
   ];
 in
 {
-  options.features.apps.cursor = {
+  options.features.development.cursor = {
     enable = lib.mkEnableOption "Cursor AI code editor";
   };
 

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps.email;
+  cfg = config.features.communication.email;
 in
 {
-  options.features.apps.email = {
+  options.features.communication.email = {
     enable = lib.mkEnableOption "Email account configuration";
   };
 

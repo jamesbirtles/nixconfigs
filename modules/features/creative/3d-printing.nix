@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.features.apps."3d-printing";
+  cfg = config.features.creative."3d-printing";
 in
 {
-  options.features.apps."3d-printing" = {
+  options.features.creative."3d-printing" = {
     enable = lib.mkEnableOption "3D printing slicer applications";
   };
 
