@@ -9,11 +9,12 @@ let
 in
 {
   options.features.development.dev-tools = {
-    enable = lib.mkEnableOption "Development tools (prisma, nil, nixd, python3, playwright)";
+    enable = lib.mkEnableOption "Development tools (devenv, prisma, nil, nixd, python3, playwright)";
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      devenv
       prisma
       nil
       nixd

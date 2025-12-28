@@ -16,6 +16,7 @@
     development.git.enable = lib.mkDefault true;
     development.dev-tools.enable = lib.mkDefault true;
     development.nodejs.enable = lib.mkDefault true;
+    development.cloud-tools.enable = lib.mkDefault true;
 
     # Hardware
     hardware.audio.enable = lib.mkDefault true;

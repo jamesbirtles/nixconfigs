@@ -5,6 +5,7 @@
     ./users.nix
     ./locale.nix
     ./networking.nix
+    ./fonts.nix
   ];
 
 }

@@ -19,6 +19,7 @@
     ./development/git.nix
     ./development/dev-tools.nix
     ./development/nodejs.nix
+    ./development/cloud-tools.nix
     ./development/cursor.nix
     ./development/vscode.nix
     ./development/zed.nix
