@@ -52,6 +52,7 @@
     ./security/onepassword.nix
     ./security/rbw.nix
     ./security/ssh.nix
+    ./security/sshd.nix
     ./security/vpn.nix
 
     # Media
