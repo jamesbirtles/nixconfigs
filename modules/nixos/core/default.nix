@@ -1,77 +1,87 @@
+{ config, lib, pkgs, outPath ? null, ... }:
 {
-  pkgs,
-  zen-browser,
-  outPath,
-  ...
-}:
-{
-  services.xserver.enable = true;
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
-    options = "caps:escape";
+  imports = [
+    ./nix.nix
+    ./users.nix
+    ./locale.nix
+    ./networking.nix
+  ];
+
+  # Kernel version
+  boot.kernelPackages = pkgs.linuxPackages_6_17;
+
+  # Shell aliases
+  environment.shellAliases = {
+    nb = "sudo nixos-rebuild switch --flake .#";
+    nu = "nix flake update --commit-lock-file";
+    nix-repair = "sudo nix-store --repair --verify --check-contents";
+    kit = "zellij --layout sveltekit";
+    mkit = "zellij --layout sveltekit-mini";
   };
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    fira-code
+    fira-code-symbols
+  ];
+
+  # Environment variables
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
+    PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+    PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.displayManager.gdm.wayland = true;
-  services.desktopManager.gnome.enable = true;
+  # PAM login limits
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "65536";
+    }
+  ];
 
-  services.printing.enable = true;
-  services.fwupd.enable = true;
-  services.fprintd.enable = true;
-
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  console.keyMap = "uk";
-  users.defaultUserShell = pkgs.zsh;
-
-  programs.chromium.enable = true;
-  programs.steam.enable = true;
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "james" ];
-  };
-
-  fonts.fontDir.enable = true;
-
+  # Core system packages
   environment.systemPackages = with pkgs; [
-    wl-clipboard
-    dconf2nix
-    mangohud
-    gnomeExtensions.appindicator
-    gnome-tweaks
-    zen-browser
-    protonup-qt
-    parsec-bin
-    prusa-slicer
-    orca-slicer
-    vscode.fhs
-    playerctl
-    thunderbird
-    slack
-    openconnect
-    obsidian
-    protonvpn-gui
-    vlc
-    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-		pvr-iptvsimple
-	]))
+    # Infrastructure/cloud tools
+    hcloud
+    vultr-cli
+    infisical
+
+    # Development environment
+    devenv
+
+    # Utilities
+    jq
+    rclone
+    claude-code
+    prisma
+
+    # Nix development tools
+    nil
+    nixd
+
+    # Python and playwright
+    python3
+    python3Packages.playwright
+
+    # Media tools
+    ffmpeg
+    tsduck
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gst-plugins-rs
+    gst_all_1.gst-libav
+    gst_all_1.gst-vaapi
+
+    # Helper scripts
     (pkgs.writeShellScriptBin "check-updates" ''
       # Default values
-      FLAKE_DIR="${outPath}"
+      FLAKE_DIR="${if outPath != null then outPath else "$HOME/nixconfigs"}"
       IGNORE_INPUTS=""
 
       # Parse arguments
@@ -137,6 +147,7 @@
         fi
       done
     '')
+
     (pkgs.writeShellScriptBin "update-system" ''
       set -e
 
@@ -160,47 +171,4 @@
       read
     '')
   ];
-  services.udev.packages = [ pkgs.gnome-settings-daemon ];
-  programs.gamemode.enable = true;
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
-
-  security.polkit.enable = true;
-
-  # Allows zoom to find xdg-desktop-portal to allow for screensharing
-  systemd.tmpfiles.rules = [
-    "L+ /usr/libexec/xdg-desktop-portal - - - - ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"
-  ];
-
-  # In theory I could add something like this but would need to figure out storing the password
-  # instead just configure it with `rclone config`
-  # environment.etc."rclone-mnt.conf".text = ''
-  #   [myremote]
-  #   type = sftp
-  #   host = 192.0.2.2
-  #   user = myuser
-  #   key_file = /root/.ssh/id_rsa
-  # '';
-
-  fileSystems."/home/james/ProtonDrive" = {
-    device = "protondrive:";
-    fsType = "rclone";
-    options = [
-      "nodev"
-      "nofail"
-      "allow_other"
-      "args2env"
-      "config=/home/james/.config/rclone/rclone.conf"
-    ];
-  };
 }

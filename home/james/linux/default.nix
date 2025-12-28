@@ -25,12 +25,9 @@
   };
 
   home-manager.extraSpecialArgs = {
-    inherit firefox-gnome-theme vscode-extensions ashell;
+    inherit firefox-gnome-theme vscode-extensions ashell walker;
   };
   home-manager.users.james = {
-    home.stateVersion = "23.11";
-    xdg.enable = true;
-
     imports = [
       ../accounts.nix
       ../programs.nix
@@ -38,8 +35,8 @@
       ./cursor.nix
       ./programs.nix
       walker.homeManagerModules.default
-      # ./hyprland.nix
-      ./niri.nix
+      # Note: niri.nix now handled by features/desktop/niri module
+      # Note: home.stateVersion and xdg.enable now in core/users.nix
     ];
   };
 }

@@ -91,14 +91,9 @@
           outPath = self.outPath;
         };
         modules = [
-          ./machines/jb-fwk16/hardware-configuration.nix
-          ./machines/jb-fwk16/configuration.nix
-          ./shared.nix
-          ./linux.nix
-          ./linux-gui.nix
+          ./hosts/jb-fwk16
           ./home/james/linux
           ./vim.nix
-          ./niri.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim
           nixos-hardware.nixosModules.framework-16-7040-amd
@@ -118,14 +113,9 @@
           zen-browser = zen-browser.packages.${system}.default;
         };
         modules = [
-          ./machines/jb-fwk13/hardware-configuration.nix
-          ./machines/jb-fwk13/configuration.nix
-          ./shared.nix
-          ./linux.nix
-          ./linux-gui.nix
+          ./hosts/jb-fwk13
           ./home/james/linux/default.nix
           ./vim.nix
-          ./niri.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim
           nixos-hardware.nixosModules.framework-13-7040-amd
@@ -145,14 +135,9 @@
           zen-browser = zen-browser.packages.${system}.default;
         };
         modules = [
-          ./machines/jb-thinkpad-t16/hardware-configuration.nix
-          ./machines/jb-thinkpad-t16/configuration.nix
-          ./shared.nix
-          ./linux.nix
-          ./linux-gui.nix
+          ./hosts/jb-thinkpad-t16
           ./home/james/linux/default.nix
           ./vim.nix
-          ./niri.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim
           nixos-hardware.nixosModules.lenovo-thinkpad-p16s-amd-gen4
