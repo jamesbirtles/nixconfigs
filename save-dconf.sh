@@ -1,1 +1,1 @@
-dconf dump / | dconf2nix > home/james/linux/dconf.nix
+dconf dump / | dconf2nix > modules/features/desktop/gnome/home.nix

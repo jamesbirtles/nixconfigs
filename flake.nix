@@ -1,12 +1,8 @@
 {
-  description = "A simple nix darwin flake";
+  description = "James's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +11,6 @@
       url = "github:nix-community/nixvim";
       # inputs.nixpkgs.follows = "nixpkgs";
       # inputs.home-manager.follows = "home-manager";
-      # inputs.nix-darwin.follows = "darwin";
     };
     pnpm2nix = {
       url = "github:nzbr/pnpm2nix-nzbr";
@@ -48,7 +43,6 @@
     {
       self,
       nixpkgs,
-      darwin,
       home-manager,
       nixvim,
       pnpm2nix,
@@ -62,23 +56,6 @@
       ...
     }:
     {
-      darwinConfigurations.jamesb-macos-personal = darwin.lib.darwinSystem rec {
-        system = "aarch64-darwin";
-        specialArgs = {
-          pnpm2nix = pnpm2nix.packages.${system};
-        };
-        modules = [
-          # Import the previous configuration.nix we used,
-          # so the old configuration file still takes effect
-          ./darwin-configuration.nix
-          ./shared.nix
-          ./home/james/darwin/default.nix
-          ./vim.nix
-          home-manager.darwinModules.home-manager
-          nixvim.nixDarwinModules.nixvim
-        ];
-      };
-
       nixosConfigurations.jb-fwk16 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
@@ -92,7 +69,6 @@
         };
         modules = [
           ./hosts/jb-fwk16
-          ./home/james/linux
           ./vim.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim
@@ -114,7 +90,6 @@
         };
         modules = [
           ./hosts/jb-fwk13
-          ./home/james/linux/default.nix
           ./vim.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim
@@ -136,7 +111,6 @@
         };
         modules = [
           ./hosts/jb-thinkpad-t16
-          ./home/james/linux/default.nix
           ./vim.nix
           home-manager.nixosModules.home-manager
           nixvim.nixosModules.nixvim

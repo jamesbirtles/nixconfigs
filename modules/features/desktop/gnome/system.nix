@@ -1,0 +1,39 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.features.desktop.gnome;
+in
+{
+  options.features.desktop.gnome = {
+    enable = lib.mkEnableOption "GNOME desktop environment";
+  };
+
+  config = lib.mkIf cfg.enable {
+    services.xserver.enable = true;
+    services.xserver.xkb = {
+      layout = "gb";
+      variant = "";
+      options = "caps:escape";
+    };
+
+    services.displayManager.gdm.enable = true;
+    services.displayManager.gdm.wayland = true;
+    services.desktopManager.gnome.enable = true;
+
+    console.keyMap = "uk";
+
+    fonts.fontDir.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      gnomeExtensions.appindicator
+      gnome-tweaks
+      dconf2nix
+    ];
+
+    services.udev.packages = [ pkgs.gnome-settings-daemon ];
+  };
+}

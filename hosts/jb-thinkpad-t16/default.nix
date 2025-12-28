@@ -2,9 +2,9 @@
 {
   imports = [
     ./hardware.nix
-    ../../modules/nixos/core
-    ../../modules/nixos/features
-    ../../modules/nixos/profiles/work.nix
+    ../../modules/core
+    ../../modules/features
+    ../../modules/profiles/work.nix
   ];
 
   networking.hostName = "jb-thinkpad-t16";

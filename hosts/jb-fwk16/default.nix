@@ -2,9 +2,9 @@
 {
   imports = [
     ./hardware.nix
-    ../../modules/nixos/core
-    ../../modules/nixos/features
-    ../../modules/nixos/profiles/personal.nix
+    ../../modules/core
+    ../../modules/features
+    ../../modules/profiles/personal.nix
   ];
 
   networking.hostName = "jb-fwk16";
