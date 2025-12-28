@@ -50,7 +50,9 @@
     ./apps/obs-studio.nix
     ./apps/terminal.nix
     ./apps/email.nix
-    ./apps/communication.nix
+    ./apps/discord.nix
+    ./apps/slack.nix
+    ./apps/thunderbird.nix
     ./apps/vscode.nix
     ./apps/3d-printing.nix
     ./apps/productivity.nix
