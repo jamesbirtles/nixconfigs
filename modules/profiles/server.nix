@@ -15,6 +15,10 @@
 
     media.processing.enable = lib.mkDefault true;
 
+    security.onepassword = {
+      enable = lib.mkDefault true;
+      enableGui = lib.mkDefault false;
+    };
     security.sshd.enable = lib.mkDefault true;
   };
 }
