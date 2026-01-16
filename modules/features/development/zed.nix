@@ -22,6 +22,9 @@ in
           "svelte"
           "github-theme"
           "postgres-context-server"
+          "toml"
+          "html"
+          "nix"
         ];
         userKeymaps = [
           {
@@ -62,20 +65,6 @@ in
         ];
         userSettings = {
           icon_theme = "Catppuccin Frappé";
-          context_servers = {
-            effect-mcp = {
-              source = "custom";
-              command = "npx";
-              args = [ "@niklaserik/effect-mcp" ];
-              env = null;
-            };
-            postgres-context-server = {
-              source = "extension";
-              settings = {
-                database_url = "postgresql://postgres:postgres@127.0.0.1:54322/postgres";
-              };
-            };
-          };
           agent = {
             always_allow_tool_actions = true;
             default_model = {
@@ -87,9 +76,12 @@ in
           features = {
             edit_prediction_provider = "zed";
           };
+          edit_predictions = {
+            mode = "subtle";
+          };
           ui_font_size = 16;
           buffer_font_size = 16;
-          buffer_font_family = "BerkeleyMono Nerd Font";
+          buffer_font_family = "Berkeley Mono";
           buffer_line_height = "standard";
           theme = {
             mode = "system";
