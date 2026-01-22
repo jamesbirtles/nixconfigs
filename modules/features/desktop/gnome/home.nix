@@ -27,7 +27,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/Console" = {
-      custom-font = "BerkeleyMono Nerd Font 10";
+      custom-font = "Berkeley Mono 10";
       last-window-maximised = false;
       last-window-size = mkTuple [
         1541

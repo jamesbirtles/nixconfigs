@@ -31,7 +31,7 @@ in
             "alt+nine=unbind"
             "shift+enter=text:\\n"
           ];
-          font-family = "BerkeleyMono Nerd Font";
+          font-family = "Berkeley Mono";
           theme = "Ayu";
         };
       };

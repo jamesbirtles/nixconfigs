@@ -24,7 +24,7 @@ let
 
   codeSettings = {
     "editor.fontSize" = 16;
-    "editor.fontFamily" = "'BerkeleyMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+    "editor.fontFamily" = "'BerkeleyMono Nerd Font', 'Berkeley Mono', 'Droid Sans Mono', 'monospace', monospace";
     "editor.fontLigatures" = false;
     "editor.defaultFormatter" = "esbenp.prettier-vscode";
     "editor.formatOnSave" = true;
