@@ -86,7 +86,7 @@ in
           theme = {
             mode = "system";
             light = "One Light";
-            dark = "Github Dark Dimmed";
+            dark = "GitHub Dark Dimmed";
           };
           vim_mode = true;
           tab_size = 4;
