@@ -170,6 +170,8 @@ in
         callback = nv.mkRaw ''
           function(args)
             local bufnr = args.buf
+            local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
             pcall(vim.keymap.del, 'n', 'grr', { buffer = bufnr })
             pcall(vim.keymap.del, 'n', 'gra', { buffer = bufnr })
             pcall(vim.keymap.del, 'n', 'grn', { buffer = bufnr })
@@ -177,19 +179,22 @@ in
             pcall(vim.keymap.del, 'n', 'grt', { buffer = bufnr })
             pcall(vim.keymap.del, 'v', 'gra', { buffer = bufnr })
 
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.document_highlight()
-              end,
-            })
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorHoldI" }, {
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.clear_references()
-              end,
-            })
-            vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
+            if client:supports_method('textDocument/documentHighlight') then
+              vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.document_highlight()
+                end,
+              })
+              vim.api.nvim_create_autocmd({ "CursorMoved", "CursorHoldI" }, {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.clear_references()
+                end,
+              })
+            end
+
+            vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
           end
         '';
       }
@@ -375,11 +380,6 @@ in
         ];
       };
     };
-    # plugins.gitsigns = {
-    #   enable = true;
-    #   settings.current_line_blame = true;
-    # };
-    plugins.hardtime.enable = true;
     plugins.mini = {
       enable = true;
       modules = {
@@ -399,25 +399,6 @@ in
     };
     plugins.web-devicons.enable = true;
 
-    # plugins.cmp = {
-    #   enable = true;
-    #   settings = {
-    #     sources = [
-    #       { name = "nvim_lsp"; }
-    #       # { name = "supermaven"; }
-    #       # { name = "path"; }
-    #       # { name = "buffer"; }
-    #     ];
-    #     mapping = {
-    #       "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-    #       "<C-u>" = "cmp.mapping.scroll_docs(4)";
-    #       "<C-e>" = "cmp.mapping.abort()";
-    #       "<A-l>" = "cmp.mapping.confirm({ select = true })";
-    #       "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-    #       "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-    #     };
-    #   };
-    # };
     plugins.supermaven = {
       enable = true;
       settings = {
@@ -450,58 +431,5 @@ in
     # Misc
     lsp.servers.jsonls.enable = true;
     lsp.servers.yamlls.enable = true;
-
-    plugins = {
-      #   sleuth.enable = true;
-      #   dressing.enable = true;
-      #   fidget.enable = true;
-      #   git-conflict.enable = true;
-      #   gitsigns.enable = true;
-      #   hmts.enable = true;
-      #   illuminate.enable = true;
-      #   lazygit.enable = true;
-      #   markdown-preview.enable = true;
-      #   nix.enable = true;
-      #   spider = {
-      #     enable = true;
-      #     keymaps.motions = {
-      #       b = "B";
-      #       e = "E";
-      #       ge = "gE";
-      #       w = "W";
-      #     };
-      #     settings.skipInsignificantPunctuation = false;
-      #   };
-      #   twilight.enable = true;
-      #   conform-nvim = {
-      #     enable = true;
-      #     settings = {
-      #       formatters_by_ft = {
-      #         javascript = [["prettierd" "prettier"]];
-      #         typescript = [["prettierd" "prettier"]];
-      #         html = [["prettierd" "prettier"]];
-      #         css = [["prettierd" "prettier"]];
-      #         markdown = [["prettierd" "prettier"]];
-      #         json = [["prettierd" "prettier"]];
-      #         yaml = [["prettierd" "prettier"]];
-      #         graphql = [["prettierd" "prettier"]];
-      #       };
-      #       format_on_save.lsp_format = "fallback";
-      #       notify_on_error = true;
-      #     };
-      #   };
-      #   ts-context-commentstring = {
-      #     enable = true;
-      #     settings.enable_autocmd = false;
-      #   };
-      #   crates.enable = true;
-      #   spectre = {
-      #     enable = true;
-      #     settings = {
-      #       default.replace.cmd = "oxi";
-      #       live_update = true;
-      #     };
-      #   };
-    };
   };
 }
