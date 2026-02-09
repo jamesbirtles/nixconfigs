@@ -12,15 +12,31 @@
 
   home.file.".icons/default".source = "${pkgs.apple-cursor}/share/icons/macOS";
 
+  xdg.configFile."elephant/1password.toml".text = ''
+    vaults = ["Personal"]
+  '';
+
   # App Launcher
   programs.walker = {
     enable = true;
     runAsService = true;
     config = {
+      keybinds = {
+        next = [ "Down" "ctrl n" ];
+        previous = [ "Up" "ctrl p" ];
+      };
       providers.default = [
         "desktopapplications"
         "calc"
+        "1password"
+        "windows"
+        "websearch"
+        "runner"
+        "nirisessions"
       ];
+    };
+    elephant.settings = {
+      ignored_providers = [ "bitwarden" ];
     };
   };
 
@@ -296,10 +312,10 @@
           [
             "Tray"
             "Privacy"
-            "notifications"
             "Updates"
             "SystemInfo"
             "Settings"
+            "notifications"
           ]
         ];
       };
