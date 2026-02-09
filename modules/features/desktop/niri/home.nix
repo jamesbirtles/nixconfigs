@@ -182,7 +182,7 @@
     };
     settings = {
       # log_level = "ashell::modules::niri_workspaces=debug";
-      app_launcher_cmd = "walker";
+      app_launcher_cmd = "${pkgs.netcat}/bin/nc -U /run/user/1000/walker/walker.sock";
       position = "Bottom";
       modules = {
         left = [
@@ -257,7 +257,7 @@
       "Mod+M".action = focus-monitor-next;
       "Mod+Alt+M".action = move-column-to-monitor-next;
 
-      "Mod+Space".action = spawn "walker";
+      "Mod+Space".action = spawn "${pkgs.netcat}/bin/nc" "-U" "/run/user/1000/walker/walker.sock";
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "firefox";
 

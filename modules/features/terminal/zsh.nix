@@ -33,7 +33,7 @@ in
         ];
         shellAliases = {
           lg = "lazygit";
-          nb = "sudo nixos-rebuild switch --flake .#";
+          nb = "nixos-rebuild-notify";
           nu = "nix flake update --commit-lock-file";
           nix-repair = "sudo nix-store --repair --verify --check-contents";
           kit = "zellij --layout sveltekit";

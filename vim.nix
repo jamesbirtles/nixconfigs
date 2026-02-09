@@ -14,7 +14,7 @@ in
     vimAlias = true;
 
     extraPackages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
       dwt1-shell-color-scripts
     ];
 

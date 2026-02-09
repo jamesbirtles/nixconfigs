@@ -90,6 +90,19 @@ in
         done
       '')
 
+      (pkgs.writeShellScriptBin "nixos-rebuild-notify" ''
+        WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
+        if sudo nixos-rebuild switch --flake .#; then
+          systemctl --user restart elephant.service
+          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" \
+            && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+        else
+          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" \
+            && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+          exit 1
+        fi
+      '')
+
       (pkgs.writeShellScriptBin "update-system" ''
         set -e
 
@@ -103,6 +116,9 @@ in
         # Build the system
         echo "Building system..."
         sudo nixos-rebuild switch --flake .#
+
+        # Refresh app launcher
+        systemctl --user restart elephant.service
 
         # Push if build succeeded
         echo "Build successful, pushing..."
