@@ -75,40 +75,138 @@
     ];
   };
 
-  # Notications
-  services.mako = {
+  # Notifications
+  services.swaync = {
     enable = true;
-
     settings = {
-      font = "Inter 11";
-      width = 380;
-      height = 150;
-      margin = "8";
-      padding = "8";
-      border-size = 4;
-      border-radius = 12;
-      anchor = "bottom-right";
-      background-color = "#1e1e2e";
-      text-color = "#cdd6f4";
-      border-color = "#89b4fa";
-      progress-color = "over #313244";
-      icon-path = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
-      max-icon-size = 48;
+      positionX = "right";
+      positionY = "bottom";
+      notification-window-width = 380;
+      notification-icon-size = 48;
+      timeout = 5;
+      timeout-low = 3;
+      timeout-critical = 0;
+      widgets = [ "title" "dnd" "notifications" ];
     };
+    style = ''
+      /* Catppuccin Mocha colors */
+      .notification-row {
+        outline: none;
+      }
 
-    extraConfig = ''
-      [urgency=low]
-      border-color=#94e2d5
-      default-timeout=3000
+      .notification {
+        border-radius: 12px;
+        border: 4px solid #89b4fa;
+        margin: 4px 8px;
+        padding: 0;
+        background-color: #1e1e2e;
+      }
 
-      [urgency=normal]
-      border-color=#89b4fa
-      default-timeout=5000
+      .notification .notification-content {
+        padding: 8px;
+      }
 
-      [urgency=high]
-      border-color=#f38ba8
-      default-timeout=0
-      background-color=#1e1e2eF2
+      .notification .summary {
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+        color: #cdd6f4;
+      }
+
+      .notification .body {
+        font-family: Inter, sans-serif;
+        font-size: 11px;
+        color: #cdd6f4;
+      }
+
+      .notification .time {
+        font-family: Inter, sans-serif;
+        font-size: 10px;
+        color: #a6adc8;
+      }
+
+      .notification .image {
+        border-radius: 8px;
+        margin-right: 8px;
+      }
+
+      .low .notification {
+        border-color: #94e2d5;
+      }
+
+      .critical .notification {
+        border-color: #f38ba8;
+        background-color: rgba(30, 30, 46, 0.95);
+      }
+
+      .notification-action {
+        border-radius: 8px;
+        background-color: #313244;
+        color: #cdd6f4;
+        font-family: Inter, sans-serif;
+        font-size: 11px;
+        margin: 4px;
+        padding: 4px 8px;
+        border: 1px solid #45475a;
+      }
+
+      .notification-action:hover {
+        background-color: #45475a;
+      }
+
+      .notification-action:active {
+        background-color: #585b70;
+      }
+
+      .close-button {
+        background-color: #313244;
+        color: #cdd6f4;
+        border-radius: 50%;
+        margin: 4px;
+        padding: 2px;
+        border: 1px solid #45475a;
+      }
+
+      .close-button:hover {
+        background-color: #f38ba8;
+      }
+
+      .control-center {
+        background-color: rgba(30, 30, 46, 0.95);
+        border-radius: 12px;
+        border: 2px solid #89b4fa;
+        margin: 8px;
+        padding: 8px;
+      }
+
+      .control-center .notification {
+        background-color: #1e1e2e;
+      }
+
+      .widget-title {
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #cdd6f4;
+        margin: 4px 8px;
+      }
+
+      .widget-dnd {
+        font-family: Inter, sans-serif;
+        font-size: 12px;
+        color: #cdd6f4;
+        margin: 4px 8px;
+      }
+
+      .widget-dnd > switch {
+        border-radius: 12px;
+        background-color: #313244;
+        border: 1px solid #45475a;
+      }
+
+      .widget-dnd > switch:checked {
+        background-color: #89b4fa;
+      }
     '';
   };
 
