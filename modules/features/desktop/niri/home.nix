@@ -280,13 +280,12 @@
     };
     settings = {
       # log_level = "ashell::modules::niri_workspaces=debug";
-      app_launcher_cmd = "${pkgs.netcat}/bin/nc -U /run/user/1000/walker/walker.sock";
       position = "Bottom";
       modules = {
         left = [
           [
-            "AppLauncher"
-            # "NiriWorkspaces"
+            "launcher"
+            "Workspaces"
           ]
         ];
         center = [
@@ -297,17 +296,34 @@
           [
             "Tray"
             "Privacy"
+            "notifications"
             "Updates"
             "SystemInfo"
             "Settings"
           ]
         ];
       };
+      workspaces.visibility_mode = "MonitorSpecific";
       clock.format = "%A %-d %B %X";
       updates = {
         check_cmd = "check-updates";
         update_cmd = "niri msg action spawn -- ghostty --title update-system -e update-system";
       };
+      CustomModule = [
+        {
+          name = "launcher";
+          icon = "󱗼";
+          command = "${pkgs.netcat}/bin/nc -U /run/user/1000/walker/walker.sock";
+        }
+        {
+          name = "notifications";
+          icon = "󰂚";
+          command = "swaync-client -t -sw";
+          listen_cmd = "swaync-client -swb";
+          icons."dnd.*" = "󰂛";
+          alert = ".*notification";
+        }
+      ];
     };
   };
 

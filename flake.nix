@@ -34,7 +34,7 @@
       inputs.elephant.follows = "elephant";
     };
     niri.url = "github:sodiboo/niri-flake";
-    ashell.url = "github:jamesbirtles/ashell";
+    ashell.url = "github:MalpenZibo/ashell";
     browser-previews.url = "github:nix-community/browser-previews";
   };
 
@@ -69,7 +69,7 @@
           specialArgs = {
             inherit walker;
             pnpm2nix = pnpm2nix.packages.${system};
-            ashell = ashell.defaultPackage.${system};
+            ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;
             vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
             zen-browser = zen-browser.packages.${system}.default;

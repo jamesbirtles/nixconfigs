@@ -94,10 +94,10 @@ in
         WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
         if sudo nixos-rebuild switch --flake .#; then
           systemctl --user restart elephant.service
-          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" \
+          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" > /dev/null \
             && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
         else
-          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" \
+          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" > /dev/null \
             && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
           exit 1
         fi
