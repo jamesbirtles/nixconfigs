@@ -4,6 +4,7 @@
   pkgs,
   firefox-gnome-theme ? null,
   zen-browser,
+  google-chrome-dev,
   ...
 }:
 let
@@ -19,6 +20,7 @@ in
 
     environment.systemPackages = with pkgs; [
       zen-browser
+      google-chrome-dev
     ];
 
     # Home-manager configuration for user james

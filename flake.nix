@@ -35,6 +35,7 @@
     };
     niri.url = "github:sodiboo/niri-flake";
     ashell.url = "github:jamesbirtles/ashell";
+    browser-previews.url = "github:nix-community/browser-previews";
   };
 
   outputs =
@@ -51,6 +52,7 @@
       walker,
       niri,
       ashell,
+      browser-previews,
       ...
     }:
     let
@@ -71,6 +73,7 @@
             firefox-gnome-theme = firefox-gnome-theme;
             vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
             zen-browser = zen-browser.packages.${system}.default;
+            google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
             outPath = self.outPath;
           };
           modules = [
