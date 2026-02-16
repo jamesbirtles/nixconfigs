@@ -29,9 +29,14 @@
   security.pam.loginLimits = [
     {
       domain = "*";
-      type = "soft";
+      type = "-";
       item = "nofile";
-      value = "65536";
+      value = "524288";
     }
   ];
+
+  systemd.settings.Manager.DefaultLimitNOFILE = "524288";
+  systemd.user.extraConfig = ''
+    DefaultLimitNOFILE=524288
+  '';
 }
