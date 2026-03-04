@@ -18,7 +18,6 @@ in
     environment.systemPackages = with pkgs; [
       jq
       rclone
-      claude-code
 
       # Helper scripts
       (pkgs.writeShellScriptBin "check-updates" ''

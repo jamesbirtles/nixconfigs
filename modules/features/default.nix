@@ -25,6 +25,7 @@
     ./development/zed.nix
 
     # Terminal
+    ./terminal/claude-code.nix
     ./terminal/ghostty.nix
     ./terminal/tools.nix
     ./terminal/zsh.nix
