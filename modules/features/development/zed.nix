@@ -65,20 +65,27 @@ in
         ];
         userSettings = {
           icon_theme = "Catppuccin Frappé";
+          agent_servers = {
+            claude = {
+              default_model = "default";
+            };
+          };
           agent = {
-            always_allow_tool_actions = true;
+            use_modifier_to_send = true;
+            tool_permissions = {
+              default = "allow";
+            };
             default_model = {
               provider = "zed.dev";
               model = "claude-opus-4-1";
             };
             default_profile = "write";
           };
-          features = {
-            edit_prediction_provider = "zed";
-          };
           edit_predictions = {
+            provider = "zed";
             mode = "subtle";
           };
+          use_on_type_format = false;
           ui_font_size = 16;
           buffer_font_size = 16;
           buffer_font_family = "Berkeley Mono";
@@ -107,6 +114,13 @@ in
                   tsserver = {
                     maxTsServerMemory = 16184;
                   };
+                };
+              };
+            };
+            eslint = {
+              settings = {
+                experimental = {
+                  useFlatConfig = false;
                 };
               };
             };
