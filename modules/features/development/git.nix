@@ -28,6 +28,7 @@ in
           user.name = "James Birtles";
           push.autoSetupRemote = true;
           init.defaultBranch = "main";
+          rebase.updateRefs = true;
         };
         ignores = [
           ".DS_Store"
