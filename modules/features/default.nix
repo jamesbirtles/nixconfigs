@@ -64,6 +64,7 @@
 
     # Services
     ./services/flatpak.nix
+    ./services/lldpd.nix
     ./services/rclone-mount.nix
   ];
 }
