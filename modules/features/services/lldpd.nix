@@ -14,6 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.lldpd.enable = true;
+    users.users.james.extraGroups = [ "_lldpd" ];
     environment.systemPackages = [ pkgs.lldpd ];
   };
 }
