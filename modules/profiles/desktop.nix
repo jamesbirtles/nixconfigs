@@ -46,6 +46,7 @@
     productivity.misc.enable = lib.mkDefault true;
 
     # Communication
+    communication.claude-desktop.enable = lib.mkDefault true;
     communication.email.enable = lib.mkDefault true;
 
     # Media

@@ -36,6 +36,7 @@
     niri.url = "github:sodiboo/niri-flake";
     ashell.url = "github:MalpenZibo/ashell";
     browser-previews.url = "github:nix-community/browser-previews";
+    claude-desktop.url = "github:aaddrick/claude-desktop-debian";
   };
 
   outputs =
@@ -53,6 +54,7 @@
       niri,
       ashell,
       browser-previews,
+      claude-desktop,
       ...
     }:
     let
@@ -74,6 +76,7 @@
             vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
             zen-browser = zen-browser.packages.${system}.default;
             google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
+            claude-desktop-pkg = claude-desktop.packages.${system}.claude-desktop-fhs;
             outPath = self.outPath;
           };
           modules = [
