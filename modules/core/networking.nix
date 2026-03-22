@@ -2,6 +2,9 @@
 {
   networking.networkmanager.enable = true;
 
+  # Required for workerd to pick up local CA certificates
+  environment.variables.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
   networking.firewall.allowedTCPPortRanges = [
     {
       from = 8070;
