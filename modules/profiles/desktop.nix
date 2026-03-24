@@ -61,5 +61,6 @@
 
     # Services
     services.flatpak.enable = lib.mkDefault true;
+    services.ollama.enable = lib.mkDefault true;
   };
 }
