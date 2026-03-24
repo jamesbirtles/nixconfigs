@@ -1,4 +1,4 @@
-{ config, lib, pkgs, firefox-gnome-theme, vscode-extensions, walker, ashell, ... }:
+{ config, lib, pkgs, firefox-gnome-theme, vscode-extensions, ashell, ... }:
 {
   users.defaultUserShell = pkgs.zsh;
 
@@ -16,6 +16,7 @@
       "docker"
     ];
     packages = with pkgs; [
+      bruno
       chromium
       gnome-obfuscate
     ];
@@ -27,15 +28,11 @@
   home-manager.backupFileExtension = "hm-backup";
 
   home-manager.extraSpecialArgs = {
-    inherit firefox-gnome-theme vscode-extensions ashell walker;
+    inherit firefox-gnome-theme vscode-extensions ashell;
   };
 
   # Common home-manager config for user james
   home-manager.users.james = {
-    imports = [
-      walker.homeManagerModules.default
-    ];
-
     home.stateVersion = "23.11";
     xdg.enable = true;
   };

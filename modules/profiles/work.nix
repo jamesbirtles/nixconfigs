@@ -14,5 +14,7 @@
     communication.thunderbird.enable = lib.mkDefault true;
 
     services.lldpd.enable = lib.mkDefault true;
+
+    development.techex.enable = lib.mkDefault true;
   };
 }

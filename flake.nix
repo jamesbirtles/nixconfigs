@@ -28,13 +28,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    elephant.url = "github:abenz1267/elephant";
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
     niri.url = "github:sodiboo/niri-flake";
     ashell.url = "github:MalpenZibo/ashell";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.follows = "noctalia-qs";
+    };
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     browser-previews.url = "github:nix-community/browser-previews";
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
   };
@@ -50,9 +54,10 @@
       firefox-gnome-theme,
       nix-vscode-extensions,
       zen-browser,
-      walker,
       niri,
       ashell,
+      noctalia,
+      noctalia-qs,
       browser-previews,
       claude-desktop,
       ...
@@ -69,7 +74,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit walker;
+            inherit noctalia;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;

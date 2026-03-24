@@ -23,6 +23,7 @@
     ./development/cursor.nix
     ./development/vscode.nix
     ./development/zed.nix
+    ./development/techex.nix
 
     # Terminal
     ./terminal/claude-code.nix

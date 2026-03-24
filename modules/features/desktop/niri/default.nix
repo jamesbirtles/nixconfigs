@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  ashell ? null,
+  noctalia,
   ...
 }:
 let
@@ -26,18 +26,25 @@ in
     };
 
     security.pam.services.swaylock = { };
+    security.polkit.enable = true;
+
+    # systemd tmpfiles rule for xdg-desktop-portal (for screensharing)
+    systemd.tmpfiles.rules = [
+      "L+ /usr/libexec/xdg-desktop-portal - - - - ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"
+    ];
 
     environment.systemPackages = with pkgs; [
       xwayland-satellite
       brightnessctl
+      wl-clipboard
     ];
 
     # Home-manager configuration for user james
     home-manager.users.james = {
-      imports = [ ./home.nix ];
-
-      # Pass ashell to home config
-      _module.args.ashell = if ashell != null then ashell else pkgs.ashell;
+      imports = [
+        ./home.nix
+        noctalia.homeModules.default
+      ];
     };
   };
 }

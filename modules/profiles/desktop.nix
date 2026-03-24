@@ -5,6 +5,11 @@
   ...
 }:
 {
+  # Prerequisites for Noctalia shell and general desktop use
+  hardware.bluetooth.enable = lib.mkDefault true;
+  services.power-profiles-daemon.enable = lib.mkDefault true;
+  services.upower.enable = lib.mkDefault true;
+
   # Base configuration shared by desktop/laptop machines (work and personal)
   features = {
     # Desktop
