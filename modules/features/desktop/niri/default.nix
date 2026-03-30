@@ -27,6 +27,7 @@ in
 
     security.pam.services.swaylock = { };
     security.polkit.enable = true;
+    systemd.user.services.niri-flake-polkit.enable = false; # handled by noctalia polkit-agent plugin
 
     # systemd tmpfiles rule for xdg-desktop-portal (for screensharing)
     systemd.tmpfiles.rules = [
@@ -37,6 +38,18 @@ in
       xwayland-satellite
       brightnessctl
       wl-clipboard
+      gpu-screen-recorder
+      # screen-toolkit plugin dependencies
+      grim
+      slurp
+      tesseract
+      imagemagick
+      zbar
+      curl
+      translate-shell
+      wf-recorder
+      ffmpeg
+      gifski
     ];
 
     # Home-manager configuration for user james

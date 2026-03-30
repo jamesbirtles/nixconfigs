@@ -271,7 +271,7 @@
       };
 
       plugins = {
-        autoUpdate = false;
+        autoUpdate = true;
         notifyUpdates = true;
       };
 
@@ -423,11 +423,11 @@
               enableColorization = false;
               icon = "rocket";
               iconColor = "none";
-              useDistroLogo = false;
+              useDistroLogo = true;
             }
             {
               id = "Workspace";
-              hideUnoccupied = false;
+              hideUnoccupied = true;
               labelMode = "none";
               characterCount = 2;
               colorizeIcons = false;
@@ -440,9 +440,9 @@
               iconScale = 0.8;
               occupiedColor = "secondary";
               pillSize = 0.6;
-              showApplications = false;
+              showApplications = true;
               showApplicationsHover = false;
-              showBadge = true;
+              showBadge = false;
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
             }
@@ -457,6 +457,9 @@
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
             }
+            {
+              id = "plugin:screen-toolkit";
+            }
           ];
           right = [
             {
@@ -467,6 +470,18 @@
               drawerEnabled = true;
               hidePassive = false;
               pinned = [ "1Password" ];
+            }
+            {
+              id = "plugin:privacy-indicator";
+              defaultSettings = {
+                activeColor = "primary";
+                enableToast = true;
+                hideInactive = false;
+                iconSpacing = 4;
+                inactiveColor = "none";
+                micFilterRegex = "";
+                removeMargins = false;
+              };
             }
             {
               id = "SystemMonitor";
@@ -512,8 +527,8 @@
               colorizeSystemIcon = "none";
               customIconPath = "";
               enableColorization = true;
-              icon = "noctalia";
-              useDistroLogo = true;
+              icon = "adjustments-alt";
+              useDistroLogo = false;
             }
           ];
         };
@@ -527,7 +542,7 @@
         enableBatteryToast = true;
         enableKeyboardLayoutToast = true;
         enableMarkdown = true;
-        enableMediaToast = true;
+        enableMediaToast = false;
         enabled = true;
         location = "bottom_right";
         lowUrgencyDuration = 3;
@@ -543,7 +558,7 @@
         sounds = {
           criticalSoundFile = "";
           enabled = true;
-          excludedApps = "discord,firefox,chrome,chromium,edge";
+          excludedApps = "discord,firefox,chrome,chromium,edge,slack";
           lowSoundFile = "";
           normalSoundFile = "";
           separateSounds = true;
@@ -561,6 +576,31 @@
         overlayLayer = true;
       };
     };
+
+    plugins = {
+        sources = [
+          {
+            enabled = true;
+            name = "Noctalia Plugins";
+            url = "https://github.com/noctalia-dev/noctalia-plugins";
+          }
+        ];
+        states = {
+          polkit-agent = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+          privacy-indicator = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+          screen-toolkit = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+        };
+        version = 2;
+    };
   };
 
   # Wallpaper via Noctalia
@@ -572,6 +612,7 @@
   };
 
   programs.niri.settings = {
+    debug.honor-xdg-activation-with-invalid-serial = true;
     prefer-no-csd = true;
     spawn-at-startup = [
       { command = [ "noctalia-shell" ]; }
@@ -690,7 +731,7 @@
     layer-rules = [
       {
         matches = [
-          { namespace = "^wallpaper$"; }
+          { namespace = "^noctalia-overview*"; }
         ];
         place-within-backdrop = true;
       }
