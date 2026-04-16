@@ -18,8 +18,13 @@ in
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
+        includes = [ "~/.ssh/1Password/config" ];
         matchBlocks."*" = {
           identityAgent = "~/.1password/agent.sock";
+        };
+        matchBlocks."jamesb-darwin 10.12.51.155" = {
+          hostname = "10.12.51.155";
+          forwardAgent = true;
         };
       };
     };
