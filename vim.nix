@@ -22,6 +22,14 @@ in
 
     # Use system clipboard for everything
     clipboard.register = "unnamedplus";
+    clipboard.providers.wl-copy.enable = true;
+
+    # Use OSC 52 for clipboard when in an SSH session
+    extraConfigLua = ''
+      if os.getenv("SSH_TTY") then
+        vim.g.clipboard = "osc52"
+      end
+    '';
 
     # show diagnostics to the right of line
     diagnostic.settings.virtual_text = true;
