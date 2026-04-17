@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  nix-alien,
   outPath ? null,
   ...
 }:
@@ -17,6 +18,7 @@ in
     # System-level packages
     environment.systemPackages = with pkgs; [
       jq
+      nix-alien
       rclone
 
       # Helper scripts
@@ -90,14 +92,18 @@ in
       '')
 
       (pkgs.writeShellScriptBin "nixos-rebuild-notify" ''
-        WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
-        if sudo nixos-rebuild switch --flake .#; then
-          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" > /dev/null \
-            && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+        if command -v niri &>/dev/null && niri msg -j focused-window &>/dev/null; then
+          WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
+          if sudo nixos-rebuild switch --flake .#; then
+            (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" > /dev/null \
+              && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+          else
+            (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" > /dev/null \
+              && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+            exit 1
+          fi
         else
-          (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" > /dev/null \
-            && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
-          exit 1
+          sudo nixos-rebuild switch --flake .#
         fi
       '')
 
