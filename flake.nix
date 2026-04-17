@@ -41,6 +41,7 @@
     };
     browser-previews.url = "github:nix-community/browser-previews";
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
   outputs =
@@ -60,6 +61,7 @@
       noctalia-qs,
       browser-previews,
       claude-desktop,
+      nix-alien,
       ...
     }:
     let
@@ -82,6 +84,7 @@
             zen-browser = zen-browser.packages.${system}.default;
             google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
             claude-desktop-pkg = claude-desktop.packages.${system}.claude-desktop-fhs;
+            nix-alien = nix-alien.packages.${system}.nix-alien;
             outPath = self.outPath;
           };
           modules = [
