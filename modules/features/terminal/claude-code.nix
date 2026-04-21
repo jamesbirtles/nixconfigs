@@ -102,7 +102,7 @@ in
             ];
           };
         };
-        memory.text = ''
+        context = ''
           When devenv.nix doesn't exist and a command/tool is missing, create ad-hoc environment:
 
               $ devenv -O languages.rust.enable:bool true -O packages:pkgs "mypackage mypackage2" shell -- cli args

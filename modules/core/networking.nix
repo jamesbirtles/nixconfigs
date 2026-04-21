@@ -1,6 +1,12 @@
 { config, lib, pkgs, ... }:
 {
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "systemd-resolved";
+
+  services.resolved = {
+    enable = true;
+    settings.Resolve.DNSOverTLS = "opportunistic";
+  };
 
   # Required for workerd to pick up local CA certificates
   environment.variables.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";

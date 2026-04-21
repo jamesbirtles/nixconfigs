@@ -17,5 +17,9 @@ in
       proton-vpn
       openconnect
     ];
+
+    networking.networkmanager.plugins = [
+      pkgs.networkmanager-openconnect
+    ];
   };
 }
