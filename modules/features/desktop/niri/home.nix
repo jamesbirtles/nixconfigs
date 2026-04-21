@@ -197,6 +197,7 @@
         showHibernateOnLockScreen = false;
         showScreenCorners = true;
         showSessionButtonsOnLockScreen = true;
+        smoothScrollEnabled = true;
         telemetryEnabled = false;
       };
 
@@ -230,6 +231,7 @@
 
       location = {
         analogClockInCalendar = true;
+        autoLocate = false;
         firstDayOfWeek = 1;
         hideWeatherCityName = false;
         hideWeatherTimezone = false;
@@ -241,10 +243,10 @@
         useFahrenheit = false;
         weatherEnabled = true;
         weatherShowEffects = true;
+        weatherTaliaMascotAlways = false;
       };
 
       network = {
-        airplaneModeEnabled = false;
         bluetoothAutoConnect = true;
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
@@ -341,6 +343,7 @@
 
       wallpaper = {
         automationEnabled = false;
+        linkLightAndDarkWallpapers = true;
         directory = "/home/james/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
@@ -419,6 +422,7 @@
             {
               id = "Launcher";
               colorizeSystemIcon = "none";
+              colorizeSystemText = "none";
               customIconPath = "";
               enableColorization = false;
               icon = "rocket";
@@ -459,6 +463,18 @@
             }
             {
               id = "plugin:screen-toolkit";
+              defaultSettings = {
+                colorHistory = [ ];
+                detectedCompositor = "";
+                detectedRecorder = "";
+                filenameFormat = "";
+                installedLangs = [ "eng" ];
+                paletteColors = [ ];
+                screenshotPath = "";
+                selectedOcrLang = "eng";
+                transAvailable = false;
+                videoPath = "";
+              };
             }
           ];
           right = [
@@ -470,6 +486,20 @@
               drawerEnabled = true;
               hidePassive = false;
               pinned = [ "1Password" ];
+            }
+            {
+              id = "VPN";
+              displayMode = "alwaysShow";
+              iconColor = "none";
+              textColor = "none";
+            }
+            {
+              id = "plugin:port-monitor";
+              defaultSettings = {
+                hideSystemPorts = false;
+                hideWhenEmpty = false;
+                refreshInterval = 5;
+              };
             }
             {
               id = "plugin:privacy-indicator";
@@ -496,10 +526,10 @@
               showDiskUsage = false;
               showDiskUsageAsPercent = false;
               showGpuTemp = false;
-              showLoadAverage = false;
+              showLoadAverage = true;
               showMemoryAsPercent = false;
               showMemoryUsage = true;
-              showNetworkStats = false;
+              showNetworkStats = true;
               showSwapUsage = false;
               textColor = "none";
               useMonospaceFont = true;
@@ -524,6 +554,7 @@
             {
               id = "ControlCenter";
               colorizeDistroLogo = false;
+              colorizeSystemText = "none";
               colorizeSystemIcon = "none";
               customIconPath = "";
               enableColorization = true;
@@ -595,6 +626,10 @@
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
           screen-toolkit = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+          port-monitor = {
             enabled = true;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };

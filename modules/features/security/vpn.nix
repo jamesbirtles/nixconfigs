@@ -16,6 +16,7 @@ in
     environment.systemPackages = with pkgs; [
       proton-vpn
       openconnect
+      networkmanagerapplet
     ];
 
     networking.networkmanager.plugins = [
