@@ -24,7 +24,7 @@
 
   programs.nix-ld.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_7_0;
   boot.loader.systemd-boot.configurationLimit = 10;
 
   security.pam.loginLimits = [
