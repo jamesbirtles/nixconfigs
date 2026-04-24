@@ -1,6 +1,17 @@
 {
   description = "James's NixOS configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://noctalia.cachix.org"
+      "https://cache.garnix.io"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -42,6 +53,7 @@
     browser-previews.url = "github:nix-community/browser-previews";
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     nix-alien.url = "github:thiagokokada/nix-alien";
+    zed-editor.url = "github:jamesbirtles/zed-flake/stable";
   };
 
   outputs =
@@ -62,6 +74,7 @@
       browser-previews,
       claude-desktop,
       nix-alien,
+      zed-editor,
       ...
     }:
     let
@@ -85,6 +98,7 @@
             google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
             claude-desktop-pkg = claude-desktop.packages.${system}.claude-desktop-fhs;
             nix-alien = nix-alien.packages.${system}.nix-alien;
+            zed-editor = zed-editor.packages.${system}.default;
             outPath = self.outPath;
           };
           modules = [

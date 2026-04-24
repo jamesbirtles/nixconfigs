@@ -12,6 +12,10 @@
     development.dev-tools.enable = lib.mkDefault true;
     development.nodejs.enable = lib.mkDefault true;
     development.git.enable = lib.mkDefault true;
+    development.zed = {
+      enable = lib.mkDefault true;
+      installRemoteServer = lib.mkDefault true;
+    };
 
     media.processing.enable = lib.mkDefault true;
 

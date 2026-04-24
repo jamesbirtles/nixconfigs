@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  zed-editor,
   ...
 }:
 let
@@ -10,6 +11,7 @@ in
 {
   options.features.development.zed = {
     enable = lib.mkEnableOption "Zed code editor";
+    installRemoteServer = lib.mkEnableOption "Zed remote server binary";
   };
 
   config = lib.mkIf cfg.enable {
@@ -17,6 +19,8 @@ in
     home-manager.users.james = {
       programs.zed-editor = {
         enable = true;
+        package = zed-editor;
+        inherit (cfg) installRemoteServer;
         extensions = [
           "catppuccin-icons"
           "svelte"

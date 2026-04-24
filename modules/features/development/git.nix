@@ -35,6 +35,7 @@ in
           "Desktop.ini"
           ".Spotlight-V100"
           ".Trashes"
+          ".zed/"
         ];
         lfs.enable = true;
       };

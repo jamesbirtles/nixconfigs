@@ -5,9 +5,11 @@
     trusted-users = [ "root" "@wheel" ];
     extra-substituters = [
       "https://noctalia.cachix.org"
+      "https://cache.garnix.io"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };
 
