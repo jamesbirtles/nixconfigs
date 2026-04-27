@@ -54,6 +54,10 @@
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     nix-alien.url = "github:thiagokokada/nix-alien";
     zed-editor.url = "github:jamesbirtles/zed-flake/stable";
+    voxtype = {
+      url = "github:peteonrails/voxtype";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -75,6 +79,7 @@
       claude-desktop,
       nix-alien,
       zed-editor,
+      voxtype,
       ...
     }:
     let
@@ -89,7 +94,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit noctalia;
+            inherit noctalia voxtype;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;

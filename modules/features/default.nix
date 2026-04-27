@@ -34,6 +34,7 @@
     # Productivity
     ./productivity/browsers.nix
     ./productivity/misc.nix
+    ./productivity/speech.nix
 
     # Creative
     ./creative/3d-printing.nix

@@ -49,6 +49,7 @@
     # Productivity
     productivity.browsers.enable = lib.mkDefault true;
     productivity.misc.enable = lib.mkDefault true;
+    productivity.speech.enable = lib.mkDefault true;
 
     # Communication
     communication.claude-desktop.enable = lib.mkDefault true;

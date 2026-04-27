@@ -453,6 +453,20 @@
           ];
           center = [
             {
+              id = "CustomButton";
+              textCommand = "voxtype-status-themed";
+              textStream = true;
+              parseJson = true;
+              leftClickExec = "voxtype record toggle";
+              showIcon = true;
+              showExecTooltip = false;
+              hideMode = "expandWithOutput";
+              maxTextLength = {
+                horizontal = 14;
+                vertical = 14;
+              };
+            }
+            {
               id = "Clock";
               formatHorizontal = "dddd d MMMM HH:mm:ss";
               clockColor = "none";
@@ -697,6 +711,7 @@
       "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "firefox";
+      "Mod+V".action = spawn "voxtype" "record" "toggle";
 
       # Function Keys
       "XF86AudioRaiseVolume".action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
