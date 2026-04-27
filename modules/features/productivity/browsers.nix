@@ -32,6 +32,7 @@ in
           throw "firefox-gnome-theme input is required when browsers feature is enabled";
 
       programs.firefox.enable = true;
+      programs.firefox.configPath = ".mozilla/firefox";
       programs.firefox.profiles.default = {
         id = 0;
         name = "default";
