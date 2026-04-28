@@ -13,16 +13,19 @@
     ];
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    randomizedDelaySec = "14m";
-    options = "--delete-older-than 30d";
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   programs.nix-ld.enable = true;
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/james/nixconfigs";
+    clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep-since 30d --keep 10";
+    };
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_7_0;
   boot.loader.systemd-boot.configurationLimit = 10;

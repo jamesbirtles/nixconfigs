@@ -8,4 +8,7 @@
     ./fonts.nix
   ];
 
+  services.fstrim.enable = true;
+
+  zramSwap.enable = true;
 }
