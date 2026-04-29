@@ -710,7 +710,7 @@
 
       "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
-      "Mod+B".action = spawn "firefox";
+      "Mod+B".action = spawn "zen-beta";
       "Mod+V".action = spawn "voxtype" "record" "toggle";
 
       # Function Keys
