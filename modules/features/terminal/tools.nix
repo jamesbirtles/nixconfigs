@@ -94,7 +94,7 @@ in
       (pkgs.writeShellScriptBin "nixos-rebuild-notify" ''
         if command -v niri &>/dev/null && niri msg -j focused-window &>/dev/null; then
           WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
-          if sudo nixos-rebuild switch --flake .#; then
+          if nh os switch; then
             (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" > /dev/null \
               && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
           else
@@ -103,7 +103,7 @@ in
             exit 1
           fi
         else
-          sudo nixos-rebuild switch --flake .#
+          nh os switch
         fi
       '')
 

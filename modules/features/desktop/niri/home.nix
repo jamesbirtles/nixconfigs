@@ -113,9 +113,11 @@
 
       desktopWidgets = {
         enabled = false;
-        gridSnap = false;
-        gridSnapScale = false;
-        monitorWidgets = [ ];
+        gridSnap = true;
+        gridSnapScale = true;
+        monitorWidgets = [
+          { name = "DP-10"; widgets = [ ]; }
+        ];
         overviewEnabled = true;
       };
 
@@ -155,18 +157,18 @@
         allowPanelsOnScreenWithoutBar = false;
         allowPasswordWithFprintd = true;
         animationDisabled = false;
-        animationSpeed = 1;
+        animationSpeed = 2;
         autoStartAuth = false;
-        avatarImage = "/home/james/.face";
+        avatarImage = "/home/james/Pictures/avatar.jpg";
         boxRadiusRatio = 1;
         clockFormat = "hh\\nmmdd.MM.yyyy ";
         clockStyle = "analog";
         compactLockScreen = false;
-        dimmerOpacity = 0.3;
+        dimmerOpacity = 0.09;
         enableBlurBehind = true;
         enableLockScreenCountdown = true;
-        enableLockScreenMediaControls = false;
-        enableShadows = false;
+        enableLockScreenMediaControls = true;
+        enableShadows = true;
         forceBlackScreenCorners = true;
         iRadiusRatio = 0.7000000000000001;
         keybinds = {
@@ -182,17 +184,17 @@
         lockOnSuspend = true;
         lockScreenAnimations = true;
         lockScreenBlur = 0.56;
-        lockScreenCountdownDuration = 10000;
+        lockScreenCountdownDuration = 5000;
         lockScreenMonitors = [ ];
         lockScreenTint = 0.27;
         passwordChars = true;
         radiusRatio = 0.59;
         reverseScroll = false;
         scaleRatio = 1;
-        screenRadiusRatio = 0.5700000000000001;
-        shadowDirection = "bottom_right";
-        shadowOffsetX = 2;
-        shadowOffsetY = 3;
+        screenRadiusRatio = 0.7000000000000001;
+        shadowDirection = "center";
+        shadowOffsetX = 0;
+        shadowOffsetY = 0;
         showChangelogOnStartup = true;
         showHibernateOnLockScreen = false;
         showScreenCorners = true;
@@ -278,19 +280,19 @@
       };
 
       sessionMenu = {
-        countdownDuration = 10000;
-        enableCountdown = true;
-        largeButtonsLayout = "single-row";
+        countdownDuration = 5000;
+        enableCountdown = false;
+        largeButtonsLayout = "grid";
         largeButtonsStyle = true;
         position = "center";
         powerOptions = [
           { action = "lock"; command = ""; countdownEnabled = true; enabled = true; keybind = "1"; }
-          { action = "suspend"; command = ""; countdownEnabled = true; enabled = true; keybind = "2"; }
-          { action = "hibernate"; command = ""; countdownEnabled = true; enabled = true; keybind = "3"; }
-          { action = "reboot"; command = ""; countdownEnabled = true; enabled = true; keybind = "4"; }
-          { action = "logout"; command = ""; countdownEnabled = true; enabled = true; keybind = "5"; }
-          { action = "shutdown"; command = ""; countdownEnabled = true; enabled = true; keybind = "6"; }
-          { action = "rebootToUefi"; command = ""; countdownEnabled = true; enabled = true; keybind = "7"; }
+          { action = "suspend"; command = ""; countdownEnabled = true; enabled = false; keybind = ""; }
+          { action = "hibernate"; command = ""; countdownEnabled = true; enabled = false; keybind = ""; }
+          { action = "reboot"; command = ""; countdownEnabled = true; enabled = true; keybind = "2"; }
+          { action = "logout"; command = ""; countdownEnabled = true; enabled = true; keybind = "3"; }
+          { action = "shutdown"; command = ""; countdownEnabled = true; enabled = true; keybind = "4"; }
+          { action = "rebootToUefi"; command = ""; countdownEnabled = true; enabled = false; keybind = ""; }
           { action = "userspaceReboot"; command = ""; countdownEnabled = true; enabled = false; keybind = ""; }
         ];
         showHeader = true;
@@ -322,7 +324,11 @@
       };
 
       templates = {
-        activeTemplates = [ ];
+        activeTemplates = [
+          { enabled = true; id = "zed"; }
+          { enabled = true; id = "zenBrowser"; }
+          { enabled = true; id = "niri"; }
+        ];
         enableUserTheming = false;
       };
 
@@ -332,10 +338,10 @@
         fontDefaultScale = 1;
         fontFixed = "monospace";
         fontFixedScale = 1;
-        panelBackgroundOpacity = 0.9;
+        panelBackgroundOpacity = 0.7000000000000001;
         panelsAttachedToBar = true;
         scrollbarAlwaysVisible = false;
-        settingsPanelMode = "window";
+        settingsPanelMode = "attached";
         settingsPanelSideBarCardStyle = false;
         tooltipsEnabled = true;
         translucentWidgets = true;
@@ -383,21 +389,21 @@
       };
 
       bar = {
-        showCapsule = true;
+        showCapsule = false;
         autoHideDelay = 500;
         autoShowDelay = 150;
-        backgroundOpacity = 0;
-        barType = "simple";
+        backgroundOpacity = 1;
+        barType = "framed";
         capsuleColorKey = "none";
         capsuleOpacity = 0.9;
-        contentPadding = 2;
-        density = "compact";
+        contentPadding = 4;
+        density = "default";
         displayMode = "always_visible";
         enableExclusionZoneInset = true;
         fontScale = 1;
         frameRadius = 12;
         frameThickness = 8;
-        hideOnOverview = true;
+        hideOnOverview = false;
         marginHorizontal = 4;
         marginVertical = 4;
         middleClickAction = "settings";
@@ -406,8 +412,8 @@
         monitors = [ ];
         mouseWheelAction = "workspace";
         mouseWheelWrap = true;
-        outerCorners = true;
-        position = "bottom";
+        outerCorners = false;
+        position = "top";
         reverseScroll = false;
         rightClickAction = "controlCenter";
         rightClickCommand = "";
@@ -415,8 +421,8 @@
         screenOverrides = [ ];
         showOnWorkspaceSwitch = true;
         showOutline = false;
-        useSeparateOpacity = true;
-        widgetSpacing = 6;
+        useSeparateOpacity = false;
+        widgetSpacing = 4;
         widgets = {
           left = [
             {
@@ -580,16 +586,16 @@
       };
 
       notifications = {
-        backgroundOpacity = 0.78;
+        backgroundOpacity = 0.7000000000000001;
         clearDismissed = true;
         criticalUrgencyDuration = 15;
-        density = "default";
+        density = "compact";
         enableBatteryToast = true;
         enableKeyboardLayoutToast = true;
         enableMarkdown = true;
         enableMediaToast = false;
         enabled = true;
-        location = "bottom_right";
+        location = "top_right";
         lowUrgencyDuration = 3;
         monitors = [ ];
         normalUrgencyDuration = 8;
@@ -882,4 +888,35 @@
         "Samsung Electric Company S27C900P H1AK500000" = samsung;
       };
   };
+
+  # niri-flake's settings schema doesn't yet expose background-effect, so append
+  # the blur rules as raw KDL while keeping `niri validate` in the build.
+  xdg.configFile.niri-config.source = lib.mkForce (
+    pkgs.runCommand "config.kdl"
+      {
+        config = ''
+          ${config.programs.niri.finalConfig}
+
+          window-rule {
+              background-effect {
+                  blur true
+                  xray false
+              }
+          }
+
+          layer-rule {
+              match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+              background-effect {
+                  xray false
+              }
+          }
+        '';
+        passAsFile = [ "config" ];
+        buildInputs = [ config.programs.niri.package ];
+      }
+      ''
+        niri validate -c $configPath
+        cp $configPath $out
+      ''
+  );
 }
