@@ -12,6 +12,8 @@ let
   #
   #   FRIGATE_RTSP_USER=admin
   #   FRIGATE_RTSP_PASSWORD=yourpassword
+  #   FRIGATE_MQTT_USER=frigate         # HA user created for Frigate
+  #   FRIGATE_MQTT_PASSWORD=yourpassword
   #
   # chmod 600 /etc/frigate/credentials
   dvrRtsp = idc: ids: "rtsp://\${FRIGATE_RTSP_USER}:\${FRIGATE_RTSP_PASSWORD}@dvr.local:554/mode=real&idc=${toString idc}&ids=${toString ids}";
@@ -36,6 +38,11 @@ let
       fps = 5;
     };
   };
+
+  modelDir = "/var/lib/frigate/models";
+  modelXml = "${modelDir}/ssdlite_mobilenet_v2.xml";
+  modelBin = "${modelDir}/ssdlite_mobilenet_v2.bin";
+  modelBaseUrl = "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.3/models_bin/1/ssdlite_mobilenet_v2/FP16";
 in
 {
   options.features.services.frigate = {
@@ -46,14 +53,22 @@ in
     # Required for Intel iGPU access (OpenVINO detector + VAAPI decode)
     hardware.graphics.enable = true;
 
-    # Load RTSP credentials from outside the nix store
-    systemd.services.frigate.serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
+    systemd.services.frigate = {
+      serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
+      # Download OpenVINO model on first run if not already present
+      preStart = ''
+        mkdir -p ${modelDir}
+        if [ ! -f ${modelXml} ]; then
+          echo "Downloading OpenVINO ssdlite_mobilenet_v2 model..."
+          ${pkgs.curl}/bin/curl -fsSL -o ${modelXml} "${modelBaseUrl}/ssdlite_mobilenet_v2.xml"
+          ${pkgs.curl}/bin/curl -fsSL -o ${modelBin} "${modelBaseUrl}/ssdlite_mobilenet_v2.bin"
+        fi
+      '';
+    };
 
     services.frigate = {
       enable = true;
       hostname = "thinkpad-server";
-      # Config check runs in the nix sandbox without env vars — skip it.
-      # Credentials are injected at runtime via EnvironmentFile.
       checkConfig = false;
 
       settings = {
@@ -61,6 +76,8 @@ in
           enabled = true;
           host = "homeassistant.local";
           port = 1883;
+          user = "\${FRIGATE_MQTT_USER}";
+          password = "\${FRIGATE_MQTT_PASSWORD}";
         };
 
         # Intel VAAPI hardware decoding — reduces CPU load on high-res streams
@@ -78,8 +95,9 @@ in
           height = 300;
           input_tensor = "nhwc";
           input_pixel_format = "bgr";
-          # If Frigate fails to start with OpenVINO, explicitly set the model
-          # path to the IR XML bundled with the package.
+          model_type = "ssd";
+          path = modelXml;
+          labelmap_path = "${pkgs.frigate}/share/frigate/labelmap.txt";
         };
 
         # Object-detection triggered recording.
