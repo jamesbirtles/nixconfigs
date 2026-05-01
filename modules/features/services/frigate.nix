@@ -23,30 +23,15 @@ let
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
       {
-        # Main stream — pulled from go2rtc restream, VAAPI decoded on Intel iGPU
         path = "rtsp://localhost:8554/channel_${toString idc}";
         roles = [ "record" ];
         hwaccel_args = "preset-vaapi";
       }
-      {
-        # Sub-stream — pulled from go2rtc restream, software decoded
-        # VAAPI intentionally not used here — hwdownload from GPU fails on small streams
-        path = "rtsp://localhost:8554/channel_${toString idc}_sub";
-        roles = [ "detect" ];
-      }
     ];
-    detect = {
-      enabled = true;
-      width = 352;
-      height = 288;
-      fps = 5;
-    };
+    # Detection disabled until model is sorted out
+    detect.enabled = false;
   };
 
-  modelDir = "/var/lib/frigate/models";
-  # YOLOv8n ONNX — directly supported by OpenVINO 2026.x via ONNX frontend.
-  # ssdlite_mobilenet_v2 (OpenVINO model zoo 2022.3) is incompatible with OpenVINO 2026.x.
-  modelPath = "${modelDir}/yolov8n.onnx";
 in
 {
   options.features.services.frigate = {
@@ -66,16 +51,6 @@ in
         # Needed for Intel GPU performance counters (suppresses PMU permission error)
         AmbientCapabilities = [ "CAP_PERFMON" ];
       };
-      # Download YOLOv8n ONNX model on first run if not already present
-      preStart = ''
-        mkdir -p ${modelDir}
-        if [ ! -f ${modelPath} ]; then
-          echo "Downloading YOLOv8n ONNX model..."
-          ${pkgs.curl}/bin/curl -fsSL -L \
-            -o ${modelPath} \
-            "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.onnx"
-        fi
-      '';
     };
 
     services.frigate = {
@@ -92,22 +67,6 @@ in
           password = "{FRIGATE_MQTT_PASSWORD}";
         };
 
-        detectors = {
-          intel_gpu = {
-            type = "openvino";
-            device = "GPU";
-          };
-        };
-
-        # YOLOv8n: NCHW input, RGB, 320x320
-        model = {
-          width = 320;
-          height = 320;
-          input_tensor = "nchw";
-          input_pixel_format = "rgb";
-          model_type = "yologeneric";
-          path = modelPath;
-        };
 
         # Object-detection triggered recording.
         # To switch to 24/7, set retain.days = N here.
