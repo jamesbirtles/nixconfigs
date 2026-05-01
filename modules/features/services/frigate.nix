@@ -50,6 +50,7 @@ in
         EnvironmentFile = "/etc/frigate/credentials";
         # Needed for Intel GPU performance counters (suppresses PMU permission error)
         AmbientCapabilities = [ "CAP_PERFMON" ];
+        TimeoutStopSec = 15;
       };
     };
 
