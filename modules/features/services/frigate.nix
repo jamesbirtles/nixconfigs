@@ -90,15 +90,9 @@ in
         };
 
 
-        # Object-detection triggered recording.
-        # To switch to 24/7, set retain.days = N here.
         record = {
           enabled = true;
-          retain.days = 0;
-          events.retain = {
-            default = 14;
-            mode = "active_objects";
-          };
+          retain.days = 7;
         };
 
         cameras = {
