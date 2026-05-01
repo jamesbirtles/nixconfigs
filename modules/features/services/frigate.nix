@@ -54,34 +54,28 @@ in
       };
     };
 
-    # go2rtc holds the DVR connections and fans out to Frigate + live view clients.
-    # Credentials are loaded from the same file as Frigate so ${VAR} is substituted.
-    services.go2rtc = {
-      enable = true;
-      settings.streams = {
-        channel_1     = [ (dvrRtsp 1 1) ];
-        channel_1_sub = [ (dvrRtsp 1 2) ];
-        channel_2     = [ (dvrRtsp 2 1) ];
-        channel_2_sub = [ (dvrRtsp 2 2) ];
-        channel_3     = [ (dvrRtsp 3 1) ];
-        channel_3_sub = [ (dvrRtsp 3 2) ];
-        channel_4     = [ (dvrRtsp 4 1) ];
-        channel_4_sub = [ (dvrRtsp 4 2) ];
-        channel_5     = [ (dvrRtsp 5 1) ];
-        channel_5_sub = [ (dvrRtsp 5 2) ];
-        channel_6     = [ (dvrRtsp 6 1) ];
-        channel_6_sub = [ (dvrRtsp 6 2) ];
-      };
-    };
-
-    systemd.services.go2rtc.serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
-
     services.frigate = {
       enable = true;
       hostname = "thinkpad-server";
       checkConfig = false;
 
       settings = {
+        # Frigate's embedded go2rtc — UI accessible on port 1984
+        go2rtc.streams = {
+          channel_1     = [ (dvrRtsp 1 1) ];
+          channel_1_sub = [ (dvrRtsp 1 2) ];
+          channel_2     = [ (dvrRtsp 2 1) ];
+          channel_2_sub = [ (dvrRtsp 2 2) ];
+          channel_3     = [ (dvrRtsp 3 1) ];
+          channel_3_sub = [ (dvrRtsp 3 2) ];
+          channel_4     = [ (dvrRtsp 4 1) ];
+          channel_4_sub = [ (dvrRtsp 4 2) ];
+          channel_5     = [ (dvrRtsp 5 1) ];
+          channel_5_sub = [ (dvrRtsp 5 2) ];
+          channel_6     = [ (dvrRtsp 6 1) ];
+          channel_6_sub = [ (dvrRtsp 6 2) ];
+        };
+
         mqtt = {
           enabled = true;
           host = "homeassistant.local";
