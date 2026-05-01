@@ -53,6 +53,9 @@ in
     # Required for Intel iGPU access (OpenVINO detector + VAAPI decode)
     hardware.graphics.enable = true;
 
+    networking.firewall.allowedTCPPorts = [ 5000 8554 8555 ];
+    networking.firewall.allowedUDPPorts = [ 8555 ];
+
     systemd.services.frigate = {
       serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
       # Download OpenVINO model on first run if not already present
