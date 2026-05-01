@@ -23,7 +23,7 @@ let
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
       {
-        path = "rtsp://localhost:8554/channel_${toString idc}?mp4";
+        path = "rtsp://localhost:8554/channel_${toString idc}";
         roles = [ "record" ];
         hwaccel_args = "preset-vaapi";
       }
@@ -89,6 +89,11 @@ in
           password = "{FRIGATE_MQTT_PASSWORD}";
         };
 
+
+        model = {
+          width = 320;
+          height = 320;
+        };
 
         objects.track = [];
 
