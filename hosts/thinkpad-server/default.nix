@@ -16,4 +16,5 @@
   system.stateVersion = "25.11";
   
   features.development.zed.enable = false;
+  features.services.frigate.enable = true;
 }
