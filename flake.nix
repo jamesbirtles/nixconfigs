@@ -121,6 +121,7 @@
         jb-fwk16.hardware = "framework-16-7040-amd";
         jb-fwk13.hardware = "framework-13-7040-amd";
         jb-thinkpad-t16.hardware = "lenovo-thinkpad-p16s-amd-gen4";
+        thinkpad-server.hardware = "lenovo-thinkpad-t470s";
         jamesbox = {};
         jamesb-darwin = {};
       };
