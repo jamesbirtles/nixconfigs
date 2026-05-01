@@ -17,8 +17,8 @@ let
   #
   # chmod 600 /etc/frigate/credentials
   #
-  # Note: Frigate uses Python str.format() syntax — {VAR} not ${VAR}.
-  dvrRtsp = idc: ids: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@dvr.local:554/mode=real&idc=${toString idc}&ids=${toString ids}";
+  # go2rtc uses ${VAR} env-var substitution (escaped in Nix as \${VAR})
+  dvrRtsp = idc: ids: "rtsp://\${FRIGATE_RTSP_USER}:\${FRIGATE_RTSP_PASSWORD}@dvr.local:554/mode=real&idc=${toString idc}&ids=${toString ids}";
 
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
@@ -42,7 +42,7 @@ in
     # Required for Intel iGPU access (OpenVINO detector + VAAPI decode)
     hardware.graphics.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 80 8554 8555 ];
+    networking.firewall.allowedTCPPorts = [ 80 1984 8554 8555 ];
     networking.firewall.allowedUDPPorts = [ 8555 ];
 
     systemd.services.frigate = {
@@ -52,6 +52,28 @@ in
         AmbientCapabilities = [ "CAP_PERFMON" ];
       };
     };
+
+    # go2rtc holds the DVR connections and fans out to Frigate + live view clients.
+    # Credentials are loaded from the same file as Frigate so ${VAR} is substituted.
+    services.go2rtc = {
+      enable = true;
+      settings.streams = {
+        channel_1     = [ (dvrRtsp 1 1) ];
+        channel_1_sub = [ (dvrRtsp 1 2) ];
+        channel_2     = [ (dvrRtsp 2 1) ];
+        channel_2_sub = [ (dvrRtsp 2 2) ];
+        channel_3     = [ (dvrRtsp 3 1) ];
+        channel_3_sub = [ (dvrRtsp 3 2) ];
+        channel_4     = [ (dvrRtsp 4 1) ];
+        channel_4_sub = [ (dvrRtsp 4 2) ];
+        channel_5     = [ (dvrRtsp 5 1) ];
+        channel_5_sub = [ (dvrRtsp 5 2) ];
+        channel_6     = [ (dvrRtsp 6 1) ];
+        channel_6_sub = [ (dvrRtsp 6 2) ];
+      };
+    };
+
+    systemd.services.go2rtc.serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
 
     services.frigate = {
       enable = true;
@@ -77,21 +99,6 @@ in
             default = 14;
             mode = "active_objects";
           };
-        };
-
-        go2rtc.streams = {
-          channel_1     = [ (dvrRtsp 1 1) ];
-          channel_1_sub = [ (dvrRtsp 1 2) ];
-          channel_2     = [ (dvrRtsp 2 1) ];
-          channel_2_sub = [ (dvrRtsp 2 2) ];
-          channel_3     = [ (dvrRtsp 3 1) ];
-          channel_3_sub = [ (dvrRtsp 3 2) ];
-          channel_4     = [ (dvrRtsp 4 1) ];
-          channel_4_sub = [ (dvrRtsp 4 2) ];
-          channel_5     = [ (dvrRtsp 5 1) ];
-          channel_5_sub = [ (dvrRtsp 5 2) ];
-          channel_6     = [ (dvrRtsp 6 1) ];
-          channel_6_sub = [ (dvrRtsp 6 2) ];
         };
 
         cameras = {
