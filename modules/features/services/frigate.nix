@@ -55,8 +55,19 @@ in
     # Required for Intel iGPU access (OpenVINO detector + VAAPI decode)
     hardware.graphics.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 5000 8554 8555 ];
+    networking.firewall.allowedTCPPorts = [ 80 8554 8555 ];
     networking.firewall.allowedUDPPorts = [ 8555 ];
+
+    services.nginx = {
+      enable = true;
+      virtualHosts."frigate" = {
+        listen = [{ addr = "0.0.0.0"; port = 80; }];
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:5000";
+          proxyWebsockets = true;
+        };
+      };
+    };
 
     systemd.services.frigate = {
       serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
