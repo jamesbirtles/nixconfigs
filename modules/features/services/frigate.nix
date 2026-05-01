@@ -23,12 +23,14 @@ let
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
       {
-        # Main stream — pulled from go2rtc restream (go2rtc owns the DVR connection)
+        # Main stream — pulled from go2rtc restream, VAAPI decoded on Intel iGPU
         path = "rtsp://localhost:8554/channel_${toString idc}";
         roles = [ "record" ];
+        hwaccel_args = "preset-vaapi";
       }
       {
-        # Sub-stream — pulled from go2rtc restream
+        # Sub-stream — pulled from go2rtc restream, software decoded
+        # VAAPI intentionally not used here — hwdownload from GPU fails on small streams
         path = "rtsp://localhost:8554/channel_${toString idc}_sub";
         roles = [ "detect" ];
       }
@@ -42,9 +44,9 @@ let
   };
 
   modelDir = "/var/lib/frigate/models";
-  modelXml = "${modelDir}/ssdlite_mobilenet_v2.xml";
-  modelBin = "${modelDir}/ssdlite_mobilenet_v2.bin";
-  modelBaseUrl = "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.3/models_bin/1/ssdlite_mobilenet_v2/FP16";
+  # YOLOv8n ONNX — directly supported by OpenVINO 2026.x via ONNX frontend.
+  # ssdlite_mobilenet_v2 (OpenVINO model zoo 2022.3) is incompatible with OpenVINO 2026.x.
+  modelPath = "${modelDir}/yolov8n.onnx";
 in
 {
   options.features.services.frigate = {
@@ -59,14 +61,19 @@ in
     networking.firewall.allowedUDPPorts = [ 8555 ];
 
     systemd.services.frigate = {
-      serviceConfig.EnvironmentFile = "/etc/frigate/credentials";
-      # Download OpenVINO model on first run if not already present
+      serviceConfig = {
+        EnvironmentFile = "/etc/frigate/credentials";
+        # Needed for Intel GPU performance counters (suppresses PMU permission error)
+        AmbientCapabilities = [ "CAP_PERFMON" ];
+      };
+      # Download YOLOv8n ONNX model on first run if not already present
       preStart = ''
         mkdir -p ${modelDir}
-        if [ ! -f ${modelXml} ]; then
-          echo "Downloading OpenVINO ssdlite_mobilenet_v2 model..."
-          ${pkgs.curl}/bin/curl -fsSL -o ${modelXml} "${modelBaseUrl}/ssdlite_mobilenet_v2.xml"
-          ${pkgs.curl}/bin/curl -fsSL -o ${modelBin} "${modelBaseUrl}/ssdlite_mobilenet_v2.bin"
+        if [ ! -f ${modelPath} ]; then
+          echo "Downloading YOLOv8n ONNX model..."
+          ${pkgs.curl}/bin/curl -fsSL -L \
+            -o ${modelPath} \
+            "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.onnx"
         fi
       '';
     };
@@ -85,9 +92,6 @@ in
           password = "{FRIGATE_MQTT_PASSWORD}";
         };
 
-        # Intel VAAPI hardware decoding — reduces CPU load on high-res streams
-        ffmpeg.hwaccel_args = "preset-vaapi";
-
         detectors = {
           intel_gpu = {
             type = "openvino";
@@ -95,14 +99,14 @@ in
           };
         };
 
+        # YOLOv8n: NCHW input, RGB, 320x320
         model = {
-          width = 300;
-          height = 300;
-          input_tensor = "nhwc";
-          input_pixel_format = "bgr";
-          model_type = "ssd";
-          path = modelXml;
-          labelmap_path = "${pkgs.frigate}/share/frigate/labelmap.txt";
+          width = 320;
+          height = 320;
+          input_tensor = "nchw";
+          input_pixel_format = "rgb";
+          model_type = "yologeneric";
+          path = modelPath;
         };
 
         # Object-detection triggered recording.
