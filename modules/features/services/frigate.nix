@@ -52,6 +52,9 @@ in
     services.frigate = {
       enable = true;
       hostname = "thinkpad-server";
+      # Config check runs in the nix sandbox without env vars — skip it.
+      # Credentials are injected at runtime via EnvironmentFile.
+      checkConfig = false;
 
       settings = {
         mqtt = {
