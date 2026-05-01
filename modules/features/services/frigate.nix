@@ -23,7 +23,7 @@ let
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
       {
-        path = "rtsp://localhost:8554/channel_${toString idc}";
+        path = "rtsp://localhost:8554/channel_${toString idc}?mp4";
         roles = [ "record" ];
         hwaccel_args = "preset-vaapi";
       }
