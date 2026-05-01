@@ -90,6 +90,8 @@ in
         };
 
 
+        objects.track = [];
+
         record = {
           enabled = true;
           retain.days = 7;
