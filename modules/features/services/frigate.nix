@@ -16,7 +16,9 @@ let
   #   FRIGATE_MQTT_PASSWORD=yourpassword
   #
   # chmod 600 /etc/frigate/credentials
-  dvrRtsp = idc: ids: "rtsp://\${FRIGATE_RTSP_USER}:\${FRIGATE_RTSP_PASSWORD}@dvr.local:554/mode=real&idc=${toString idc}&ids=${toString ids}";
+  #
+  # Note: Frigate uses Python str.format() syntax — {VAR} not ${VAR}.
+  dvrRtsp = idc: ids: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@dvr.local:554/mode=real&idc=${toString idc}&ids=${toString ids}";
 
   mkCamera = { idc, width, height }: {
     ffmpeg.inputs = [
@@ -79,8 +81,8 @@ in
           enabled = true;
           host = "homeassistant.local";
           port = 1883;
-          user = "\${FRIGATE_MQTT_USER}";
-          password = "\${FRIGATE_MQTT_PASSWORD}";
+          user = "{FRIGATE_MQTT_USER}";
+          password = "{FRIGATE_MQTT_PASSWORD}";
         };
 
         # Intel VAAPI hardware decoding — reduces CPU load on high-res streams
