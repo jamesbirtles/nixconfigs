@@ -14,5 +14,12 @@ in
 
   config = lib.mkIf cfg.enable {
     virtualisation.docker.enable = true;
+
+    programs.nix-ld.libraries = with pkgs; [
+      lz4
+      zlib
+      zstd
+      xxhash
+    ];
   };
 }

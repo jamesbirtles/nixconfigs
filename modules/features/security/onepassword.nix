@@ -23,5 +23,11 @@ in
       enable = true;
       polkitPolicyOwners = [ "james" ];
     };
+
+    home-manager.users.james = lib.mkIf (cfg.enableGui && config.features.desktop.niri.enable) {
+      programs.niri.settings.spawn-at-startup = [
+        { command = [ "1password" "--silent" ]; }
+      ];
+    };
   };
 }

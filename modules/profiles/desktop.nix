@@ -21,6 +21,7 @@
     development.git.enable = lib.mkDefault true;
     development.dev-tools.enable = lib.mkDefault true;
     development.nodejs.enable = lib.mkDefault true;
+    development.rust.enable = lib.mkDefault true;
     development.cloud-tools.enable = lib.mkDefault true;
 
     # Hardware

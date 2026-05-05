@@ -57,6 +57,8 @@ in
           output = {
             mode = "type";
             fallback_to_clipboard = true;
+            type_delay_ms = 8;
+            pre_type_delay_ms = 20;
           };
           output.notification = {
             on_recording_start = false;
