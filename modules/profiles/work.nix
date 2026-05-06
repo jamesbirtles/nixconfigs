@@ -42,7 +42,15 @@
         { matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ]; open-on-workspace = "2"; }
         { matches = [ { app-id = "^com\\.mitchellh\\.ghostty\\.ws2$"; } ]; open-on-workspace = "2"; }
         { matches = [ { app-id = "^Slack$"; } ]; open-on-workspace = "3"; }
-        { matches = [ { app-id = "^chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default$"; } ]; open-on-workspace = "3"; }
+        {
+          matches = [ { app-id = "^chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default$"; title = "Microsoft Teams"; } ];
+          open-on-workspace = "3";
+        }
+        {
+          matches = [ { app-id = "^chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default$"; } ];
+          excludes = [ { title = "Microsoft Teams"; } ];
+          open-floating = true;
+        }
       ];
     };
   };

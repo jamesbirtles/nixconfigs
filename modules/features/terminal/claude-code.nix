@@ -75,16 +75,6 @@ in
           };
           permissions = {
             allow = [
-              # Git (read-only)
-              "Bash(git status:*)"
-              "Bash(git diff:*)"
-              "Bash(git log:*)"
-              "Bash(git branch:*)"
-              "Bash(git show:*)"
-              "Bash(git blame:*)"
-              "Bash(git rev-parse:*)"
-              "Bash(git add:*)"
-
               # Node (build/test/lint)
               "Bash(npm run:*)"
               "Bash(npm test:*)"
