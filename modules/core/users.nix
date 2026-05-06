@@ -32,8 +32,10 @@
   };
 
   # Common home-manager config for user james
-  home-manager.users.james = {
+  home-manager.users.james = { config, ... }: {
     home.stateVersion = "23.11";
     xdg.enable = true;
+
+    home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
   };
 }
