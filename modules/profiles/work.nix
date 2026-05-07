@@ -17,6 +17,8 @@
     services.lldpd.enable = lib.mkDefault true;
 
     development.techex.enable = lib.mkDefault true;
+
+    productivity.work-hours.enable = lib.mkDefault true;
   };
 
   home-manager.users.james = lib.mkIf config.features.desktop.niri.enable {
