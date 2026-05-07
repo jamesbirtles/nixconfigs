@@ -316,6 +316,31 @@ Please update the programs.noctalia-shell.settings in $NIX_FILE to include these
         }
       '';
 
+      xdg.configFile."zellij/layouts/vite.kdl".text = ''
+        layout {
+          default_tab_template {
+            pane size=1 borderless=true {
+              plugin location="zellij:tab-bar"
+            }
+            children
+            pane size=2 borderless=true {
+              plugin location="zellij:status-bar"
+            }
+          }
+          tab name="vite" focus=true {
+            pane
+          }
+          tab name="Lazygit" {
+            pane name="Lazygit" borderless=true {
+              command "lazygit"
+            }
+          }
+          tab name="Scratch" {
+            pane
+          }
+        }
+      '';
+
       xdg.configFile."zellij/layouts/sveltekit-mini.kdl".text = ''
         layout {
           default_tab_template {
