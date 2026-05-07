@@ -35,6 +35,7 @@ in
           lg = "lazygit";
           nb = "nixos-rebuild-notify";
           nu = "nix flake update --commit-lock-file";
+          nub = "nu && nb";
           nix-repair = "sudo nix-store --repair --verify --check-contents";
           kit = "zellij --layout sveltekit";
           mkit = "zellij --layout sveltekit-mini";
