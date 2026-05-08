@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  google-chrome-dev,
   ...
 }:
 let
@@ -68,6 +69,19 @@ in
 
       programs.claude-code = {
         enable = true;
+        mcpServers = {
+          chrome-devtools = {
+            type = "stdio";
+            command = "${pkgs.nodejs}/bin/npx";
+            args = [
+              "-y"
+              "chrome-devtools-mcp@latest"
+              "--executablePath"
+              "${google-chrome-dev}/bin/google-chrome-unstable"
+              "--acceptInsecureCerts"
+            ];
+          };
+        };
         settings = {
           statusLine = {
             type = "command";
