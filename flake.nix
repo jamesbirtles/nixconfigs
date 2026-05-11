@@ -55,7 +55,9 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
     zed-editor.url = "github:jamesbirtles/zed-flake/stable";
     voxtype = {
-      url = "github:peteonrails/voxtype";
+      # Pinned to v0.6.6: 0.7.0 fails to build (x11 crate needs xorg.libX11
+      # in buildInputs, missing upstream). Unpin once upstream fixes it.
+      url = "github:peteonrails/voxtype/v0.6.6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
