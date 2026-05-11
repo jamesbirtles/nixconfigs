@@ -2,15 +2,13 @@
   config,
   lib,
   pkgs,
-  noctalia,
   ...
 }:
 let
   cfg = config.features.productivity.work-hours;
-  noctaliaShell = "${noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell";
   keepAwakeScript = pkgs.writeShellApplication {
     name = "work-hours-keep-awake";
-    runtimeInputs = [ pkgs.coreutils pkgs.procps ];
+    runtimeInputs = [ pkgs.coreutils ];
     text = ''
       day=$(date +%u)
       if [ "$day" -gt 5 ]; then
@@ -27,22 +25,15 @@ let
 
       remaining=$((end - now))
 
-      # Address the running noctalia by PID so IPC keeps working after a
-      # noctalia upgrade mid-session — our wrapper's QS_CONFIG_PATH no
-      # longer matches the running shell's. Empty QS_CONFIG_PATH bypasses
-      # qs's config-based instance lookup, which conflicts with --pid.
-      # Also retries until noctalia is up — niri spawns it asynchronously.
+      # Retries until noctalia is up — niri spawns it asynchronously.
       for _ in $(seq 1 60); do
-        pid=$(pgrep -u "$UID" -nf 'bin/quickshell$' || true)
-        if [ -n "$pid" ]; then
-          if env QS_CONFIG_PATH="" ${noctaliaShell} ipc --pid "$pid" call idleInhibitor enableFor "$remaining" 2>/dev/null; then
-            exit 0
-          fi
+        if noctalia-ipc idleInhibitor enableFor "$remaining" 2>/dev/null; then
+          exit 0
         fi
         sleep 1
       done
 
-      echo "noctalia-shell IPC never became available" >&2
+      echo "noctalia-ipc never succeeded" >&2
       exit 1
     '';
   };
