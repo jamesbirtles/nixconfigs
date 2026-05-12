@@ -25,6 +25,10 @@ in
         handyPkg
       ];
 
+      home.file.".local/bin/handy-type".source = pkgs.writeShellScript "handy-type" ''
+        exec ${pkgs.ydotool}/bin/ydotool type --key-delay 0 --key-hold 1 -- "$1"
+      '';
+
       services.handy = {
         enable = true;
         package = handyPkg;
