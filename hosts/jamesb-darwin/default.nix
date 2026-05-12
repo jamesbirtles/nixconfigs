@@ -11,7 +11,7 @@
 
   networking.hostName = "jamesb-darwin";
 
-  networking.firewall.allowedTCPPorts = [ 4221 4500 5349 ];
+  networking.firewall.allowedTCPPorts = [ 4220 4221 4500 5349 ];
   networking.firewall.allowedUDPPorts = [ 3478 5349 ];
 
   boot.loader.systemd-boot.enable = true;
