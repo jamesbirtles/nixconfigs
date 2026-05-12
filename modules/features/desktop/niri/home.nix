@@ -459,20 +459,6 @@
           ];
           center = [
             {
-              id = "CustomButton";
-              textCommand = "voxtype-status-themed";
-              textStream = true;
-              parseJson = true;
-              leftClickExec = "voxtype record toggle";
-              showIcon = true;
-              showExecTooltip = false;
-              hideMode = "expandWithOutput";
-              maxTextLength = {
-                horizontal = 14;
-                vertical = 14;
-              };
-            }
-            {
               id = "Clock";
               formatHorizontal = "dddd d MMMM HH:mm:ss";
               clockColor = "none";
@@ -717,7 +703,8 @@
       "Mod+Space".action = spawn "noctalia-ipc" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "zen-beta";
-      "Mod+V".action = spawn "voxtype" "record" "toggle";
+      "Mod+V".action = spawn "handy" "--toggle-post-process";
+      "Mod+Ctrl+V".action = spawn "handy" "--toggle-transcription";
 
       # Function Keys
       "XF86AudioRaiseVolume".action = spawn "noctalia-ipc" "volume" "increase";

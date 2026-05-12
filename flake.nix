@@ -54,10 +54,8 @@
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     nix-alien.url = "github:thiagokokada/nix-alien";
     zed-editor.url = "github:jamesbirtles/zed-flake/stable";
-    voxtype = {
-      # Pinned to v0.6.6: 0.7.0 fails to build (x11 crate needs xorg.libX11
-      # in buildInputs, missing upstream). Unpin once upstream fixes it.
-      url = "github:peteonrails/voxtype/v0.6.6";
+    handy = {
+      url = "github:cjpais/Handy/v0.8.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -81,7 +79,7 @@
       claude-desktop,
       nix-alien,
       zed-editor,
-      voxtype,
+      handy,
       ...
     }:
     let
@@ -96,7 +94,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit noctalia voxtype;
+            inherit noctalia handy;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;
