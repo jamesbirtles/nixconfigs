@@ -14,6 +14,7 @@
   # Noctalia Shell
   programs.noctalia-shell = {
     enable = true;
+    systemd.enable = true;
     settings = {
       settingsVersion = 59;
 
@@ -655,14 +656,11 @@
   programs.niri.settings = {
     debug.honor-xdg-activation-with-invalid-serial = true;
     prefer-no-csd = true;
-    spawn-at-startup = [
-      { command = [ "noctalia-shell" ]; }
-    ];
     switch-events = with config.lib.niri.actions; {
-      lid-close.action = spawn "noctalia-ipc" "lockScreen" "lock";
+      lid-close.action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
     };
     binds = with config.lib.niri.actions; {
-      "Mod+Escape".action = spawn "noctalia-ipc" "lockScreen" "lock";
+      "Mod+Escape".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
       "Mod+Shift+Escape".action = quit;
       "Mod+W".action = close-window;
 
@@ -700,21 +698,21 @@
       "Mod+M".action = focus-monitor-next;
       "Mod+Alt+M".action = move-column-to-monitor-next;
 
-      "Mod+Space".action = spawn "noctalia-ipc" "launcher" "toggle";
+      "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "zen-beta";
       "Mod+V".action = spawn "handy" "--toggle-post-process";
       "Mod+Ctrl+V".action = spawn "handy" "--toggle-transcription";
 
       # Function Keys
-      "XF86AudioRaiseVolume".action = spawn "noctalia-ipc" "volume" "increase";
-      "XF86AudioLowerVolume".action = spawn "noctalia-ipc" "volume" "decrease";
-      "XF86AudioMute".action = spawn "noctalia-ipc" "volume" "muteOutput";
-      "XF86MonBrightnessUp".action = spawn "noctalia-ipc" "brightness" "increase";
-      "XF86MonBrightnessDown".action = spawn "noctalia-ipc" "brightness" "decrease";
-      "XF86AudioPlay".action = spawn "noctalia-ipc" "media" "playPause";
-      "XF86AudioPrev".action = spawn "noctalia-ipc" "media" "previous";
-      "XF86AudioNext".action = spawn "noctalia-ipc" "media" "next";
+      "XF86AudioRaiseVolume".action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
+      "XF86AudioLowerVolume".action = spawn "noctalia-shell" "ipc" "call" "volume" "decrease";
+      "XF86AudioMute".action = spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput";
+      "XF86MonBrightnessUp".action = spawn "noctalia-shell" "ipc" "call" "brightness" "increase";
+      "XF86MonBrightnessDown".action = spawn "noctalia-shell" "ipc" "call" "brightness" "decrease";
+      "XF86AudioPlay".action = spawn "noctalia-shell" "ipc" "call" "media" "playPause";
+      "XF86AudioPrev".action = spawn "noctalia-shell" "ipc" "call" "media" "previous";
+      "XF86AudioNext".action = spawn "noctalia-shell" "ipc" "call" "media" "next";
 
       "Print".action.screenshot = [ ];
     };

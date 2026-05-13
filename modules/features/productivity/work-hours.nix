@@ -25,15 +25,15 @@ let
 
       remaining=$((end - now))
 
-      # Retries until noctalia is up — niri spawns it asynchronously.
+      # Retries until noctalia is ready to accept IPC.
       for _ in $(seq 1 60); do
-        if noctalia-ipc idleInhibitor enableFor "$remaining" 2>/dev/null; then
+        if noctalia-shell ipc call idleInhibitor enableFor "$remaining" 2>/dev/null; then
           exit 0
         fi
         sleep 1
       done
 
-      echo "noctalia-ipc never succeeded" >&2
+      echo "noctalia-shell ipc never succeeded" >&2
       exit 1
     '';
   };

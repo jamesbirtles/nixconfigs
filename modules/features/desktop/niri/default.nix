@@ -7,23 +7,6 @@
 }:
 let
   cfg = config.features.desktop.niri;
-  # Address the running noctalia by PID so IPC keeps working after a noctalia
-  # upgrade mid-session — the new noctalia-shell binary's baked-in
-  # QS_CONFIG_PATH no longer matches the running shell's instance key. Empty
-  # QS_CONFIG_PATH bypasses qs's config-based instance lookup, which conflicts
-  # with --pid.
-  noctaliaIpc = pkgs.writeShellApplication {
-    name = "noctalia-ipc";
-    runtimeInputs = [ pkgs.procps ];
-    text = ''
-      pid=$(pgrep -u "$UID" -nf 'bin/quickshell$' || true)
-      if [ -z "$pid" ]; then
-        echo "noctalia-shell is not running" >&2
-        exit 1
-      fi
-      exec env QS_CONFIG_PATH="" ${lib.getExe' noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default "noctalia-shell"} ipc --pid "$pid" call "$@"
-    '';
-  };
 in
 {
   options.features.desktop.niri = {
@@ -51,7 +34,7 @@ in
       "L+ /usr/libexec/xdg-desktop-portal - - - - ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"
     ];
 
-    environment.systemPackages = (with pkgs; [
+    environment.systemPackages = with pkgs; [
       xwayland-satellite
       brightnessctl
       wl-clipboard
@@ -67,7 +50,7 @@ in
       wf-recorder
       ffmpeg
       gifski
-    ]) ++ [ noctaliaIpc ];
+    ];
 
     # Home-manager configuration for user james
     home-manager.users.james = {
