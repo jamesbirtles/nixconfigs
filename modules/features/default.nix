@@ -44,7 +44,6 @@
     # Communication
     ./communication/email.nix
     ./communication/discord.nix
-    ./communication/claude-desktop.nix
     ./communication/slack.nix
     ./communication/thunderbird.nix
 
