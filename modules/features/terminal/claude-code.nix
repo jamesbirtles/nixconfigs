@@ -83,6 +83,7 @@ in
           };
         };
         settings = {
+          tui = "fullscreen";
           statusLine = {
             type = "command";
             command = "${statusLineScript}";
