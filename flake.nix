@@ -87,7 +87,15 @@
           hardware ? null,
         }:
         let
-          hwModule = if builtins.isString hardware then nixos-hardware.nixosModules.${hardware} else hardware;
+          # `hardware` may be a nixos-hardware module name (string), an inline
+          # module, or a list of either — letting a host compose generic
+          # nixos-hardware modules itself instead of relying on a board-specific
+          # wrapper.
+          toModule = h: if builtins.isString h then nixos-hardware.nixosModules.${h} else h;
+          hwModules =
+            if hardware == null then [ ]
+            else if builtins.isList hardware then map toModule hardware
+            else [ (toModule hardware) ];
         in
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
@@ -110,7 +118,7 @@
             nixvim.nixosModules.nixvim
             niri.nixosModules.niri
           ]
-          ++ nixpkgs.lib.optional (hwModule != null) hwModule;
+          ++ hwModules;
         };
     in
     {
@@ -118,7 +126,15 @@
         jb-fwk16.hardware = "framework-16-7040-amd";
         jb-fwk13.hardware = "framework-13-7040-amd";
         jb-thinkpad-t16.hardware = "lenovo-thinkpad-p16s-amd-gen4";
-        jb-thinkpad-p16.hardware = "lenovo-thinkpad-p16s-intel-gen2";
+        # Not the p16s board module (this is a P16 Gen2 with an i7-13850HX and a
+        # discrete RTX 3500 Ada) — compose the generic modules ourselves and set
+        # NVIDIA explicitly in the host. See hosts/jb-thinkpad-p16/default.nix.
+        jb-thinkpad-p16.hardware = [
+          "lenovo-thinkpad"
+          "common-cpu-intel-cpu-only"
+          "common-gpu-nvidia-nonprime"
+          "common-pc-ssd"
+        ];
         thinkpad-server.hardware = "lenovo-thinkpad-t470s";
         jamesbox = {};
         jamesb-darwin = {};
