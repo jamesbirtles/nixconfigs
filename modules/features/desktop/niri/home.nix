@@ -802,11 +802,11 @@
             y = 0;
           };
         };
-        thinkpad = {
-          scale = 1.0;
+        thinkpad-p16 = {
+          scale = 1.5;
           mode = {
-            width = 1920;
-            height = 1200;
+            width = 2560;
+            height = 1600;
           };
           position = {
             x = 0;
@@ -815,27 +815,17 @@
           variable-refresh-rate = true;
         };
 
-        builtin = thinkpad;
+        # TODO: set builtin based on current host
+        builtin = thinkpad-p16;
 
         samsung = {
           scale = 2.0;
           mode = {
             width = 5120;
-            height = 2889;
+            height = 2880;
           };
           position = {
             x = after builtin;
-            y = 0;
-          };
-        };
-        acer = {
-          scale = 1.0;
-          mode = {
-            width = 1920;
-            height = 1080;
-          };
-          position = {
-            x = after samsung;
             y = 0;
           };
         };
@@ -848,28 +838,14 @@
           };
           position = {
             x = 1920;
-            y = builtins.floor (thinkpad.mode.height / 3.0) - 1440;
+            y = builtins.floor (builtin.mode.height / 3.0) - 1440;
           };
           # variable-refresh-rate = true;
         };
-        dell-p2414h = {
-          scale = 1.0;
-          mode = {
-            width = 1920;
-            height = 1080;
-            refresh = 60.0;
-          };
-          position = {
-            x = tx-ultrawide.position.x + builtins.floor (tx-ultrawide.mode.width / 2.0);
-            y = tx-ultrawide.position.y - 1080;
-          };
-        };
       in
       {
-        "Acer Technologies SA240Y T92EE0012410" = acer;
-        "Lenovo Group Limited MNG007QT1-2 Unknown" = thinkpad;
+        "California Institute of Technology 0x160B Unknown" = thinkpad-p16;
         "Iiyama North America PL3494WQ 1214142721111" = tx-ultrawide;
-        "Dell Inc. DELL P2414H 4YN5344O06GL" = dell-p2414h;
         "Samsung Electric Company S27C900P H1AK500000" = samsung;
       };
   };
