@@ -42,6 +42,44 @@
     # whichever is the bottleneck under load, for better performance on supported
     # laptops (this one qualifies). Off by default.
     dynamicBoost.enable = true;
+
+    # Keep clock-floor settings (below) alive without a running GPU context:
+    # without persistence mode the driver tears down state when no client is
+    # attached and the locked clocks reset.
+    nvidiaPersistenced = true;
+  };
+
+  # Browser scroll stutter fix. After the GPU sits idle for a couple seconds it
+  # drops into a deep low-power state; the first scroll forces an abrupt clock
+  # ramp whose transition latency spikes a frame, making Chrome's smooth-scroll
+  # animation overshoot and visibly jitter up/down before settling. Both clocks
+  # must be floored to avoid this:
+  #
+  #   - Graphics clock (-lgc): idles down to ~210 MHz; floored at 510 MHz.
+  #   - Memory clock (-lmc): idles down to 810 MHz, and that 810 -> 8001 MHz ramp
+  #     is the larger contributor; floored at 6001 MHz.
+  #
+  # Upper bounds are the hardware max (3105 / 8001 MHz), so this is a floor only
+  # and peak boost is unaffected.
+  systemd.services.nvidia-clock-floor = {
+    description = "Pin minimum NVIDIA GPU + memory clocks to avoid browser scroll stutter on idle->3D ramp";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "nvidia-persistenced.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      # nvidia-smi only allows one device modification per invocation, so the
+      # graphics and memory locks must be separate calls (oneshot runs them in
+      # sequence).
+      ExecStart = [
+        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -lgc 510,3105"
+        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -lmc 6001,8001"
+      ];
+      ExecStop = [
+        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -rgc"
+        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -rmc"
+      ];
+    };
   };
 
   boot.loader.systemd-boot.enable = true;
