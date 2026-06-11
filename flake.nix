@@ -42,7 +42,8 @@
     niri.url = "github:sodiboo/niri-flake";
     ashell.url = "github:MalpenZibo/ashell";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      # Stay on legacy-v4 until v5 is fully released.
+      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
