@@ -16,7 +16,15 @@
       explorer.enabled = true;
       lazygit.enabled = true;
       notifier.enabled = true;
-      input.enabled = true;
+      input = {
+        enabled = true;
+        # Anchor the prompt just above the cursor instead of the editor top.
+        win = {
+          relative = "cursor";
+          row = -3;
+          col = 0;
+        };
+      };
       indent.enabled = true;
       scroll.enabled = true;
       statuscolumn.enabled = true;

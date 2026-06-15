@@ -44,6 +44,9 @@
     # Float windows reuse the popup-menu highlight.
     winhl = "NormalFloat:PMenu";
 
+    # Default border on all floating windows (LSP hover, diagnostics, etc.).
+    winborder = "rounded";
+
     # What persistence.nvim captures in a session (buffers, tabs, layout, cwd).
     sessionoptions = [
       "buffers"
