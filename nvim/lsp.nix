@@ -1,13 +1,17 @@
-{ ... }:
+{ pkgs, ... }:
 {
   plugins.lspconfig.enable = true;
+
+  # tsgo is freeform here (no built-in NixVim module); lspconfig ships
+  # lsp/tsgo.lua for cmd/filetypes/root_dir, and this puts the binary on PATH.
+  extraPackages = [ pkgs.typescript-go ];
 
   lsp.servers = {
     nixd.enable = true;
 
     rust_analyzer.enable = true;
 
-    vtsls.enable = true;
+    tsgo.enable = true;
     svelte.enable = true;
     eslint.enable = true;
     tailwindcss.enable = true;
