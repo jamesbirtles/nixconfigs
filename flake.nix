@@ -123,6 +123,19 @@
         };
     in
     {
+      # Standalone NixVim package from the shared ./nvim module (also imported
+      # by NixOS via programs.nixvim.imports). Run with `nix run .#nvim`. Built
+      # against NixVim's pinned nixpkgs rather than this flake's.
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
+        system: {
+          nvim =
+            (nixvim.lib.evalNixvim {
+              inherit system;
+              modules = [ ./nvim ];
+            }).config.build.package;
+        }
+      );
+
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
         jb-fwk16.hardware = "framework-16-7040-amd";
         jb-fwk13.hardware = "framework-13-7040-amd";
