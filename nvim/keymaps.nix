@@ -83,6 +83,11 @@
 
     # Buffer navigation
     {
+      key = "<leader>x";
+      action.__raw = "function() Snacks.bufdelete() end";
+      options.desc = "Close buffer";
+    }
+    {
       key = "<S-l>";
       action = "<cmd>bnext<cr>";
       options.desc = "Next buffer";

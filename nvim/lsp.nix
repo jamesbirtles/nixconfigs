@@ -76,6 +76,18 @@
       options.desc = "Code action";
     }
     {
+      key = "goi";
+      action.__raw = ''
+        function()
+          vim.lsp.buf.code_action({
+            context = { only = { "source.organizeImports" } },
+            apply = true,
+          })
+        end
+      '';
+      options.desc = "Organize imports";
+    }
+    {
       key = "gr";
       lspBufAction = "rename";
       options.desc = "Rename";
