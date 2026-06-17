@@ -15,11 +15,6 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       vlc
-      (kodi-wayland.withPackages (
-        kodiPkgs: with kodiPkgs; [
-          pvr-iptvsimple
-        ]
-      ))
     ];
   };
 }
