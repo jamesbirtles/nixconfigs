@@ -4,6 +4,12 @@
 # once to authenticate with GitHub Copilot.
 { ... }:
 {
+  # The Copilot language server is unfree. Nixvim builds against its own pinned
+  # nixpkgs (not the system one), so the system-level `nixpkgs.config.allowUnfree`
+  # doesn't apply here — allow it within Nixvim's own pkgs instance. This also
+  # covers the standalone `nix run .#nvim` package.
+  nixpkgs.config.allowUnfree = true;
+
   lsp.servers.copilot.enable = true;
 
   plugins.sidekick.enable = true;

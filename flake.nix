@@ -5,10 +5,12 @@
     extra-substituters = [
       "https://noctalia.cachix.org"
       "https://cache.garnix.io"
+      "https://jameshbirtles.cachix.org"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "jameshbirtles.cachix.org-1:bnBHVErVetzMeKpQxGNzLyNzL7nN2YbS4ZmRw/0AHMg="
     ];
   };
 

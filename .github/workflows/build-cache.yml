@@ -1,0 +1,54 @@
+name: Build & cache NixOS configs
+
+# Builds the `system.build.toplevel` of every NixOS configuration declared in
+# the flake and pushes the resulting store paths to the jameshbirtles cachix
+# cache, so machines can pull prebuilt closures instead of rebuilding locally.
+#
+# All the configs are near-identical, so they're built in a single job on one
+# runner: that means one shared /nix/store, and Nix builds each derivation
+# exactly once (deduped) while still parallelising internally. A matrix would
+# instead give each host its own empty store and rebuild the shared closure
+# once per host.
+#
+# Requires the repository secret CACHIX_AUTH_TOKEN (a write token for the
+# `jameshbirtles` cache: `cachix authtoken` / cachix.org dashboard).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-cache-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Full NixOS closures are large; reclaim runner disk before building.
+      - uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: accept-flake-config = true
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: jameshbirtles
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      # Enumerate hosts from the flake (so new machines need no workflow edit)
+      # and build every toplevel in one invocation, sharing a single store.
+      - name: Build all NixOS configs
+        run: |
+          mapfile -t installables < <(
+            nix eval --json '.#nixosConfigurations' --apply builtins.attrNames \
+              | jq -r '.[] | ".#nixosConfigurations." + . + ".config.system.build.toplevel"'
+          )
+          printf 'Building: %s\n' "${installables[@]}"
+          nix build --print-build-logs --accept-flake-config "${installables[@]}"
