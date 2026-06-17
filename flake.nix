@@ -114,7 +114,6 @@
           };
           modules = [
             ./hosts/${hostname}
-            ./vim.nix
             home-manager.nixosModules.home-manager
             nixvim.nixosModules.nixvim
             niri.nixosModules.niri

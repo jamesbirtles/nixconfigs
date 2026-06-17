@@ -22,6 +22,7 @@
     ./development/rust.nix
     ./development/cloud-tools.nix
     ./development/cursor.nix
+    ./development/neovim.nix
     ./development/vscode.nix
     ./development/zed.nix
     ./development/techex.nix

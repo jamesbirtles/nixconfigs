@@ -12,7 +12,24 @@
   plugins.snacks = {
     enable = true;
     settings = {
-      picker.enabled = true;
+      picker = {
+        enabled = true;
+        # vim.ui.select menus (LSP code actions, etc.) open just below the
+        # cursor instead of centered in the editor.
+        sources.select.layout = {
+          preset = "select";
+          layout = {
+            relative = "cursor";
+            row = 1;
+            col = 0;
+            width = 0.4;
+            min_width = 40;
+            max_width = 80;
+            height = 0.3;
+            min_height = 3;
+          };
+        };
+      };
       explorer.enabled = true;
       lazygit.enabled = true;
       notifier.enabled = true;

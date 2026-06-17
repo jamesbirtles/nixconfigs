@@ -138,6 +138,33 @@
 
     if client:supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+
+      -- autotrigger only fires on the server's trigger characters (`.`, `::`,
+      -- etc.), so the menu never opens on plain identifier typing. Re-trigger
+      -- on insert for Zed/VS Code-style "pops up as you type" behaviour. This
+      -- sends a normal "invoked" request (same as <C-Space>) rather than
+      -- forging letters into the trigger set, which some servers (tsgo) reject.
+      local grp = vim.api.nvim_create_augroup('lsp-autocomplete-' .. bufnr, { clear = true })
+      vim.api.nvim_create_autocmd('TextChangedI', {
+        group = grp,
+        buffer = bufnr,
+        callback = function()
+          if vim.fn.pumvisible() == 1 then
+            return
+          end
+          local col = vim.fn.col('.') - 1
+          local before = vim.api.nvim_get_current_line():sub(col, col)
+          if before:match('[%w_]') then
+            vim.lsp.completion.get()
+          end
+        end,
+      })
+    end
+
+    -- Copilot LSP ghost-text suggestions; auto-refreshed in insert mode.
+    -- Accept with <A-l> (see nvim/ai.nix).
+    if client:supports_method('textDocument/inlineCompletion') then
+      vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
     end
 
     if client:supports_method('textDocument/documentHighlight') then
