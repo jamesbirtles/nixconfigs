@@ -3,6 +3,7 @@
   lib,
   pkgs,
   google-chrome-dev,
+  claude-plugins-official,
   ...
 }:
 let
@@ -69,6 +70,11 @@ in
 
       programs.claude-code = {
         enable = true;
+        # frontend-design plugin from anthropics/claude-plugins-official.
+        # Loaded as a --plugin-dir; pinned via the flake input (flake.lock).
+        plugins = [
+          "${claude-plugins-official}/plugins/frontend-design"
+        ];
         mcpServers = {
           chrome-devtools = {
             type = "stdio";

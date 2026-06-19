@@ -60,6 +60,10 @@
       url = "github:cjpais/Handy/v0.8.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-plugins-official = {
+      url = "github:anthropics/claude-plugins-official";
+      flake = false;
+    };
   };
 
   outputs =
@@ -81,6 +85,7 @@
       nix-alien,
       zed-editor,
       handy,
+      claude-plugins-official,
       ...
     }:
     let
@@ -103,7 +108,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit noctalia handy;
+            inherit noctalia handy claude-plugins-official;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;

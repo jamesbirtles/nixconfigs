@@ -66,6 +66,22 @@
         "type": "github"
       }
     },
+    "claude-plugins-official": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781877088,
+        "narHash": "sha256-yXZpB1LGU7n0jCFvqlo7PAEpVWrOWx+Bm7wNoeac3pI=",
+        "owner": "anthropics",
+        "repo": "claude-plugins-official",
+        "rev": "2cf1920e41e51e5b6ee8bbc4d9a2b3e1547a5b6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anthropics",
+        "repo": "claude-plugins-official",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1780532242,
@@ -693,6 +709,7 @@
       "inputs": {
         "ashell": "ashell",
         "browser-previews": "browser-previews",
+        "claude-plugins-official": "claude-plugins-official",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "handy": "handy",
         "home-manager": "home-manager",
