@@ -14,6 +14,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "dialout" # access to serial ports (/dev/ttyUSB*) for ESP32 flashing etc.
     ];
     packages = with pkgs; [
       bruno
