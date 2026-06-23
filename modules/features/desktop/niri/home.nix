@@ -700,7 +700,7 @@
 
       "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
-      "Mod+B".action = spawn "zen-beta";
+      "Mod+B".action = spawn "google-chrome-unstable";
       "Mod+V".action = spawn "handy" "--toggle-post-process";
       "Mod+Ctrl+V".action = spawn "handy" "--toggle-transcription";
 

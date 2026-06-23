@@ -25,6 +25,18 @@ in
 
     # Home-manager configuration for user james
     home-manager.users.james = {
+      # Default browser: Google Chrome Dev (unstable)
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "text/html" = "google-chrome-unstable.desktop";
+          "x-scheme-handler/http" = "google-chrome-unstable.desktop";
+          "x-scheme-handler/https" = "google-chrome-unstable.desktop";
+          "x-scheme-handler/about" = "google-chrome-unstable.desktop";
+          "x-scheme-handler/unknown" = "google-chrome-unstable.desktop";
+        };
+      };
+
       home.file.".mozilla/firefox/default/chrome/firefox-gnome-theme".source =
         if firefox-gnome-theme != null then
           firefox-gnome-theme
