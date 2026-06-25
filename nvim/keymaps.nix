@@ -26,13 +26,44 @@
     }
     {
       key = "<leader>ps";
-      action.__raw = "function() Snacks.picker.grep() end";
+      # Prefill the live-grep prompt with the word under the cursor, but only
+      # when it's a real identifier (letters/digits/underscore) — not brackets
+      # or other punctuation. The prompt stays editable either way.
+      action.__raw = ''
+        function()
+          -- Word under the cursor, but only when the cursor is actually on a
+          -- word char. `<cword>` otherwise scans forward to the next word
+          -- (e.g. on the `?` in `field?: boolean` it grabs `boolean`).
+          local function word_under_cursor()
+            local line = vim.api.nvim_get_current_line()
+            local col = vim.fn.col(".")
+            return line:sub(col, col):match("[%w_]") and vim.fn.expand("<cword>") or ""
+          end
+
+          local search
+          local ok, node = pcall(vim.treesitter.get_node)
+          if ok and node then
+            local t = node:type()
+            if t:match("identifier$") then
+              -- Code identifier: use the node's exact text.
+              search = vim.treesitter.get_node_text(node, 0)
+            elseif t:match("string") or t:match("comment") or t:match("text") then
+              -- Free-form text (string contents, comments, JSX children):
+              -- prefill the word under the cursor.
+              search = word_under_cursor()
+            else
+              -- Punctuation / operators / keywords: leave the prompt empty.
+              search = ""
+            end
+          else
+            -- No treesitter parser for this buffer.
+            search = word_under_cursor()
+          end
+
+          Snacks.picker.grep({ search = search })
+        end
+      '';
       options.desc = "Search in project";
-    }
-    {
-      key = "<leader>pw";
-      action.__raw = "function() Snacks.picker.grep_word() end";
-      options.desc = "Search word in project";
     }
     {
       key = "<leader>pb";
