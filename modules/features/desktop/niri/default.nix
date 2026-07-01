@@ -25,6 +25,12 @@ in
       ZED_WINDOW_DECORATIONS = "server";
     };
 
+    services.logind.settings.Login = {
+      HandleLidSwitch = "suspend";
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "suspend";
+    };
+
     security.pam.services.swaylock = { };
     security.polkit.enable = true;
     systemd.user.services.niri-flake-polkit.enable = false; # handled by noctalia polkit-agent plugin
