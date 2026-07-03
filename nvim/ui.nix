@@ -7,7 +7,24 @@
   # Icons (used by snacks, bufferline, dropbar, mini.statusline).
   plugins.web-devicons.enable = true;
 
-  # The snacks suite: picker, explorer, lazygit, notifier, indent guides,
+  # File explorer: persistent left sidebar tree.
+  plugins.neo-tree = {
+    enable = true;
+    filesystem = {
+      followCurrentFile.enabled = true;
+      filteredItems.hideDotfiles = false;
+    };
+  };
+
+  # Buffer-based file editing: edit the filesystem like a normal buffer.
+  plugins.oil = {
+    enable = true;
+    settings = {
+      view_options.show_hidden = true;
+    };
+  };
+
+  # The snacks suite: picker, lazygit, notifier, indent guides,
   # smooth scroll, fancy status column, better vim.ui.input, and a dashboard.
   plugins.snacks = {
     enable = true;
@@ -30,7 +47,7 @@
           };
         };
       };
-      explorer.enabled = true;
+      explorer.enabled = false;
       lazygit.enabled = true;
       notifier.enabled = true;
       input = {

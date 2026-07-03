@@ -4,8 +4,13 @@
     # File explorer
     {
       key = "<leader>b";
-      action.__raw = "function() Snacks.explorer() end";
+      action = "<cmd>Neotree toggle<cr>";
       options.desc = "Toggle file explorer";
+    }
+    {
+      key = "-";
+      action.__raw = "function() require('oil').open() end";
+      options.desc = "Open parent directory (oil)";
     }
 
     # Pickers
@@ -117,6 +122,26 @@
       key = "<leader>x";
       action.__raw = "function() Snacks.bufdelete() end";
       options.desc = "Close buffer";
+    }
+    {
+      key = "<leader>Xx";
+      action.__raw = "function() Snacks.bufdelete.all() end";
+      options.desc = "Close all buffers";
+    }
+    {
+      key = "<leader>Xo";
+      action.__raw = "function() Snacks.bufdelete.other() end";
+      options.desc = "Close other buffers";
+    }
+    {
+      key = "<leader>Xh";
+      action = "<cmd>BufferLineCloseLeft<cr>";
+      options.desc = "Close all buffers to the left";
+    }
+    {
+      key = "<leader>Xl";
+      action = "<cmd>BufferLineCloseRight<cr>";
+      options.desc = "Close all buffers to the right";
     }
     {
       key = "<S-l>";
