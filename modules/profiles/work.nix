@@ -60,15 +60,15 @@ in
       ];
 
       window-rules = [
-        { matches = [ { app-id = "^google-chrome-unstable$"; } ]; open-on-workspace = "1"; }
-        { matches = [ { app-id = "^com\\.mitchellh\\.ghostty\\.ws1$"; } ]; open-on-workspace = "1"; }
-        { matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ]; open-on-workspace = "2"; }
-        { matches = [ { app-id = "^com\\.mitchellh\\.ghostty\\.ws2$"; } ]; open-on-workspace = "2"; }
-        { matches = [ { app-id = "^Slack$"; } ]; open-on-workspace = "3"; }
+        { matches = [ { app-id = "^Slack$"; } ]; open-on-workspace = "1"; }
         {
           matches = [ { app-id = "^chrome-ompifgpmddkgmclendfeacglnodjjndh-Default$"; title = "Microsoft Teams"; } ];
-          open-on-workspace = "3";
+          open-on-workspace = "1";
         }
+        { matches = [ { app-id = "^google-chrome-unstable$"; } ]; open-on-workspace = "2"; }
+        { matches = [ { app-id = "^com\\.mitchellh\\.ghostty\\.ws1$"; } ]; open-on-workspace = "2"; }
+        { matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ]; open-on-workspace = "3"; }
+        { matches = [ { app-id = "^com\\.mitchellh\\.ghostty\\.ws2$"; } ]; open-on-workspace = "3"; }
         {
           matches = [ { app-id = "^chrome-ompifgpmddkgmclendfeacglnodjjndh-Default$"; } ];
           excludes = [ { title = "Microsoft Teams"; } ];
