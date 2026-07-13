@@ -29,6 +29,7 @@
 
     # Terminal
     ./terminal/claude-code.nix
+    ./terminal/codex.nix
     ./terminal/ghostty.nix
     ./terminal/tools.nix
     ./terminal/zsh.nix

@@ -41,6 +41,7 @@
     terminal.ghostty.enable = lib.mkDefault true;
     terminal.tools.enable = lib.mkDefault true;
     terminal.claude-code.enable = lib.mkDefault true;
+    terminal.codex.enable = lib.mkDefault true;
 
     # Development
     development.cursor.enable = lib.mkDefault true;
