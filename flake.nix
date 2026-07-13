@@ -56,9 +56,11 @@
     browser-previews.url = "github:nix-community/browser-previews";
     nix-alien.url = "github:thiagokokada/nix-alien";
     zed-editor.url = "github:jamesbirtles/zed-flake/stable";
+    systems.url = "github:nix-systems/default-linux";
     handy = {
       url = "github:cjpais/Handy/v0.8.3";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.bun2nix.inputs.systems.follows = "systems";
     };
     claude-plugins-official = {
       url = "github:anthropics/claude-plugins-official";
@@ -101,9 +103,12 @@
           # wrapper.
           toModule = h: if builtins.isString h then nixos-hardware.nixosModules.${h} else h;
           hwModules =
-            if hardware == null then [ ]
-            else if builtins.isList hardware then map toModule hardware
-            else [ (toModule hardware) ];
+            if hardware == null then
+              [ ]
+            else if builtins.isList hardware then
+              map toModule hardware
+            else
+              [ (toModule hardware) ];
         in
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
@@ -132,15 +137,13 @@
       # Standalone NixVim package from the shared ./nvim module (also imported
       # by NixOS via programs.nixvim.imports). Run with `nix run .#nvim`. Built
       # against NixVim's pinned nixpkgs rather than this flake's.
-      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
-        system: {
-          nvim =
-            (nixvim.lib.evalNixvim {
-              inherit system;
-              modules = [ ./nvim ];
-            }).config.build.package;
-        }
-      );
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
+        nvim =
+          (nixvim.lib.evalNixvim {
+            inherit system;
+            modules = [ ./nvim ];
+          }).config.build.package;
+      });
 
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
         jb-fwk16.hardware = "framework-16-7040-amd";
@@ -156,8 +159,8 @@
           "common-pc-ssd"
         ];
         thinkpad-server.hardware = "lenovo-thinkpad-t470s";
-        jamesbox = {};
-        jamesb-darwin = {};
+        jamesbox = { };
+        jamesb-darwin = { };
       };
     };
 }
