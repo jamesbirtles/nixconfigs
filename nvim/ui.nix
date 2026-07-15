@@ -10,9 +10,9 @@
   # File explorer: persistent left sidebar tree.
   plugins.neo-tree = {
     enable = true;
-    filesystem = {
-      followCurrentFile.enabled = true;
-      filteredItems.hideDotfiles = false;
+    settings.filesystem = {
+      follow_current_file.enabled = true;
+      filtered_items.hide_dotfiles = false;
     };
   };
 
