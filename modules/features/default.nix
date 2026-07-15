@@ -47,6 +47,7 @@
     ./communication/email.nix
     ./communication/discord.nix
     ./communication/slack.nix
+    ./communication/teams-for-linux.nix
     ./communication/thunderbird.nix
 
     # Hardware
