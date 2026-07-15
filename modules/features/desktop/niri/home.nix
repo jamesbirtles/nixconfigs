@@ -656,6 +656,10 @@
   programs.niri.settings = {
     debug.honor-xdg-activation-with-invalid-serial = true;
     prefer-no-csd = true;
+    input.keyboard.xkb = {
+      layout = "gb";
+      options = "caps:escape";
+    };
     binds = with config.lib.niri.actions; {
       "Mod+Escape".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
       "Mod+Shift+Escape".action = quit;
