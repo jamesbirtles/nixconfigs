@@ -11,6 +11,17 @@
 
   features.hardware.fingerprint.enable = false;
 
+  # Share keyboard/mouse with the Framework 16 sitting to the right.
+  features.services.lan-mouse = {
+    enable = true;
+    peers = [
+      {
+        hostname = "jb-fwk16";
+        position = "right";
+      }
+    ];
+  };
+
   # NVIDIA — settings we own beyond the imported generic nixos-hardware modules.
   # The flake imports `common-gpu-nvidia-nonprime`, whose only contribution is
   # `services.xserver.videoDrivers = ["nvidia"]`. Despite the `xserver` name,

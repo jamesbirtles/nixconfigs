@@ -71,6 +71,7 @@
     # Services
     ./services/flatpak.nix
     ./services/frigate.nix
+    ./services/lan-mouse.nix
     ./services/lldpd.nix
     ./services/ollama.nix
     ./services/rclone-mount.nix

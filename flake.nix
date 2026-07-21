@@ -5,10 +5,12 @@
     extra-substituters = [
       "https://noctalia.cachix.org"
       "https://jameshbirtles.cachix.org"
+      "https://lan-mouse.cachix.org"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "jameshbirtles.cachix.org-1:bnBHVErVetzMeKpQxGNzLyNzL7nN2YbS4ZmRw/0AHMg="
+      "lan-mouse.cachix.org-1:KlE2AEZUgkzNKM7BIzMQo8w9yJYqUpor1CAUNRY6OyM="
     ];
   };
 
@@ -59,6 +61,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.bun2nix.inputs.systems.follows = "systems";
     };
+    lan-mouse = {
+      url = "github:feschber/lan-mouse";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     claude-plugins-official = {
       url = "github:anthropics/claude-plugins-official";
       flake = false;
@@ -83,6 +89,7 @@
       browser-previews,
       nix-alien,
       handy,
+      lan-mouse,
       claude-plugins-official,
       ...
     }:
@@ -109,7 +116,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit noctalia handy claude-plugins-official;
+            inherit noctalia handy lan-mouse claude-plugins-official;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;
