@@ -64,6 +64,16 @@ in
     home-manager.users.james = {
       imports = [ lan-mouse.homeManagerModules.default ];
 
+      # The upstream module only wires the daemon's WantedBy for Hyprland/Sway
+      # session targets, so under niri nothing pulls it in and the only daemon
+      # is the one the GUI spawns. Bind it to graphical-session.target like the
+      # rest of this config's user services.
+      systemd.user.services.lan-mouse = {
+        Unit.After = [ "graphical-session.target" ];
+        Unit.PartOf = [ "graphical-session.target" ];
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
       programs.lan-mouse = {
         enable = true;
         settings = {
