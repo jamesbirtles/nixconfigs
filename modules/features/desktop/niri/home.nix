@@ -661,8 +661,22 @@
       options = "caps:escape";
     };
     binds = with config.lib.niri.actions; {
-      "Mod+Escape".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
-      "Mod+Shift+Escape".action = quit;
+      # allow-inhibiting=false: always handled by niri, never forwarded. While
+      # lan-mouse captures, niri honours its shortcuts-inhibit request so Mod
+      # binds forward to the remote; these keep lock/quit local regardless, and
+      # the toggle is an escape hatch to reclaim niri's binds if inhibit sticks.
+      "Mod+Escape" = {
+        action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+        allow-inhibiting = false;
+      };
+      "Mod+Shift+Escape" = {
+        action = quit;
+        allow-inhibiting = false;
+      };
+      "Mod+Shift+I" = {
+        action = toggle-keyboard-shortcuts-inhibit;
+        allow-inhibiting = false;
+      };
       "Mod+W".action = close-window;
 
       "Mod+F".action = toggle-window-floating;
