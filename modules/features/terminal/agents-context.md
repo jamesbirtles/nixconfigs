@@ -120,7 +120,7 @@ I prefer types that accurately represent the domain, especially when they make i
 
 Functional programming ideas often appeal to me for similar reasons. Making state, effects, transformations, and dependencies explicit reduces hidden behaviour and gives me a clearer model of the system.
 
-However, conceptual elegance is not sufficient on its own. The model must still map usefully onto the realities of the problem and the surrounding codebase.
+However, conceptual elegance is not sufficient on its own — the model must still map usefully onto the realities of the problem and the surrounding codebase. Purity is one of these tools, not a goal in itself: I like domain logic (calculations, transformations, decisions) kept pure and effects kept at clear boundaries, but boundary code should sequence its effects directly and readably rather than disguise them as pure data. Don't reach for effect descriptions, command types, dispatcher loops, or a planning/execution split just to make orchestration look pure — that machinery earns its place only when it genuinely improves the model, correctness, testability, or reuse.
 
 When helping me design types or APIs:
 
@@ -131,13 +131,44 @@ When helping me design types or APIs:
 - avoid weakening types merely to make an implementation easier
 - also challenge types that add conceptual machinery without improving the practical model
 
+## Making Illegal States Unrepresentable
+
+This is close to the heart of how I like to program, and I want AI-written code to embody it too.
+
+The core idea: use the type system and module boundaries so that incorrect states cannot be constructed in the first place, rather than being guarded against at runtime. If a value exists, its existence should be proof that its invariants hold.
+
+The canonical example is an authenticated user. If `AuthenticatedUser` is an opaque type whose only constructor is `login`, then any function accepting an `AuthenticatedUser` is *guaranteed* an authenticated user — not by a runtime check, but because no other way to obtain the value exists. A whole class of "but what if they aren't actually authenticated?" questions simply stops existing. This is the same instinct as "parse, don't validate": validate once at the boundary, then encode the result in a type that carries the guarantee forward.
+
+Module boundaries are the enforcement mechanism, not the type alone. Export the public API; keep constructors and internal representations private. A type is only a real guarantee if it cannot be forged from outside its module. So:
+
+- Push validation and construction to a single boundary (a smart constructor / parser).
+- Make the constructed type opaque, so possession of a value implies its invariant.
+- Let downstream code *depend* on that guarantee by taking the type as a parameter, rather than re-checking it.
+- Prefer making a bad state unconstructable over documenting or asserting that it shouldn't happen.
+
+Structure modules around data. A module is naturally built around one type (occasionally two) — its constructors, transformations, and queries all live together, and that module becomes the single owner of the type's invariants. This is what makes the boundary meaningful rather than arbitrary: there is one place that can construct the type and one place that could break it, so that is the one place to hide internals and put the smart constructor. Split files by the data they own, not by arbitrary layering.
+
+This is the sharp end of model-first thinking: making impossible states impossible shrinks the space of states I have to reason about, and lets the compiler continuously test the model.
+
+### Errors as Values
+
+Represent expected failures as values, not as exceptions. A function that can fail should say so in its return type — a `Result` / `Either` — and callers handle each outcome explicitly, ideally with exhaustive pattern matching so the compiler tells me when I've missed a case.
+
+Where unrepresentable states remove what *can't* happen, errors-as-values make what *can* happen explicit. Between them, a function's signature tells the whole truth about what it does and how it can fail — no hidden control flow, no invisible throw. Reserve exceptions for genuinely unexpected, unrecoverable conditions; model expected failure in the type.
+
+This one is aspirational, not a rule. It is rarely worth rewriting how an existing project handles errors just to fit one small change through it. Follow the surrounding code's error conventions; reach for errors-as-values when starting something new, or when a change is already large enough that the shift pays for itself.
+
+### Effect TS
+
+Effect encourages exactly this style — branded types, `Schema` for parse-at-the-boundary, errors as typed values in the channel rather than thrown, and services/`Context` for explicit dependencies. Where it is already part of a codebase, use it to its fullest.
+
+But Effect is a large dependency that requires team buy-in. Do not introduce it to a codebase that doesn't already use it just to obtain these patterns. Without Effect, reach the same guarantees with plain language features: opaque/branded types, private constructors, and disciplined module boundaries. The pattern is the goal; Effect is one way to reach it.
+
 ---
 
 ## Coding style
 
 - Prefer an array of records over an object map for small lookup tables, so the collection stays a single ordered source of truth (derive any "valid values" list from it rather than hardcoding it separately).
-- Prefer pure functions for domain logic: calculations, transformations, validation, and decisions. Keep side effects at clear boundaries, but allow boundary code—such as loaders, request handlers, commands, lifecycle hooks, and integration code—to sequence effects directly when that is the clearest expression of its responsibility. An explicit effect boundary should contain readable effects; it does not need to disguise them as pure data.
-- Treat purity as a tool for reducing reasoning complexity, not as a goal in itself. Do not introduce effect descriptions, command types, dispatcher loops, or separate planning and execution phases merely to make orchestration superficially pure. Add such abstractions only when they improve the domain model, correctness, testability, or reuse—for example, when the plan is meaningful independently or requires multiple interpreters.
 
 ## Ad-hoc environments
 
