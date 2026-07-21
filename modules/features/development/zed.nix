@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  zed-editor,
   ...
 }:
 let
@@ -19,7 +18,6 @@ in
     home-manager.users.james = {
       programs.zed-editor = {
         enable = true;
-        package = zed-editor;
         inherit (cfg) installRemoteServer;
         extensions = [
           "catppuccin-icons"

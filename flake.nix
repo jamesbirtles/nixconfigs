@@ -4,12 +4,10 @@
   nixConfig = {
     extra-substituters = [
       "https://noctalia.cachix.org"
-      "https://cache.garnix.io"
       "https://jameshbirtles.cachix.org"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "jameshbirtles.cachix.org-1:bnBHVErVetzMeKpQxGNzLyNzL7nN2YbS4ZmRw/0AHMg="
     ];
   };
@@ -55,7 +53,6 @@
     };
     browser-previews.url = "github:nix-community/browser-previews";
     nix-alien.url = "github:thiagokokada/nix-alien";
-    zed-editor.url = "github:jamesbirtles/zed-flake/stable";
     systems.url = "github:nix-systems/default-linux";
     handy = {
       url = "github:cjpais/Handy/v0.8.3";
@@ -85,7 +82,6 @@
       noctalia-qs,
       browser-previews,
       nix-alien,
-      zed-editor,
       handy,
       claude-plugins-official,
       ...
@@ -121,7 +117,6 @@
             zen-browser = zen-browser.packages.${system}.default;
             google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
             nix-alien = nix-alien.packages.${system}.nix-alien;
-            zed-editor = zed-editor.packages.${system}.default;
             outPath = self.outPath;
           };
           modules = [

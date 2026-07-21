@@ -136,7 +136,8 @@ When helping me design types or APIs:
 ## Coding style
 
 - Prefer an array of records over an object map for small lookup tables, so the collection stays a single ordered source of truth (derive any "valid values" list from it rather than hardcoding it separately).
-- Keep core logic in pure functions that take their inputs as parameters. Isolate side effects (reading `process`/`env`/the clock, I/O) in a thin wrapper that reads the value and delegates to the pure function — the logic stays testable without stubbing globals.
+- Prefer pure functions for domain logic: calculations, transformations, validation, and decisions. Keep side effects at clear boundaries, but allow boundary code—such as loaders, request handlers, commands, lifecycle hooks, and integration code—to sequence effects directly when that is the clearest expression of its responsibility. An explicit effect boundary should contain readable effects; it does not need to disguise them as pure data.
+- Treat purity as a tool for reducing reasoning complexity, not as a goal in itself. Do not introduce effect descriptions, command types, dispatcher loops, or separate planning and execution phases merely to make orchestration superficially pure. Add such abstractions only when they improve the domain model, correctness, testability, or reuse—for example, when the plan is meaningful independently or requires multiple interpreters.
 
 ## Ad-hoc environments
 
