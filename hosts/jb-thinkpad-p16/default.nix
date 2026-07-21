@@ -18,6 +18,7 @@
       {
         hostname = "jb-fwk16";
         position = "right";
+        fingerprint = "c6:94:77:5c:24:10:44:79:49:d7:d0:eb:c2:ac:ba:f4:93:74:c6:44:b5:d0:7b:5e:fb:fc:eb:3f:c9:44:6e:50";
       }
     ];
   };
