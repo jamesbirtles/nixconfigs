@@ -58,7 +58,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    # lan-mouse's transport is DTLS-over-UDP, so only UDP needs opening.
     networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     home-manager.users.james = {
