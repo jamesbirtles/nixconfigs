@@ -164,6 +164,41 @@ Effect encourages exactly this style — branded types, `Schema` for parse-at-th
 
 But Effect is a large dependency that requires team buy-in. Do not introduce it to a codebase that doesn't already use it just to obtain these patterns. Without Effect, reach the same guarantees with plain language features: opaque/branded types, private constructors, and disciplined module boundaries. The pattern is the goal; Effect is one way to reach it.
 
+## Locality, Cohesion, and Code Size
+
+Bias strongly toward small, focused files and modules. They are easier for both humans and AI to understand, review, change, and reuse. Each concept should be locally understandable and have one clear owner.
+
+Size limits are strong defaults. Exceeding them should be an exceptional, conscious decision, not the path of least resistance:
+
+- A file should have one coherent responsibility and usually one primary reason to change.
+- Keep handwritten source files at roughly 80 lines or fewer. When a file approaches that size, actively look for responsibilities to extract rather than waiting for it to become unwieldy.
+- A handwritten source file over 120 lines should be rare and should have a concrete structural reason to remain whole. Do not compress formatting or hide complexity to satisfy the count.
+- Generated files and irreducible static data are not subject to the limit.
+- Refactoring is part of feature work, not something that must always be deferred to a separate change. When substantial work touches an oversized or muddled module, restructure it as part of the work. For a genuinely tiny change, use judgement, but do not use diff size alone as a reason to preserve a poor structure.
+
+Extract along conceptual seams:
+
+- Move a responsibility out when it can be named independently, owns an invariant, is reused, changes for a different reason, or can be understood and tested through a small interface.
+- Keep code that must be understood and changed together close together. Avoid extracting trivial helpers or one-use wrappers just to reduce a line count.
+- In React, primitive hooks such as `useState`, `useRef`, and `useEffect` expose implementation mechanisms. Prefer custom hooks that name the behaviour those mechanisms implement, so a component communicates intent without requiring the reader to reconstruct it from state, effects, dependency arrays, and callbacks.
+- Extract a custom hook whenever understanding the behaviour requires interpreting a non-trivial hook setup or callback. Two or more hooks that work together to implement one behaviour or maintain one invariant should be encapsulated immediately, even when used only once. A single `useEffect` or similar callback-based hook should also be extracted when its purpose is not obvious at a glance.
+- Name the custom hook after the behaviour or guarantee it provides, not the React mechanism it uses. Its inputs, outputs, and—when necessary—a short comment should explain its interface; callers should not need to understand its internal coordination.
+- Related state, refs, effects, and callbacks should not be left loose where their relationship is invisible and they can drift apart.
+- A custom hook may remain private in the same file while it is small and local. Move it to its own file when the file would exceed the size limit, the hook is reused, or it forms an independently understandable module.
+- Extract a child component when a region of UI represents a named domain concept, repeats, has its own behaviour, or makes the parent template difficult to scan.
+- Keep orchestration readable. Decomposition should reveal the flow, not hide it behind layers of indirection.
+
+Directories and packages should express the same model at a larger scale:
+
+- A directory should represent a cohesive module whose purpose and public interface are easy to identify.
+- Keep a module directory to roughly 15 handwritten source files or fewer. When it grows beyond that, split it into focused, named submodules. A subdirectory created only to hide the file count is not a module.
+- Promote a submodule to a separate package when doing so creates a useful dependency seam: it has a coherent responsibility, a small public interface, clear ownership of its data and invariants, and can sensibly be understood or tested in isolation.
+- Consumers should depend on a module's public interface rather than reaching into its internal files. Sibling modules should not depend on one another's internals.
+- Dependencies should have a clear direction. Cycles and frequent cross-module imports are evidence that ownership or the placement of the seam needs reconsideration.
+- When several modules need the same behaviour, first ask which existing module naturally owns it. Extract a shared module only when the shared concept itself has a stable name and coherent invariants; avoid generic `utils` or `common` grab bags.
+
+Before adding a file or dependency, ask: which concept owns this, what interface should callers see, and what knowledge will this force callers to acquire?
+
 ---
 
 ## Coding style
