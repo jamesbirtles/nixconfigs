@@ -6,11 +6,13 @@
       "https://noctalia.cachix.org"
       "https://jameshbirtles.cachix.org"
       "https://lan-mouse.cachix.org"
+      "https://ryoppippi.cachix.org"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "jameshbirtles.cachix.org-1:bnBHVErVetzMeKpQxGNzLyNzL7nN2YbS4ZmRw/0AHMg="
       "lan-mouse.cachix.org-1:KlE2AEZUgkzNKM7BIzMQo8w9yJYqUpor1CAUNRY6OyM="
+      "ryoppippi.cachix.org-1:b2LbtWNvJeL/qb1B6TYOMK+apaCps4SCbzlPRfSQIms="
     ];
   };
 
@@ -69,6 +71,7 @@
       url = "github:anthropics/claude-plugins-official";
       flake = false;
     };
+    nix-claude-code.url = "github:ryoppippi/nix-claude-code";
   };
 
   outputs =
@@ -91,6 +94,7 @@
       handy,
       lan-mouse,
       claude-plugins-official,
+      nix-claude-code,
       ...
     }:
     let
@@ -117,6 +121,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit noctalia handy lan-mouse claude-plugins-official;
+            claude-code-package = nix-claude-code.packages.${system}.default;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
             firefox-gnome-theme = firefox-gnome-theme;

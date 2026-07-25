@@ -4,6 +4,7 @@
   pkgs,
   google-chrome-dev,
   claude-plugins-official,
+  claude-code-package,
   ...
 }:
 let
@@ -70,6 +71,7 @@ in
 
       programs.claude-code = {
         enable = true;
+        package = claude-code-package;
         # frontend-design plugin from anthropics/claude-plugins-official.
         # Loaded as a --plugin-dir; pinned via the flake input (flake.lock).
         plugins = [
