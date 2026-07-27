@@ -31,6 +31,7 @@
     ./terminal/claude-code.nix
     ./terminal/codex.nix
     ./terminal/ghostty.nix
+    ./terminal/omp
     ./terminal/tools.nix
     ./terminal/zsh.nix
 

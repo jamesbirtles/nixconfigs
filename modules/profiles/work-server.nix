@@ -16,6 +16,7 @@
 
     terminal.claude-code.enable = lib.mkDefault true;
     terminal.codex.enable = lib.mkDefault true;
+    terminal.omp.enable = lib.mkDefault true;
 
     security.vpn.enable = lib.mkDefault true;
 
