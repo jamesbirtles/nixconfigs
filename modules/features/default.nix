@@ -37,6 +37,7 @@
 
     # Productivity
     ./productivity/browsers.nix
+    ./productivity/claude-desktop.nix
     ./productivity/misc.nix
     ./productivity/speech.nix
     ./productivity/work-hours.nix

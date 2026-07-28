@@ -9,6 +9,8 @@ let
   cfg = config.features.desktop.niri;
 in
 {
+  imports = [ ./gnome-compat.nix ];
+
   options.features.desktop.niri = {
     enable = lib.mkEnableOption "Niri scrollable-tiling Wayland compositor";
   };

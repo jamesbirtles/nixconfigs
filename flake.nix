@@ -72,6 +72,10 @@
       flake = false;
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -95,6 +99,7 @@
       lan-mouse,
       claude-plugins-official,
       nix-claude-code,
+      claude-desktop,
       ...
     }:
     let
@@ -127,6 +132,9 @@
             firefox-gnome-theme = firefox-gnome-theme;
             vscode-extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
             zen-browser = zen-browser.packages.${system}.default;
+            # FHS variant: MCP servers launched by the app need a conventional
+            # filesystem layout (node/npx resolved at runtime).
+            claude-desktop = claude-desktop.packages.${system}.claude-desktop-fhs;
             google-chrome-dev = browser-previews.packages.${system}.google-chrome-dev;
             nix-alien = nix-alien.packages.${system}.nix-alien;
             outPath = self.outPath;
