@@ -10,6 +10,8 @@
     settings.Resolve.DNSOverTLS = "opportunistic";
   };
 
+  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
+
   # Required for workerd to pick up local CA certificates
   environment.variables.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
