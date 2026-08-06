@@ -47,6 +47,7 @@
     # Development
     development.cursor.enable = lib.mkDefault true;
     development.zed.enable = lib.mkDefault true;
+    development.defaultEditor = lib.mkDefault "zed";
     development.vscode.enable = lib.mkDefault true;
 
     # Productivity

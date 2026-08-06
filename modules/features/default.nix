@@ -21,6 +21,7 @@
     ./development/nodejs.nix
     ./development/rust.nix
     ./development/cloud-tools.nix
+    ./development/default-editor.nix
     ./development/cursor.nix
     ./development/neovim.nix
     ./development/vscode.nix
