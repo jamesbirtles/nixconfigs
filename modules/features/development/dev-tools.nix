@@ -9,7 +9,7 @@ let
 in
 {
   options.features.development.dev-tools = {
-    enable = lib.mkEnableOption "Development tools (devenv, prisma, nil, nixd, python3, playwright)";
+    enable = lib.mkEnableOption "Development tools (devenv, prisma, nil, nixd, python3)";
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,13 +19,7 @@ in
       nil
       nixd
       python3
-      python3Packages.playwright
     ];
-
-    environment.sessionVariables = {
-      PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
-      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
-    };
 
     home-manager.users.james.programs.zsh.initContent = ''
       eval "$(devenv hook zsh)"

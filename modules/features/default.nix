@@ -19,6 +19,7 @@
     ./development/git.nix
     ./development/dev-tools.nix
     ./development/nodejs.nix
+    ./development/playwright.nix
     ./development/rust.nix
     ./development/cloud-tools.nix
     ./development/default-editor.nix
