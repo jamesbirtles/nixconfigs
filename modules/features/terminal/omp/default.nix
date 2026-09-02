@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs,
+  omp,
   ...
 }:
 let
@@ -17,7 +17,8 @@ in
     # (both already written by the claude-code / codex modules), so it inherits
     # agents-context.md without any wiring of its own.
     home-manager.users.james = {
-      home.packages = [ (pkgs.callPackage ./package.nix { }) ];
+      imports = [ omp.homeManagerModules.default ];
+      programs.omp.enable = true;
     };
   };
 }

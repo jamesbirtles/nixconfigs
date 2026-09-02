@@ -72,6 +72,10 @@
       flake = false;
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+    omp = {
+      url = "github:can1357/oh-my-pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     claude-desktop = {
       url = "github:aaddrick/claude-desktop-debian";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,6 +103,7 @@
       lan-mouse,
       claude-plugins-official,
       nix-claude-code,
+      omp,
       claude-desktop,
       ...
     }:
@@ -126,6 +131,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit noctalia handy lan-mouse claude-plugins-official;
+            inherit omp;
             claude-code-package = nix-claude-code.packages.${system}.default;
             pnpm2nix = pnpm2nix.packages.${system};
             ashell = ashell.packages.${system}.default;
