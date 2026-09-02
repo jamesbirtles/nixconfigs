@@ -66,13 +66,32 @@ in
           }
         ];
         userSettings = {
+          format_on_save = "on";
+          project_panel = {
+            dock = "left";
+          };
+          cli_default_open_behavior = "existing_window";
           icon_theme = "Catppuccin Frappé";
           agent_servers = {
-            claude = {
-              default_model = "default";
+            claude-acp = {
+              type = "registry";
+              default_config_options = {
+                effort = "medium";
+                model = "opus[1m]";
+                mode = "auto";
+                fast = false;
+              };
+            };
+            omp = {
+              type = "custom";
+              command = "omp";
+              args = [ "acp" ];
             };
           };
           agent = {
+            sidebar_side = "right";
+            flexible = false;
+            dock = "right";
             use_modifier_to_send = true;
             tool_permissions = {
               default = "allow";
@@ -80,6 +99,8 @@ in
             default_model = {
               provider = "zed.dev";
               model = "claude-opus-4-1";
+              effort = "medium";
+              enable_thinking = true;
             };
             default_profile = "write";
           };
