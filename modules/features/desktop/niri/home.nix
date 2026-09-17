@@ -469,18 +469,14 @@
               useCustomFont = false;
             }
             {
-              id = "plugin:screen-toolkit";
+              id = "plugin:pomodoro";
               defaultSettings = {
-                colorHistory = [ ];
-                detectedCompositor = "";
-                detectedRecorder = "";
-                filenameFormat = "";
-                installedLangs = [ "eng" ];
-                paletteColors = [ ];
-                screenshotPath = "";
-                selectedOcrLang = "eng";
-                transAvailable = false;
-                videoPath = "";
+                autoStartBreaks = false;
+                autoStartWork = false;
+                longBreakDuration = 15;
+                sessionsBeforeLongBreak = 4;
+                shortBreakDuration = 5;
+                workDuration = 25;
               };
             }
           ];
@@ -499,14 +495,6 @@
               displayMode = "alwaysShow";
               iconColor = "none";
               textColor = "none";
-            }
-            {
-              id = "plugin:port-monitor";
-              defaultSettings = {
-                hideSystemPorts = false;
-                hideWhenEmpty = false;
-                refreshInterval = 5;
-              };
             }
             {
               id = "plugin:privacy-indicator";
@@ -533,10 +521,10 @@
               showDiskUsage = false;
               showDiskUsageAsPercent = false;
               showGpuTemp = false;
-              showLoadAverage = true;
-              showMemoryAsPercent = false;
+              showLoadAverage = false;
+              showMemoryAsPercent = true;
               showMemoryUsage = true;
-              showNetworkStats = true;
+              showNetworkStats = false;
               showSwapUsage = false;
               textColor = "none";
               useMonospaceFont = true;
@@ -632,11 +620,7 @@
             enabled = true;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
-          screen-toolkit = {
-            enabled = true;
-            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-          };
-          port-monitor = {
+          pomodoro = {
             enabled = true;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
