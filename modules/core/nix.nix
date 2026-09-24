@@ -27,6 +27,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.nix-ld.enable = true;
+  services.envfs.enable = true;
 
   programs.nh = {
     enable = true;
