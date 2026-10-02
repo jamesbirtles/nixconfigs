@@ -1,0 +1,29 @@
+name: Update flake.lock
+
+# Opens a "flake.lock: Update" pull request on a schedule. The build-cache
+# workflow then builds and caches every host for that PR; merge it when green
+# and the machines only have to download.
+#
+# Requires the repository secret FLAKE_UPDATE_TOKEN: a personal access token
+# (fine-grained, this repo only, Contents + Pull requests read/write). PRs
+# opened with the default GITHUB_TOKEN deliberately do not trigger other
+# workflows, so without a PAT the PR would never get a build/status check.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          token: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+          pr-title: "flake.lock: Update"
+          branch: update-flake-lock

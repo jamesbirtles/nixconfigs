@@ -16,6 +16,7 @@ name: Build & cache NixOS configs
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 concurrency:
@@ -44,6 +45,8 @@ jobs:
 
       # Enumerate hosts from the flake (so new machines need no workflow edit)
       # and build every toplevel in one invocation, sharing a single store.
+      # --keep-going: one broken package shouldn't stop the other hosts'
+      # closures from being built and cached; the job still fails afterwards.
       - name: Build all NixOS configs
         run: |
           mapfile -t installables < <(
@@ -51,4 +54,4 @@ jobs:
               | jq -r '.[] | ".#nixosConfigurations." + . + ".config.system.build.toplevel"'
           )
           printf 'Building: %s\n' "${installables[@]}"
-          nix build --print-build-logs --accept-flake-config "${installables[@]}"
+          nix build --print-build-logs --keep-going --accept-flake-config "${installables[@]}"
