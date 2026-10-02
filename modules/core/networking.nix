@@ -15,6 +15,13 @@
   # Required for workerd to pick up local CA certificates
   environment.variables.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
+  environment.systemPackages = [ pkgs.iperf3 ];
+
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
+
   networking.firewall.allowedTCPPortRanges = [
     {
       from = 8070;
