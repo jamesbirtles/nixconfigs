@@ -13,8 +13,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Enable all terminfo for better terminal compatibility over SSH
-    environment.enableAllTerminfo = true;
+    # Terminfo for the terminals we ssh in from. enableAllTerminfo pulls in
+    # every terminal emulator (rxvt-unicode, contour, ...) and those fail to
+    # build on current nixpkgs.
+    environment.systemPackages = [
+      pkgs.ghostty.terminfo
+    ];
 
     # Enable OpenSSH daemon
     services.openssh = {
