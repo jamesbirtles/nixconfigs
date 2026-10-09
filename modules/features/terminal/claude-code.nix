@@ -74,9 +74,7 @@ in
         package = claude-code-package;
         # frontend-design plugin from anthropics/claude-plugins-official.
         # Loaded as a --plugin-dir; pinned via the flake input (flake.lock).
-        plugins = [
-          "${claude-plugins-official}/plugins/frontend-design"
-        ];
+        plugins.frontend-design = "${claude-plugins-official}/plugins/frontend-design";
         mcpServers = {
           chrome-devtools = {
             type = "stdio";

@@ -25,7 +25,7 @@
   clipboard.register = "unnamedplus";
   # wl-clipboard is Linux/Wayland only; guard it so the standalone package
   # still evaluates on macOS (jamesb-darwin).
-  clipboard.providers.wl-copy.enable = lib.mkIf pkgs.stdenv.isLinux true;
+  clipboard.providers.wl-copy.enable = lib.mkIf pkgs.stdenv.hostPlatform.isLinux true;
 
   # Over SSH, fall back to OSC 52 so yanks reach the local clipboard.
   extraConfigLua = ''
