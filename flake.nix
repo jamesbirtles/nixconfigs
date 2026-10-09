@@ -60,7 +60,6 @@
     systems.url = "github:nix-systems/default-linux";
     handy = {
       url = "github:cjpais/Handy/v0.8.3";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.bun2nix.inputs.systems.follows = "systems";
     };
     lan-mouse = {
