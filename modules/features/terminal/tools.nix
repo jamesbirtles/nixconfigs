@@ -92,18 +92,33 @@ in
       '')
 
       (pkgs.writeShellScriptBin "nixos-rebuild-notify" ''
+        push_cache() {
+          # Only push when a write token has been set up (`cachix authtoken <token>`).
+          if [ -f "$HOME/.config/cachix/cachix.dhall" ] || [ -n "$CACHIX_AUTH_TOKEN" ]; then
+            ${pkgs.cachix}/bin/cachix push jameshbirtles /run/current-system
+          fi
+        }
+
+        # Prompt for the password now rather than after a long build, and keep
+        # the sudo timestamp fresh until we exit so activation never prompts.
+        sudo -v || exit 1
+        (while true; do sudo -n true; sleep 60; done) 2>/dev/null &
+        SUDO_KEEPALIVE=$!
+        trap 'kill "$SUDO_KEEPALIVE" 2>/dev/null' EXIT
+
         if command -v niri &>/dev/null && niri msg -j focused-window &>/dev/null; then
           WINDOW_ID=$(${pkgs.niri}/bin/niri msg -j focused-window | ${pkgs.jq}/bin/jq '.id')
           if nh os switch; then
             (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build successful" --icon=nix-snowflake -A "default=Focus Terminal" > /dev/null \
               && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
+            push_cache
           else
             (${pkgs.libnotify}/bin/notify-send -a "NixOS Rebuild" "NixOS build failed" --icon=dialog-error --urgency=critical -A "default=Focus Terminal" > /dev/null \
               && ${pkgs.niri}/bin/niri msg action focus-window --id "$WINDOW_ID") &
             exit 1
           fi
         else
-          nh os switch
+          nh os switch && push_cache
         fi
       '')
 

@@ -239,10 +239,6 @@ with lib.hm.gvariant;
       application-id = "code.desktop";
     };
 
-    "org/gnome/desktop/notifications/application/cursor" = {
-      application-id = "cursor.desktop";
-    };
-
     "org/gnome/desktop/notifications/application/dev-zed-zed" = {
       application-id = "dev.zed.Zed.desktop";
     };

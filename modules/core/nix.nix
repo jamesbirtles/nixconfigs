@@ -14,6 +14,7 @@
       "root"
       "@wheel"
     ];
+    accept-flake-config = true;
     extra-substituters = [
       "https://noctalia.cachix.org"
       "https://jameshbirtles.cachix.org"
