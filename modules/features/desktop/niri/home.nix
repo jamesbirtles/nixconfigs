@@ -788,7 +788,13 @@
     };
     outputs =
       let
-        after = output: output.position.x + builtins.floor (output.mode.width / output.scale);
+        logicalWidth = output: builtins.floor (output.mode.width / output.scale);
+        logicalHeight = output: builtins.floor (output.mode.height / output.scale);
+        # Place `output` so the builtin screen sits at its bottom-right corner.
+        aboveLeftOf = builtin: output: {
+          x = -(logicalWidth output);
+          y = logicalHeight builtin - logicalHeight output;
+        };
 
         fw13 = {
           scale = 1.5;
@@ -823,10 +829,7 @@
             width = 5120;
             height = 2880;
           };
-          position = {
-            x = after builtin;
-            y = 0;
-          };
+          position = aboveLeftOf builtin samsung;
         };
         tx-ultrawide = {
           scale = 1.0;
