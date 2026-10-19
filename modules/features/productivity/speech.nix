@@ -2,36 +2,39 @@
   config,
   lib,
   pkgs,
-  handy,
+  whisrs,
   ...
 }:
 let
   cfg = config.features.productivity.speech;
-  handyPkg = handy.packages.${pkgs.stdenv.hostPlatform.system}.handy;
+  whisrsPkg = whisrs.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.features.productivity.speech = {
-    enable = lib.mkEnableOption "Speech-to-text voice input (handy)";
+    enable = lib.mkEnableOption "Speech-to-text voice input (whisrs)";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.ydotool.enable = true;
-    users.users.james.extraGroups = [ "ydotool" ];
+    # whisrs synthesizes keystrokes via /dev/uinput; its udev rule grants the
+    # `input` group access.
+    services.udev.packages = [ whisrsPkg ];
+    users.users.james.extraGroups = [ "input" ];
 
     home-manager.users.james = {
-      imports = [ handy.homeManagerModules.default ];
+      home.packages = [ whisrsPkg ];
 
-      home.packages = [
-        handyPkg
-      ];
-
-      home.file.".local/bin/handy-type".source = pkgs.writeShellScript "handy-type" ''
-        exec ${pkgs.ydotool}/bin/ydotool type --key-delay 0 --key-hold 1 -- "$1"
-      '';
-
-      services.handy = {
-        enable = true;
-        package = handyPkg;
+      # Ships contrib/whisrs.service (user unit) in lib/systemd/user.
+      systemd.user.services.whisrs = {
+        Unit = {
+          Description = "whisrs dictation daemon";
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Service = {
+          ExecStart = "${whisrsPkg}/bin/whisrsd";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
   };

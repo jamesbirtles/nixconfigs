@@ -58,10 +58,9 @@
     browser-previews.url = "github:nix-community/browser-previews";
     nix-alien.url = "github:thiagokokada/nix-alien";
     systems.url = "github:nix-systems/default-linux";
-    handy = {
-      url = "github:cjpais/Handy/v0.8.3";
+    whisrs = {
+      url = "github:y0sif/whisrs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.bun2nix.inputs.systems.follows = "systems";
     };
     lan-mouse = {
       url = "github:feschber/lan-mouse";
@@ -99,7 +98,7 @@
       noctalia-qs,
       browser-previews,
       nix-alien,
-      handy,
+      whisrs,
       lan-mouse,
       claude-plugins-official,
       nix-claude-code,
@@ -130,7 +129,7 @@
         nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit noctalia handy lan-mouse claude-plugins-official;
+            inherit noctalia whisrs lan-mouse claude-plugins-official;
             inherit omp;
             claude-code-package = nix-claude-code.packages.${system}.default;
             pnpm2nix = pnpm2nix.packages.${system};

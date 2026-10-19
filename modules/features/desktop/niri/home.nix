@@ -700,8 +700,8 @@
       "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "google-chrome-unstable";
-      "Mod+V".action = spawn "handy" "--toggle-post-process";
-      "Mod+Ctrl+V".action = spawn "handy" "--toggle-transcription";
+      "Mod+V".action = spawn "whisrs" "toggle";
+      "Mod+Ctrl+V".action = spawn "whisrs" "command";
 
       # Function Keys
       "XF86AudioRaiseVolume".action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
