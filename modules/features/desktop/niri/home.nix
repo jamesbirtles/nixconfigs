@@ -394,7 +394,7 @@
         autoHideDelay = 500;
         autoShowDelay = 150;
         backgroundOpacity = 1;
-        barType = "framed";
+        barType = "floating";
         capsuleColorKey = "none";
         capsuleOpacity = 0.9;
         contentPadding = 4;
@@ -414,7 +414,7 @@
         mouseWheelAction = "workspace";
         mouseWheelWrap = true;
         outerCorners = false;
-        position = "top";
+        position = "left";
         reverseScroll = false;
         rightClickAction = "controlCenter";
         rightClickCommand = "";
@@ -460,43 +460,6 @@
           ];
           center = [
             {
-              id = "Clock";
-              formatHorizontal = "dddd d MMMM HH:mm:ss";
-              clockColor = "none";
-              customFont = "";
-              formatVertical = "HH mm - dd MM";
-              tooltipFormat = "HH:mm ddd, MMM dd";
-              useCustomFont = false;
-            }
-            {
-              id = "plugin:pomodoro";
-              defaultSettings = {
-                autoStartBreaks = false;
-                autoStartWork = false;
-                longBreakDuration = 15;
-                sessionsBeforeLongBreak = 4;
-                shortBreakDuration = 5;
-                workDuration = 25;
-              };
-            }
-          ];
-          right = [
-            {
-              id = "Tray";
-              blacklist = [ ];
-              chevronColor = "none";
-              colorizeIcons = false;
-              drawerEnabled = true;
-              hidePassive = false;
-              pinned = [ "1Password" ];
-            }
-            {
-              id = "VPN";
-              displayMode = "alwaysShow";
-              iconColor = "none";
-              textColor = "none";
-            }
-            {
               id = "plugin:privacy-indicator";
               defaultSettings = {
                 activeColor = "primary";
@@ -530,6 +493,23 @@
               useMonospaceFont = true;
               usePadding = false;
             }
+          ];
+          right = [
+            {
+              id = "Tray";
+              blacklist = [ ];
+              chevronColor = "none";
+              colorizeIcons = false;
+              drawerEnabled = true;
+              hidePassive = false;
+              pinned = [ "1Password" ];
+            }
+            {
+              id = "VPN";
+              displayMode = "alwaysShow";
+              iconColor = "none";
+              textColor = "none";
+            }
             {
               id = "Volume";
               displayMode = "onhover";
@@ -545,6 +525,15 @@
               hideIfNotDetected = true;
               showNoctaliaPerformance = false;
               showPowerProfiles = true;
+            }
+            {
+              id = "Clock";
+              formatHorizontal = "dddd d MMMM";
+              clockColor = "none";
+              customFont = "";
+              formatVertical = "ddd dd MMM";
+              tooltipFormat = "HH:mm:ss";
+              useCustomFont = false;
             }
             {
               id = "ControlCenter";
@@ -617,10 +606,6 @@
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
           privacy-indicator = {
-            enabled = true;
-            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-          };
-          pomodoro = {
             enabled = true;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
