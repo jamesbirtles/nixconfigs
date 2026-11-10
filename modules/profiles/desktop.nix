@@ -42,7 +42,6 @@
     terminal.ghostty.enable = lib.mkDefault true;
     terminal.tools.enable = lib.mkDefault true;
     terminal.claude-code.enable = lib.mkDefault true;
-    terminal.codex.enable = lib.mkDefault true;
     terminal.omp.enable = lib.mkDefault true;
 
     # Development

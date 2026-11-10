@@ -66,6 +66,20 @@ in
         ./home.nix
         noctalia.homeModules.default
       ];
+
+      # noctalia-qs is archived and no longer compiles against Qt 6.12. The
+      # patch is quickshell's upstream fix (5d5d49873f, "use MOC includes
+      # instead of opaque pointer definitions") rebased onto the fork. Goes
+      # away with the move to noctalia v5, which doesn't use quickshell.
+      programs.noctalia-shell.package =
+        let
+          inherit (pkgs.stdenv.hostPlatform) system;
+        in
+        noctalia.packages.${system}.default.override {
+          quickshell = noctalia.inputs.noctalia-qs.packages.${system}.default.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [ ./noctalia-qs-qt-6.12.patch ];
+          });
+        };
     };
   };
 }
