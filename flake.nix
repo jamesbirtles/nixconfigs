@@ -63,7 +63,7 @@
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
     omp = {
-      url = "github:can1357/oh-my-pi";
+      url = "github:apphousero/oh-my-pi-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-desktop = {
