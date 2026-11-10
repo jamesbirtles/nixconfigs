@@ -76,6 +76,12 @@ in
 
       programs.lan-mouse = {
         enable = true;
+        # shadow-rs pulls in libgit2-sys at build time, and nixpkgs' cargo hook
+        # now forbids vendored libgit2 (LIBGIT2_NO_VENDOR), which the upstream
+        # package doesn't account for.
+        package = lan-mouse.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+          buildInputs = old.buildInputs ++ [ pkgs.libgit2 ];
+        });
         settings = {
           port = cfg.port;
           clients = map (

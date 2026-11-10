@@ -40,7 +40,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_7_2;
+  boot.kernelPackages = pkgs.linuxPackages_7_3;
   boot.loader.systemd-boot.configurationLimit = 10;
 
   security.pam.loginLimits = [
