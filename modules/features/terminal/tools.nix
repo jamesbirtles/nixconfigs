@@ -122,46 +122,38 @@ in
         fi
       '')
 
+      # Noctalia v5 keeps GUI changes as a TOML overlay on top of the
+      # nix-managed config, so that file *is* the diff.
       (pkgs.writeShellScriptBin "noctalia-diff" ''
-        CONFIG_FILE="$HOME/.config/noctalia/settings.json"
+        OVERRIDES="$HOME/.local/state/noctalia/settings.toml"
 
-        if [ ! -f "$CONFIG_FILE" ]; then
-          echo "No noctalia settings.json found"
-          exit 1
-        fi
-
-        RUNTIME=$(noctalia-shell ipc call state all | ${pkgs.jq}/bin/jq -S .settings)
-        ${pkgs.json-diff}/bin/json-diff --color <(${pkgs.jq}/bin/jq -S . "$CONFIG_FILE") <(echo "$RUNTIME")
-      '')
-
-      (pkgs.writeShellScriptBin "noctalia-sync" ''
-        CONFIG_FILE="$HOME/.config/noctalia/settings.json"
-        NIX_FILE="$HOME/nixconfigs/modules/features/desktop/niri/home.nix"
-
-        if [ ! -f "$CONFIG_FILE" ]; then
-          echo "No noctalia settings.json found"
-          exit 1
-        fi
-
-        DIFF=$(${pkgs.json-diff}/bin/json-diff --color <(${pkgs.jq}/bin/jq -S . "$CONFIG_FILE") <(noctalia-shell ipc call state all | ${pkgs.jq}/bin/jq -S .settings) 2>&1)
-
-        if [ -z "$DIFF" ]; then
-          echo "No differences found between config file and running settings."
+        if [ ! -s "$OVERRIDES" ]; then
+          echo "No GUI overrides found at $OVERRIDES"
           exit 0
         fi
 
-        echo "Differences found:"
-        echo "$DIFF"
-        echo ""
+        cat "$OVERRIDES"
+      '')
 
+      (pkgs.writeShellScriptBin "noctalia-sync" ''
+        OVERRIDES="$HOME/.local/state/noctalia/settings.toml"
+        NIX_FILE="$HOME/nixconfigs/modules/features/desktop/niri/home.nix"
+
+        if [ ! -s "$OVERRIDES" ]; then
+          echo "No GUI overrides found at $OVERRIDES"
+          exit 0
+        fi
+
+        echo "GUI overrides:"
+        cat "$OVERRIDES"
         echo ""
         echo "Starting Claude to merge changes..."
         echo ""
-        claude "Here are the differences between the nix-managed noctalia config and the current runtime settings (changed via GUI). Lines prefixed with - are the old nix-managed values, + are the new GUI values:
+        claude "Here are the noctalia settings changed via the GUI (TOML from $OVERRIDES), which override the nix-managed config:
 
-$DIFF
+$(cat "$OVERRIDES")
 
-Please update the programs.noctalia-shell.settings in $NIX_FILE to include these GUI changes. Only modify that attribute set. Keep the nix attribute style, don't just dump JSON."
+Please merge these into programs.noctalia.settings in $NIX_FILE. Only modify that attribute set. Ignore config_version. Keep the nix attribute style, don't just dump TOML. Once merged, $OVERRIDES can be deleted after the next rebuild."
       '')
 
       (pkgs.writeShellScriptBin "update-system" ''

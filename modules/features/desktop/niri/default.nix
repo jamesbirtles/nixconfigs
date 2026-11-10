@@ -35,7 +35,7 @@ in
 
     security.pam.services.swaylock = { };
     security.polkit.enable = true;
-    systemd.user.services.niri-flake-polkit.enable = false; # handled by noctalia polkit-agent plugin
+    systemd.user.services.niri-flake-polkit.enable = false; # handled by noctalia's built-in agent (shell.polkit_agent)
 
     # systemd tmpfiles rule for xdg-desktop-portal (for screensharing)
     systemd.tmpfiles.rules = [

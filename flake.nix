@@ -45,16 +45,7 @@
     };
     niri.url = "github:sodiboo/niri-flake";
     ashell.url = "github:MalpenZibo/ashell";
-    noctalia = {
-      # Stay on legacy-v4 until v5 is fully released.
-      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.noctalia-qs.follows = "noctalia-qs";
-    };
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     browser-previews.url = "github:nix-community/browser-previews";
     nix-alien.url = "github:thiagokokada/nix-alien";
     systems.url = "github:nix-systems/default-linux";
@@ -95,7 +86,6 @@
       niri,
       ashell,
       noctalia,
-      noctalia-qs,
       browser-previews,
       nix-alien,
       whisrs,
