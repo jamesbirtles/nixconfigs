@@ -45,31 +45,46 @@ let
     }
   ];
 
-  # Playwright-patched forks, passed through at their genuine revisions only: a
-  # wrong-revision firefox or webkit misbehaves confusingly, where a missing one
-  # fails clearly.
-  exact = [
-    {
-      name = "firefox";
-      inherit (revisions.firefox) revision;
-    }
-    {
-      name = "webkit";
-      inherit (revisions.webkit) revision;
-    }
-  ];
-
-  link = name: revision: real: {
-    name = "${name}-${toString revision}";
-    path = "${built}/${name}-${real}";
+  # Playwright releases whose exact browser builds are linked, keyed by version.
+  # The value is the hash of that tag of pietdevries94/playwright-web-flake:
+  #   nix flake prefetch github:pietdevries94/playwright-web-flake/<version>
+  pins = {
+    "1.61.1" = "sha256-AzOBBjIPYL/QLoegOYhGv0KtIWjFq0P2AqioCJNABro=";
+    "1.63.0" = "sha256-9hzGTpa8AMvhABSRnEeOYLn9vnzF157LYmSnsMdG5o8=";
+    "1.64.1" = "sha256-2vH1lrj6Fv10Gaoun/tho8dz+1HmN6IFtwC5MMT9Gug=";
+    "1.65.0" = "sha256-2xoQ4g1S4LCQDataLHqnPfjK2/mrFRWj/81O0BREra4=";
   };
 
-  registry = pkgs.linkFarm "playwright-browsers-aliased" (
-    map (b: link b.name b.revision b.revision) exact
-    ++ lib.concatMap (
-      b: map (revision: link b.name revision b.revision) (lib.range b.from lastRevision)
+  pinned = lib.mapAttrsToList (
+    version: sha256:
+    let
+      src = builtins.fetchTarball {
+        url = "https://github.com/pietdevries94/playwright-web-flake/archive/refs/tags/${version}.tar.gz";
+        inherit sha256;
+      };
+    in
+    (pkgs.callPackage "${src}/playwright-driver/driver.nix" { }).playwright-core
+  ) pins;
+
+  # Genuine builds, each at the revision its playwright release pinned:
+  # nixpkgs' own plus one set per pin. They take precedence over the aliases,
+  # and are the only firefox and webkit entries: those are playwright-patched
+  # forks, where a wrong revision fails on protocol mismatches and a missing
+  # one fails clearly.
+  exact = lib.mergeAttrsList (
+    map (driver: driver.browsers.entries) (pinned ++ [ pkgs.playwright-driver ])
+  );
+
+  aliases = lib.listToAttrs (
+    lib.concatMap (
+      b:
+      map (
+        revision: lib.nameValuePair "${b.name}-${toString revision}" "${built}/${b.name}-${b.revision}"
+      ) (lib.range b.from lastRevision)
     ) aliased
   );
+
+  registry = pkgs.linkFarm "playwright-browsers-aliased" (aliases // exact);
 in
 {
   options.features.development.playwright = {
