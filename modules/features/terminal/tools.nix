@@ -200,6 +200,8 @@ Please merge these into programs.noctalia.settings in $NIX_FILE. Only modify tha
       };
 
       xdg.configFile."zellij/config.kdl".text = ''
+        theme "noctalia"
+
         keybinds {
           shared_except "locked" {
             unbind "Ctrl g"
