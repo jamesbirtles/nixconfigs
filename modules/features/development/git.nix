@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.features.development.git;
+  lazygitDir = "${config.home-manager.users.james.xdg.configHome}/lazygit";
 in
 {
   options.features.development.git = {
@@ -13,6 +14,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # config.yml is a read-only store symlink, so Noctalia's lazygit hook
+    # can't merge its theme in. Layer the generated theme file on top instead
+    # (later files win).
+    environment.sessionVariables.LG_CONFIG_FILE = "${lazygitDir}/config.yml,${lazygitDir}/themes/noctalia.yml";
+
     # Home-manager configuration for user james
     home-manager.users.james = {
       programs.git = {
@@ -53,7 +59,6 @@ in
         settings.gui = {
           showFileTree = false;
           nerdFontsVersion = "3";
-          theme.selectedLineBgColor = [ "reverse" ];
         };
       };
 
